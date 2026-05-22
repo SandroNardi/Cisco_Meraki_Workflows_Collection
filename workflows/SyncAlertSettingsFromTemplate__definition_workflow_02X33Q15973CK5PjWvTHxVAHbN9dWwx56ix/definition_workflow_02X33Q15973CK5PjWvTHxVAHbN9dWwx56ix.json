@@ -1,0 +1,2087 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix",
+    "name": "Sync Meraki Network Alert Settings",
+    "title": "Sync Meraki Network Alert Settings",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Organization",
+          "type": "datatype.string",
+          "description": "Meraki organization name or numeric ID.",
+          "is_required": true,
+          "display_on_wizard": true,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KON1J7I50L0fYdyGVuncyBG4HWH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "{}",
+          "scope": "local",
+          "name": "Local - Source Alerts",
+          "type": "datatype.string",
+          "description": "JSON alert settings retrieved from the source template.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KOX3K1hT41EyTRFp4EMYpDSkSMf",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "[]",
+          "scope": "local",
+          "name": "Local - Destination Networks",
+          "type": "datatype.string",
+          "description": "JSON array of destination networks returned by tag filter.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KOE1T62Kl6Ye1iXIovDUh2RLYNV",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Org ID",
+          "type": "datatype.string",
+          "description": "Resolved organization ID from Organization input.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KOIMC7JIasPxkHEJtt0zl1A8QWD",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Source Template ID",
+          "type": "datatype.string",
+          "description": "Resolved numeric ID of the source template network.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KPYQC74SYPZHJ9ESDmPqcV4fhn7",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "merge",
+          "scope": "input",
+          "name": "Sync Mode",
+          "type": "datatype.string",
+          "description": "Sync mode: `merge` (combine with existing) or `replace` (mirror template).",
+          "is_required": true,
+          "display_on_wizard": true,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02X33Q15KORGS0lpy9YQgFvCf64XKPknA5z",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "null",
+          "scope": "local",
+          "name": "Local - Last Update Result",
+          "type": "datatype.string",
+          "description": "Raw outcome from the alert update API call for the current network.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Source Template",
+          "type": "datatype.string",
+          "description": "Source configuration template network name or ID.",
+          "is_required": true,
+          "display_on_wizard": true,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KQ7S959YtJvI7tkDpCJs2OjrezR",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "{}",
+          "scope": "output",
+          "name": "Result",
+          "type": "datatype.string",
+          "description": "Structured JSON summary and per-network sync details.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "json"
+        },
+        "unique_name": "variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "200",
+          "scope": "output",
+          "name": "Status Code",
+          "type": "datatype.string",
+          "description": "Overall HTTP-style status code for the workflow run.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 501,
+          "scope": "local",
+          "name": "Local - Pagination",
+          "type": "datatype.integer",
+          "description": "Meraki API perPage value (501). A pagination token indicates more than 500 networks matched.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X3ZT5SK29SZ4a4cJkBRKBsA1i0MaoV0LD",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Current Network ID",
+          "type": "datatype.string",
+          "description": "Network ID for the current loop iteration.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KPBMY5LLB7jdfJhz4c8rQICcluJ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "[]",
+          "scope": "local",
+          "name": "Local - Results List",
+          "type": "datatype.string",
+          "description": "JSON array of per-network sync results accumulated in the loop.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KO85K4N9pvfyTDuN6AkrC6lcyf4",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": true,
+          "scope": "input",
+          "name": "Emulation Mode",
+          "type": "datatype.boolean",
+          "description": "When true, calculate changes without applying API updates (dry-run).",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KP1AC2pKLD8it0rXE3lGgQnviYm",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [],
+          "scope": "input",
+          "name": "Destination Tags",
+          "type": "datatype.array",
+          "description": "Tags used to select destination networks (withAnyTags).",
+          "is_required": true,
+          "display_on_wizard": true,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KNW6U2phlHRUHA6g0o7Qn1nEN4V",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Error Message",
+          "type": "datatype.string",
+          "description": "Blocking error detail when the workflow fails early.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Success",
+          "scope": "output",
+          "name": "Status Message",
+          "type": "datatype.string",
+          "description": "Overall workflow status: Success, Partial, or Failed.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Current Network Name",
+          "type": "datatype.string",
+          "description": "Network name for the current loop iteration.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KPTJI0QIh5AuD5EtSubOHkVaXrM",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "{}",
+          "scope": "output",
+          "name": "Formatted Report",
+          "type": "datatype.string",
+          "description": "Human-readable markdown summary of the sync run.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Sync Meraki alert settings from a configuration template network to tag-filtered destination networks, with webhook validation and dry-run support.\n\n**Inputs:** Organization (name or ID); Source Template (name or ID); Destination Tags; Sync Mode `merge` or `replace`; Emulation Mode (`true` = dry-run, default).\n\n**Behavior:** Up to **500** destination networks per run. Validates required webhook IDs on each destination, skips networks that already match, and notes alert types present only on the destination as source gaps.\n\n**Outputs:** Result (JSON), Formatted Report, Status Code, Status Message, Error Message. Per-network outcomes include applied, emulated, no_change, invalid, and apply_failed.",
+      "display_name": "Sync Meraki Network Alert Settings",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "target_type": "meraki.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02X3Y9C3OLA5G3QlmF5NgsHfvEuqFfzWECY",
+        "name": "Validate Inputs in Parallel",
+        "title": "Validate Inputs in Parallel",
+        "type": "logic.parallel",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Validate sync mode and resolve organization concurrently.",
+          "display_name": "Validate Inputs in Parallel",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02X3Y9C5ED721135Yl2r84WVA6KGq9VL1pa",
+            "name": "Validate Sync Mode Branch",
+            "title": "Validate Sync Mode Branch",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Validate Sync Mode Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02X33Q1A4F7WK5j1v050MGz59nt9nlmZpZG",
+                "name": "Validate Sync Mode",
+                "title": "Validate Sync Mode",
+                "type": "logic.group",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Validate Sync Mode.",
+                  "display_as_suggestion": false,
+                  "display_name": "Validate Sync Mode",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q1CQASPP2TFUeIdcY4XcIb3YvTFndg",
+                    "name": "Validate Mode Regex",
+                    "title": "Validate Mode Regex",
+                    "type": "core.matchregex",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "continue_on_failure": false,
+                      "description": "Validate Mode Regex.",
+                      "display_name": "Validate Mode Regex",
+                      "input_regex": "merge|replace",
+                      "input_string": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KORGS0lpy9YQgFvCf64XKPknA5z$",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q1E7MY652ScpgDSkHS5dhOuQhUKoB4",
+                    "name": "Check Invalid Mode",
+                    "title": "Check Invalid Mode",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Check Invalid Mode.",
+                      "display_name": "Check Invalid Mode",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02X33Q1FMWKUZ3QFH18P6IRMyZWTbFsa7Gs",
+                        "name": "Invalid Sync Mode",
+                        "title": "Invalid Sync Mode",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q1CQASPP2TFUeIdcY4XcIb3YvTFndg.output.has_match$",
+                            "operator": "eq",
+                            "right_operand": false
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Invalid Sync Mode",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q1HLXGYX0W5S21cJX0AJL4F7cL0N2k",
+                            "name": "Set Invalid Mode Outputs",
+                            "title": "Set Invalid Mode Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Invalid Mode Outputs.",
+                              "display_name": "Set Invalid Mode Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "400"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "Mode not supported. Use merge or replace."
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q1J40HTZ1TdsQxyBbj9XuDdqSEDvqU",
+                            "name": "Fail Invalid Mode",
+                            "title": "Fail Invalid Mode",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Invalid Mode.",
+                              "display_name": "Fail Invalid Mode",
+                              "result_message": "Mode not uspported select merge or replace",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02X3Y9C7C6MZE6wBOkDuVc5ddR6wN9ue0nh",
+            "name": "Resolve Organization Branch",
+            "title": "Resolve Organization Branch",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Resolve Organization Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02X33Q1KAJ2X37hq3Dp7Ettd05sCMSnX7xv",
+                "name": "Sync Alert Settings",
+                "title": "Sync Alert Settings",
+                "type": "logic.group",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Look up organization ID from Organization input.",
+                  "display_as_suggestion": false,
+                  "display_name": "Sync Alert Settings",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q1NA4MS73U591uC3nHxEvrPn9QxgYF",
+                    "name": "Resolve Organization",
+                    "title": "Resolve Organization",
+                    "type": "workflow.sub_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "continue_on_failure": true,
+                      "description": "Utility workflow to retrieve organization details using either Organization Name or ID as input. Calls Meraki API to fetch all accessible organizations, then searches for the specified match.\n\n**Returns:** Organization ID, name, URL, API status, licensing model, cloud region, and management details.\n\n**Key Features:**\n- Search by Organization Name (exact match, case-sensitive)\n- Search by Organization ID (numeric format)\n- Comprehensive output variables\n- Optional error handling with 'Ignore Errors' parameter",
+                      "display_name": "Resolve Organization",
+                      "input": {
+                        "variable_workflow_02M605GTHU5L72i8goD4nuYixYOvQEFV7rN": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KON1J7I50L0fYdyGVuncyBG4HWH$",
+                        "variable_workflow_02M605GTI1LUG737lDLyzxnE9jwENJNQ08W": false
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "target_type": "meraki.endpoint",
+                        "use_workflow_target": true
+                      },
+                      "workflow_id": "definition_workflow_02M605GS81XN44qr4RBWrJ6Zazk7k0ArIYX",
+                      "workflow_name": "Meraki - Get Organization By Name or ID"
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q1P3NI544djS4X1xSL6eLNjKOGqATX",
+                    "name": "Check Organization",
+                    "title": "Check Organization",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "Check Organization",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02X33Q1QIJSOB0a5OcWNjAGXzofUAPqSAHi",
+                        "name": "Organization Found",
+                        "title": "Organization Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q1NA4MS73U591uC3nHxEvrPn9QxgYF.output.variable_workflow_02M605GTHEWOW4TGG1xjMEivKqrrMbc2hM3$",
+                            "operator": "eq",
+                            "right_operand": "200"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Organization Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q1SFFQ3N3yTBANEzerwqehdh4vyptq",
+                            "name": "Store Org ID",
+                            "title": "Store Org ID",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "display_name": "Store Org ID",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOIMC7JIasPxkHEJtt0zl1A8QWD$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q1NA4MS73U591uC3nHxEvrPn9QxgYF.output.variable_workflow_02M605GTJITQP1fcLQlR8CLYAHoMomGWZvE$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q4BAAO4C4zE1aFg32YvvTzsSIXMcUF",
+                        "name": "Organization Not Found",
+                        "title": "Organization Not Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q1NA4MS73U591uC3nHxEvrPn9QxgYF.output.variable_workflow_02M605GTHEWOW4TGG1xjMEivKqrrMbc2hM3$",
+                            "operator": "ne",
+                            "right_operand": "200"
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Organization Not Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q4DCGGLE0Z7cw6nuSFmaYAcgMQambX",
+                            "name": "Set Organization Not Found Outputs",
+                            "title": "Set Organization Not Found Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Organization Not Found Outputs.",
+                              "display_name": "Set Organization Not Found Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "404"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "Organization not found."
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q4EQYLRG73o21ct5CumE2h3RxPpznD",
+                            "name": "Fail Organization Not Found",
+                            "title": "Fail Organization Not Found",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Organization Not Found.",
+                              "display_name": "Fail Organization Not Found",
+                              "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02X3Y9J6784RU1BgtQZ62rEMiTj7oTM4thh",
+        "name": "Prepare Source and Destinations",
+        "title": "Prepare Source and Destinations",
+        "type": "logic.parallel",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Load source template alerts and list destination networks in parallel.",
+          "display_name": "Prepare Source and Destinations",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02X3Y9J8BGI3T7aOTAjC9pkmVDzjKzKVYSu",
+            "name": "Source Template Branch",
+            "title": "Source Template Branch",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Source Template Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02X3Y5S4LX9H149BzuGDt68eUuOmQ70NLq0",
+                "name": "Resolve Source Template",
+                "title": "Resolve Source Template",
+                "type": "logic.group",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Resolve source template ID and load template alert settings.",
+                  "display_as_suggestion": false,
+                  "display_name": "Resolve Source Template",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q1UMU1XR0cnRA3tBg8M1QqDtNlBdTk",
+                    "name": "Meraki - Get Organization Config Templates",
+                    "title": "Meraki - Get Organization Config Templates",
+                    "type": "workflow.atomic_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "atomic": {
+                        "atomic_group": "Cisco Meraki",
+                        "atomic_subgroup": "Organizations"
+                      },
+                      "continue_on_failure": false,
+                      "description": "List the configuration templates for this organization",
+                      "display_name": "Meraki - Get Organization Config Templates",
+                      "input": {
+                        "variable_workflow_02LO4XQ0BBZWG3yxs7stSHWzJSjpLLoMJqg": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOIMC7JIasPxkHEJtt0zl1A8QWD$"
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "target_type": "meraki.endpoint",
+                        "use_workflow_target": true
+                      },
+                      "workflow_id": "definition_workflow_02LO4XQ0BBV9S72cwjCGdhDolGmWSj7PSa8",
+                      "workflow_name": "Meraki - Get Organization Config Templates"
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q1WCWZ832ASMyGHCcUjxBQndWPVDWX",
+                    "name": "Resolve Source Template ID",
+                    "title": "Resolve Source Template ID",
+                    "type": "corejava.jsonpathquery",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "continue_on_failure": false,
+                      "description": "Resolve Source Template ID.",
+                      "display_name": "Resolve Source Template ID",
+                      "input_json": "$activity.definition_activity_02X33Q1UMU1XR0cnRA3tBg8M1QqDtNlBdTk.output.variable_workflow_02LO4XQ0BC4J46DG9z7GvZ0GK74t20F8pnO$",
+                      "jsonpath_queries": [
+                        {
+                          "jsonpath_query": "$[?(@.name == $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KQ7S959YtJvI7tkDpCJs2OjrezR$)].id",
+                          "jsonpath_query_name": "template_id",
+                          "jsonpath_query_type": "string",
+                          "set_default_value": false,
+                          "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                        }
+                      ],
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q1XY60X62HKhFRXw2ozlp4ZMcaCXKr",
+                    "name": "Check Source Template",
+                    "title": "Check Source Template",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "Check Source Template",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02X33Q1ZFQX8Q0XG7xIXLBMJDMkNdyNUtYN",
+                        "name": "Source Template Found",
+                        "title": "Source Template Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q1UMU1XR0cnRA3tBg8M1QqDtNlBdTk.output.variable_workflow_02LO4XQ0BC27S0MWJILkNdWPnmUQcccMZ7r$",
+                              "operator": "eq",
+                              "right_operand": 200
+                            },
+                            "operator": "and",
+                            "right_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q1WCWZ832ASMyGHCcUjxBQndWPVDWX.output.jsonpath_queries.template_id$",
+                              "operator": "ne",
+                              "right_operand": ""
+                            }
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Source Template Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q21BL6WU11m5bRSeFAteCLJrhI5OMN",
+                            "name": "Store Source Template ID",
+                            "title": "Store Source Template ID",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "display_name": "Store Source Template ID",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPYQC74SYPZHJ9ESDmPqcV4fhn7$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q1WCWZ832ASMyGHCcUjxBQndWPVDWX.output.jsonpath_queries.template_id$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q46E0YZF3d073VBHG1Kdeg59lqLVDT",
+                        "name": "Source Template Not Found",
+                        "title": "Source Template Not Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q1UMU1XR0cnRA3tBg8M1QqDtNlBdTk.output.variable_workflow_02LO4XQ0BC27S0MWJILkNdWPnmUQcccMZ7r$",
+                              "operator": "ne",
+                              "right_operand": 200
+                            },
+                            "operator": "or",
+                            "right_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q1WCWZ832ASMyGHCcUjxBQndWPVDWX.output.jsonpath_queries.template_id$",
+                              "operator": "eq",
+                              "right_operand": ""
+                            }
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Source Template Not Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q48HDW400t26PlwAit7x0J5Y5BwPMF",
+                            "name": "Set Source Not Found Outputs",
+                            "title": "Set Source Not Found Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Source Not Found Outputs.",
+                              "display_name": "Set Source Not Found Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "404"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "Source template network not found."
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q49WNG4F6JAnH2mqBJp9x2R0IAoWK6",
+                            "name": "Fail Source Not Found",
+                            "title": "Fail Source Not Found",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Source Not Found.",
+                              "display_name": "Fail Source Not Found",
+                              "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02X3Y8JAVB2J82rItJwTP0YIs3Hf6pJDjop",
+                "name": "Load Source Alerts",
+                "title": "Load Source Alerts",
+                "type": "logic.group",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Fetch alert settings from the resolved source template network.",
+                  "display_as_suggestion": false,
+                  "display_name": "Load Source Alerts",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp",
+                    "name": "Get Source Alerts",
+                    "title": "Get Source Alerts",
+                    "type": "workflow.atomic_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "continue_on_failure": true,
+                      "description": "Return the alert configuration for this network",
+                      "display_name": "Get Source Alerts",
+                      "input": {
+                        "variable_workflow_02OARCAIENJMO0CrEFgt9bF0hWrhtdYE7OD": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPYQC74SYPZHJ9ESDmPqcV4fhn7$"
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "target_type": "meraki.endpoint",
+                        "use_workflow_target": true
+                      },
+                      "workflow_id": "definition_workflow_02OARCAIENB54523HuMiPtjbn2hgEUs3tEN",
+                      "workflow_name": "Meraki - Get Network Alerts Settings"
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q2D6AD7G4k9bjP23Nc2rfiiTyQNBgQ",
+                    "name": "Check Source Alerts",
+                    "title": "Check Source Alerts",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Check Source Alerts.",
+                      "display_name": "Check Source Alerts",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02X33Q2ELS7UX0mMHOzwNvWYzhqeeFue36X",
+                        "name": "Source Alerts Found",
+                        "title": "Source Alerts Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp.output.variable_workflow_02OARCAIENNHK7jozDGhk8yhn16xLTvSToC$",
+                            "operator": "eq",
+                            "right_operand": 200
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Source Alerts Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q2GIPQE05rN31IBAzNm6YxpGriSalP",
+                            "name": "Store Source Alerts",
+                            "title": "Store Source Alerts",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "display_name": "Store Source Alerts",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOX3K1hT41EyTRFp4EMYpDSkSMf$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp.output.variable_workflow_02OARCAIENPSW5dRhn66KBtq5tLu8VWJn4i$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q3MP5DH53qGpvVXEa4qKoKJxiLdxMU",
+                        "name": "Source Alerts Failed",
+                        "title": "Source Alerts Failed",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp.output.variable_workflow_02OARCAIENNHK7jozDGhk8yhn16xLTvSToC$",
+                            "operator": "ne",
+                            "right_operand": 200
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Source Alerts Failed",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q3P0AWWK0YZzgD9BjfP0OYRKig4V9O",
+                            "name": "Set Source Alerts Failure Outputs",
+                            "title": "Set Source Alerts Failure Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Source Alerts Failure Outputs.",
+                              "display_name": "Set Source Alerts Failure Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp.output.variable_workflow_02OARCAIENNHK7jozDGhk8yhn16xLTvSToC$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q2BDIAC12naZ3iNyMYnzOrdnkSW1Gp.output.variable_workflow_02OARCAIENP145hI5kjT5ZouBZQqMucB630$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q3UQJX2K5ITWzdHPltXRfeehcDplYJ",
+                            "name": "Fail Source Alerts",
+                            "title": "Fail Source Alerts",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Source Alerts.",
+                              "display_name": "Fail Source Alerts",
+                              "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02X3Y9JA6XBDU7lU0owr9ZKgxieUTOvGUM6",
+            "name": "Destination Networks Branch",
+            "title": "Destination Networks Branch",
+            "type": "logic.parallel_block",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Destination Networks Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02X3Y7SDNJCFC2n8Kehi0WnGPMSmETmf2Aw",
+                "name": "List Destination Networks",
+                "title": "List Destination Networks",
+                "type": "logic.group",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "List tag-filtered destination networks and enforce the 500-network limit.",
+                  "display_as_suggestion": false,
+                  "display_name": "List Destination Networks",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu",
+                    "name": "Get Destination Networks",
+                    "title": "Get Destination Networks",
+                    "type": "workflow.atomic_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "continue_on_failure": true,
+                      "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -\u003e User Profile -\u003e API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]\u003e If it was, attempt to extract the results and set the output variables\n[]\u003e If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
+                      "display_name": "Get Destination Networks",
+                      "input": {
+                        "variable_workflow_02L9TZH6C81473IDtFQ0NIzW3jmXrgchtN9": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOIMC7JIasPxkHEJtt0zl1A8QWD$",
+                        "variable_workflow_02LEUL5GOHN9T53T7jFQx3T2Yo04p5Xuz0r": false,
+                        "variable_workflow_02LNK5WW0RD2A20mG7v1G7gsyE2N2RrKdQd": "",
+                        "variable_workflow_02LNK5WW0RTCB1AXbOwJOBVWvUx1wdyKtkt": "withAnyTags",
+                        "variable_workflow_02LNK5WW0S5E21Q9biFSXTiLbHr7cWP2K7y": "false",
+                        "variable_workflow_02LNK5WW0SE2H1zmchhUHyfX7L0XGvKmB7W": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X3ZT5SK29SZ4a4cJkBRKBsA1i0MaoV0LD$",
+                        "variable_workflow_02LNK5WW0SM7R5SjIvnnytN6vYzR7wfDHeE": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KNW6U2phlHRUHA6g0o7Qn1nEN4V$",
+                        "variable_workflow_02LNK5WW0STMX38BXiY2IvPQoHQliJHSCgE": [],
+                        "variable_workflow_02LNK5WW0T0NX26NyApdlTn355uYJwcQGqW": "",
+                        "variable_workflow_02LNK5WW0T92U1HJd1sxzFrmVvwxy7NVaQn": ""
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "target_type": "meraki.endpoint",
+                        "use_workflow_target": true
+                      },
+                      "workflow_id": "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX",
+                      "workflow_name": "Meraki - Get Organization Networks"
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q25MQBB85Ne4e4tgmprC4EsNqD1rhI",
+                    "name": "Check Destination Networks",
+                    "title": "Check Destination Networks",
+                    "type": "logic.if_else",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Check Destination Networks.",
+                      "display_name": "Check Destination Networks",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "blocks": [
+                      {
+                        "unique_name": "definition_activity_02X33Q275JEHO2bIbj4V9SzcVCGGog4a5m6",
+                        "name": "Destinations Found",
+                        "title": "Destinations Found",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02SPJFE55GKJK70AOuT8cpsd6DQ0VW4FRGQ$",
+                              "operator": "eq",
+                              "right_operand": ""
+                            },
+                            "operator": "and",
+                            "right_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C9HVU3eHnLNP91ZKEfJOnaYpBsh$",
+                              "operator": "eq",
+                              "right_operand": 200
+                            }
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Destinations Found",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q29756UC07KzZKkxkUjumz9z7CJTqx",
+                            "name": "Store Destination Networks",
+                            "title": "Store Destination Networks",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "display_name": "Store Destination Networks",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOE1T62Kl6Ye1iXIovDUh2RLYNV$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C8OZI7c9t9Z0h0JHAbqCc7LuTGT$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q3W6RPDY2Th0aghrWpN0W1xlo8BUKp",
+                        "name": "Network Limit Exceeded",
+                        "title": "Network Limit Exceeded",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02SPJFE55GKJK70AOuT8cpsd6DQ0VW4FRGQ$",
+                              "operator": "ne",
+                              "right_operand": ""
+                            },
+                            "operator": "and",
+                            "right_operand": {
+                              "left_operand": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C9HVU3eHnLNP91ZKEfJOnaYpBsh$",
+                              "operator": "eq",
+                              "right_operand": 200
+                            }
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Network Limit Exceeded",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q3YBCCH30QrPgOpAUALTYllVyqZWi3",
+                            "name": "Set Network Limit Outputs",
+                            "title": "Set Network Limit Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Network Limit Outputs.",
+                              "display_name": "Set Network Limit Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "422"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "More than 500 networks match tags. Narrow tag selection."
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q3ZQIX9F4FxlInkvb6O90eG1o8bWiR",
+                            "name": "Fail Network Limit",
+                            "title": "Fail Network Limit",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Network Limit.",
+                              "display_name": "Fail Network Limit",
+                              "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q414TU4B0buLlSii5BIJGA1tvY1xSx",
+                        "name": "Destination Lookup Failed",
+                        "title": "Destination Lookup Failed",
+                        "type": "logic.condition_block",
+                        "base_type": "activity",
+                        "properties": {
+                          "condition": {
+                            "left_operand": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C9HVU3eHnLNP91ZKEfJOnaYpBsh$",
+                            "operator": "ne",
+                            "right_operand": 200
+                          },
+                          "continue_on_failure": false,
+                          "display_name": "Destination Lookup Failed",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02X33Q43BTHGZ3g3Zd9YdWiSHx9McLY5IPT",
+                            "name": "Set Destination Lookup Outputs",
+                            "title": "Set Destination Lookup Outputs",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Set Destination Lookup Outputs.",
+                              "display_name": "Set Destination Lookup Outputs",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C9HVU3eHnLNP91ZKEfJOnaYpBsh$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                                  "variable_value_new": "Failed"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                                  "variable_value_new": "$activity.definition_activity_02X33Q23TYMEO12GVRhJU0BqAoT7PNhqhfu.output.variable_workflow_02L9TZH6C9OFH6vfd2aZL0UruYGmQNXc5Od$"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                                  "variable_value_new": "{\n  \"summary\": {\n    \"overallStatus\": \"Failed\",\n    \"syncMode\": \"merge\",\n    \"emulationMode\": false,\n    \"totalNetworks\": 0,\n    \"counts\": {},\n    \"sourceGapNetworks\": 0\n  },\n  \"networks\": [],\n  \"error\": $workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$\n}"
+                                },
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                                  "variable_value_new": "Alert Sync Report\n==================================================\nStatus: Failed\n$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02X33Q44ZOX950slk9hnUy4AnW14HLjbZ2G",
+                            "name": "Fail Destination Lookup",
+                            "title": "Fail Destination Lookup",
+                            "type": "logic.completed",
+                            "base_type": "activity",
+                            "properties": {
+                              "completion_type": "failed-completed",
+                              "continue_on_failure": false,
+                              "description": "Fail Destination Lookup.",
+                              "display_name": "Fail Destination Lookup",
+                              "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02X3Y8NKTZBKA4i8fWNloMi8OSHiA7KjobU",
+        "name": "Sync Destination Networks",
+        "title": "Sync Destination Networks",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Iterate destination networks and apply alert settings from the source template.",
+          "display_as_suggestion": false,
+          "display_name": "Sync Destination Networks",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02X33Q2I73UOL0H2hDYr4vcI3rbk5svkOhH",
+            "name": "Parse Destination Networks",
+            "title": "Parse Destination Networks",
+            "type": "corejava.read_table_from_json",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Parse Destination Networks",
+              "input_json": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOE1T62Kl6Ye1iXIovDUh2RLYNV$",
+              "jsonpath_query": "$",
+              "persist_output": false,
+              "populate_columns": false,
+              "skip_execution": false,
+              "table_columns": [
+                {
+                  "column_name": "id",
+                  "column_type": "string"
+                },
+                {
+                  "column_name": "name",
+                  "column_type": "string"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02X33Q2JZ07B70X9vCRP8IDKfSObsWSnfXF",
+            "name": "For Each Network",
+            "title": "For Each Network",
+            "type": "logic.for_each",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "For Each Network",
+              "skip_execution": false,
+              "source_array": "$activity.definition_activity_02X33Q2I73UOL0H2hDYr4vcI3rbk5svkOhH.output.read_table_from_json$"
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02X33Q2MWB1J51L5O10WQcnhVBSxVjTfBcP",
+                "name": "Store Current Network",
+                "title": "Store Current Network",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Store Current Network",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPBMY5LLB7jdfJhz4c8rQICcluJ$",
+                      "variable_value_new": "$activity.definition_activity_02X33Q2JZ07B70X9vCRP8IDKfSObsWSnfXF.input.source_array[@].id$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPTJI0QIh5AuD5EtSubOHkVaXrM$",
+                      "variable_value_new": "$activity.definition_activity_02X33Q2JZ07B70X9vCRP8IDKfSObsWSnfXF.input.source_array[@].name$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02X33Q2OLFERM1TaD4rhGKFJci6kI7cvwFc",
+                "name": "Fetch Destination Data",
+                "title": "Fetch Destination Data",
+                "type": "logic.parallel",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Fetch Destination Data.",
+                  "display_name": "Fetch Destination Data",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02X33Q2PXZMPT5ldxjXmVDkCng9wTQi4CZS",
+                    "name": "Alerts Branch",
+                    "title": "Alerts Branch",
+                    "type": "logic.parallel_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "Alerts Branch",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q2RYZN1J11ekDwyomWwwm1PohCfPwz",
+                        "name": "Get Destination Alerts",
+                        "title": "Get Destination Alerts",
+                        "type": "workflow.atomic_workflow",
+                        "base_type": "subworkflow",
+                        "properties": {
+                          "continue_on_failure": true,
+                          "description": "Return the alert configuration for this network",
+                          "display_name": "Get Destination Alerts",
+                          "input": {
+                            "variable_workflow_02OARCAIENJMO0CrEFgt9bF0hWrhtdYE7OD": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPBMY5LLB7jdfJhz4c8rQICcluJ$"
+                          },
+                          "runtime_user": {
+                            "target_default": true
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "target_type": "meraki.endpoint",
+                            "use_workflow_target": true
+                          },
+                          "workflow_id": "definition_workflow_02OARCAIENB54523HuMiPtjbn2hgEUs3tEN",
+                          "workflow_name": "Meraki - Get Network Alerts Settings"
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q2TQZKOG3nBAEvA5d4u1RO6ahh9BZP",
+                    "name": "Webhooks Branch",
+                    "title": "Webhooks Branch",
+                    "type": "logic.parallel_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "Webhooks Branch",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q2VU3ZE95IqWxBIkpyVCj2oYHAso7D",
+                        "name": "Get Destination Webhooks",
+                        "title": "Get Destination Webhooks",
+                        "type": "workflow.atomic_workflow",
+                        "base_type": "subworkflow",
+                        "properties": {
+                          "continue_on_failure": true,
+                          "description": "List the HTTP servers for a network",
+                          "display_name": "Get Destination Webhooks",
+                          "input": {
+                            "variable_workflow_02OARCGPXSV0W6fauypVmhHInijK73LaVQ3": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPBMY5LLB7jdfJhz4c8rQICcluJ$"
+                          },
+                          "runtime_user": {
+                            "target_default": true
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "target_type": "meraki.endpoint",
+                            "use_workflow_target": true
+                          },
+                          "workflow_id": "definition_workflow_02OARCGPXSRXS0dDJACsLKdqodDuOY7jfrH",
+                          "workflow_name": "Meraki - Get Network Webhooks HTTP Servers"
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2",
+                "name": "Calculate Payload",
+                "title": "Calculate Payload",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Calculate Payload",
+                  "script": "\"\"\"\nCalculate Payload — Meraki Alert Sync workflow script.\n\nWorkflow inputs (script_arguments):\n  argv[1]  source alerts JSON\n  argv[2]  destination alerts JSON\n  argv[3]  destination webhooks JSON\n  argv[4]  mode: \"merge\" or \"replace\"\n  argv[5]  destination network name\n\nScript queries to register:\n  alert_payload\n  default_destination_payload\n  muting_payload\n  result_entry  (object)\n\nresult_entry.outcome values set by this script:\n  invalid        — validation failed for this network\n  no_change      — valid, destination already matches\n  pending_apply  — valid, changes required (apply step sets applied/emulated/apply_failed)\n\nAlert types present on destination but missing on source are kept as-is on the\ndestination. They are recorded in result_entry.source_gaps and reported in the\ndescription — they do not fail execution.\n\"\"\"\n\nimport sys\nimport json\nimport copy\n\nCONVERT_EMPTY_ARRAYS_TO_NULL = True\n\nVALID_MODES = (\"merge\", \"replace\")\n\n\ndef get_json(arg, default):\n    try:\n        return json.loads(arg) if arg else default\n    except Exception:\n        return default\n\n\ndef empty_dest():\n    return {\n        \"emails\": [],\n        \"smsNumbers\": [],\n        \"httpServerIds\": [],\n        \"allAdmins\": False,\n        \"snmp\": False,\n    }\n\n\ndef dedupe(values):\n    return sorted(set(str(v) for v in values)) if values else []\n\n\ndef norm_dest(d, valid_ids):\n    d = d or {}\n    return {\n        \"emails\": dedupe(d.get(\"emails\")),\n        \"smsNumbers\": dedupe(d.get(\"smsNumbers\")),\n        \"allAdmins\": bool(d.get(\"allAdmins\")),\n        \"snmp\": bool(d.get(\"snmp\")),\n        \"httpServerIds\": dedupe(\n            s for s in (d.get(\"httpServerIds\") or []) if str(s) in valid_ids\n        ),\n    }\n\n\ndef merge_dest(a, b, valid_ids):\n    a, b = norm_dest(a, valid_ids), norm_dest(b, valid_ids)\n    return {\n        \"emails\": dedupe(a[\"emails\"] + b[\"emails\"]),\n        \"smsNumbers\": dedupe(a[\"smsNumbers\"] + b[\"smsNumbers\"]),\n        \"httpServerIds\": dedupe(a[\"httpServerIds\"] + b[\"httpServerIds\"]),\n        \"allAdmins\": a[\"allAdmins\"] or b[\"allAdmins\"],\n        \"snmp\": a[\"snmp\"] or b[\"snmp\"],\n    }\n\n\ndef cleanup_alerts(defaults, alerts, valid_ids):\n    def_emails = {e.strip().lower() for e in (defaults.get(\"emails\") or [])}\n    def_hooks = {str(x) for x in (defaults.get(\"httpServerIds\") or [])}\n    out = []\n    for alert in alerts:\n        a = alert.copy()\n        dest = norm_dest(a.get(\"alertDestinations\"), valid_ids)\n        dest[\"emails\"] = [e for e in dest[\"emails\"] if e.strip().lower() not in def_emails]\n        dest[\"httpServerIds\"] = [x for x in dest[\"httpServerIds\"] if str(x) not in def_hooks]\n        a[\"alertDestinations\"] = dest\n        out.append(a)\n    return out\n\n\ndef fix_selector(alert):\n    f = alert.get(\"filters\")\n    if not f or \"selector\" not in f:\n        return alert\n    v = f[\"selector\"]\n    if isinstance(v, (dict, list)):\n        f[\"selector\"] = json.dumps(v, separators=(\",\", \":\"))\n    elif isinstance(v, str):\n        try:\n            p = json.loads(v)\n            if isinstance(p, str):\n                f[\"selector\"] = p\n        except ValueError:\n            pass\n    return alert\n\n\ndef to_null(obj):\n    if not CONVERT_EMPTY_ARRAYS_TO_NULL:\n        return obj\n    if isinstance(obj, dict):\n        return {k: to_null(v) for k, v in obj.items()}\n    if isinstance(obj, list):\n        return None if not obj else [to_null(x) for x in obj]\n    return obj\n\n\ndef by_type(alerts):\n    return {a[\"type\"]: a for a in alerts if a.get(\"type\")}\n\n\ndef norm_alert(alert, valid_ids):\n    a = alert.copy()\n    a[\"alertDestinations\"] = norm_dest(a.get(\"alertDestinations\"), valid_ids)\n    return fix_selector(a)\n\n\ndef baseline_dest_alerts(alerts, defaults, valid_ids):\n    defs = norm_dest(defaults, valid_ids)\n    cleaned = cleanup_alerts(\n        defs, [norm_alert(a, valid_ids) for a in alerts], valid_ids\n    )\n    return defs, by_type(cleaned)\n\n\ndef list_default_changes(before, after):\n    labels = []\n    if before.get(\"emails\") != after.get(\"emails\"):\n        labels.append(\"emails\")\n    if before.get(\"smsNumbers\") != after.get(\"smsNumbers\"):\n        labels.append(\"sms\")\n    if before.get(\"httpServerIds\") != after.get(\"httpServerIds\"):\n        labels.append(\"webhooks\")\n    if before.get(\"allAdmins\") != after.get(\"allAdmins\"):\n        labels.append(\"allAdmins\")\n    if before.get(\"snmp\") != after.get(\"snmp\"):\n        labels.append(\"snmp\")\n    return labels\n\n\ndef list_muting_changes(before, after):\n    keys = set(before or {}) | set(after or {})\n    return sorted(k for k in keys if (before or {}).get(k) != (after or {}).get(k))\n\n\ndef build_description(mode, alert_count, default_changes, muting_changes, missing_types=None):\n    parts = []\n    if alert_count:\n        parts.append(str(alert_count) + \" alert(s)\")\n    if default_changes:\n        parts.append(\"defaults: \" + \", \".join(default_changes))\n    if muting_changes:\n        parts.append(\"muting: \" + \", \".join(muting_changes))\n    if missing_types:\n        parts.append(\n            \"source gaps (kept dest): \" + \", \".join(missing_types)\n        )\n    if parts:\n        return mode + \" — \" + \"; \".join(parts)\n    return \"No changes required\"\n\n\ndef make_entry(\n    net,\n    mode,\n    status,\n    outcome,\n    desc,\n    req,\n    alerts=\"0\",\n    defs=\"none\",\n    muting=\"none\",\n    source_gaps=\"none\",\n):\n    return {\n        \"network\": net,\n        \"mode\": mode,\n        \"status\": status,\n        \"outcome\": outcome,\n        \"description\": desc,\n        \"require_update\": req,\n        \"changed_alert_count\": alerts,\n        \"defaults_changed\": defs,\n        \"muting_changed\": muting,\n        \"source_gaps\": source_gaps,\n    }\n\n\ndef missing_source_types(dest_alerts, source_alerts):\n    dest_types = {a.get(\"type\") for a in dest_alerts if a.get(\"type\")}\n    source_types = {a.get(\"type\") for a in source_alerts if a.get(\"type\")}\n    return sorted(dest_types - source_types)\n\n\ndef collect_used_webhook_ids(source_dest, source_alerts):\n    used = set()\n    for sid in source_dest.get(\"httpServerIds\") or []:\n        used.add(str(sid))\n    for alert in source_alerts:\n        for sid in (alert.get(\"alertDestinations\") or {}).get(\"httpServerIds\") or []:\n            used.add(str(sid))\n    return used\n\n\ndef build_merge_payload(d_alerts, d_dest, d_muting, source_map, s_dest, s_muting, hook_ids):\n    final_dest = merge_dest(d_dest, s_dest, hook_ids)\n    final_muting = dict(d_muting)\n    final_muting.update(s_muting)\n    final_alerts = []\n    for da in d_alerts:\n        na = da.copy()\n        sa = source_map.get(na.get(\"type\"))\n        if sa:\n            na[\"enabled\"] = bool(na.get(\"enabled\") or sa.get(\"enabled\"))\n            na[\"alertDestinations\"] = merge_dest(\n                na.get(\"alertDestinations\"), sa.get(\"alertDestinations\"), hook_ids\n            )\n            if sa.get(\"filters\"):\n                na[\"filters\"] = copy.deepcopy(sa[\"filters\"])\n            na = fix_selector(na)\n        final_alerts.append(na)\n    return final_dest, final_muting, final_alerts\n\n\ndef build_replace_payload(d_alerts, source_map, s_dest, s_muting, hook_ids):\n    final_dest = norm_dest(s_dest, hook_ids)\n    final_muting = copy.deepcopy(s_muting)\n    final_alerts = []\n    for da in d_alerts:\n        alert_type = da.get(\"type\")\n        sa = source_map.get(alert_type)\n        if not sa:\n            na = da.copy()\n        else:\n            na = sa.copy()\n            na[\"alertDestinations\"] = norm_dest(sa.get(\"alertDestinations\"), hook_ids)\n            if sa.get(\"filters\"):\n                na[\"filters\"] = copy.deepcopy(sa[\"filters\"])\n            elif \"filters\" in na:\n                del na[\"filters\"]\n            na = fix_selector(na)\n        final_alerts.append(na)\n    return final_dest, final_muting, final_alerts\n\n\n# --- inputs ---\nsource = get_json(sys.argv[1], {})\ndest = get_json(sys.argv[2], {})\nwebhooks = get_json(sys.argv[3], [])\nmode = (sys.argv[4] if len(sys.argv) \u003e 4 else \"merge\").strip().lower()\nnet_name = sys.argv[5] if len(sys.argv) \u003e 5 else \"\"\n\ns_alerts = source.get(\"alerts\") or []\ns_dest = source.get(\"defaultDestinations\") or {}\ns_muting = source.get(\"muting\") or {}\nd_alerts = dest.get(\"alerts\") or []\nd_dest = dest.get(\"defaultDestinations\") or {}\nd_muting = dest.get(\"muting\") or {}\n\n# --- outputs ---\nalert_payload = \"[]\"\ndefault_destination_payload = \"{}\"\nmuting_payload = \"{}\"\nstatus = \"invalid\"\noutcome = \"invalid\"\ndescription = \"Not evaluated\"\nrequire_update = \"true\"\nresult_entry = make_entry(net_name, mode, status, outcome, description, require_update)\n\nhook_ids = {str(w[\"id\"]) for w in webhooks if w.get(\"id\")}\n\ntry:\n    missing_types = missing_source_types(d_alerts, s_alerts)\n    source_gaps = \", \".join(missing_types) if missing_types else \"none\"\n\n    if mode not in VALID_MODES:\n        description = \"Invalid mode '\" + mode + \"'. Use merge or replace\"\n        result_entry = make_entry(net_name, mode, status, outcome, description, require_update)\n\n    else:\n        used_hooks = collect_used_webhook_ids(s_dest, s_alerts)\n        missing_hooks = sorted(x for x in used_hooks if x not in hook_ids)\n\n        if missing_hooks:\n            description = \"Missing webhook IDs on destination: \" + \", \".join(missing_hooks)\n            result_entry = make_entry(net_name, mode, status, outcome, description, require_update)\n\n        else:\n            before_alerts = copy.deepcopy(d_alerts)\n            before_dest = copy.deepcopy(d_dest)\n            before_muting = copy.deepcopy(d_muting)\n            source_map = by_type(s_alerts)\n\n            if mode == \"merge\":\n                final_dest, final_muting, final_alerts = build_merge_payload(\n                    d_alerts, d_dest, d_muting, source_map, s_dest, s_muting, hook_ids\n                )\n            else:\n                final_dest, final_muting, final_alerts = build_replace_payload(\n                    d_alerts, source_map, s_dest, s_muting, hook_ids\n                )\n\n            final_alerts = cleanup_alerts(final_dest, final_alerts, hook_ids)\n\n            before_dest_cmp, before_map = baseline_dest_alerts(\n                before_alerts, before_dest, hook_ids\n            )\n            changed = [\n                a for a in final_alerts if a != before_map.get(a.get(\"type\"), {})\n            ]\n            default_changes = list_default_changes(before_dest_cmp, final_dest)\n            muting_changes = list_muting_changes(before_muting, final_muting)\n            has_changes = bool(changed) or bool(default_changes) or bool(muting_changes)\n\n            put = {}\n            if default_changes:\n                put[\"defaultDestinations\"] = final_dest\n            if changed:\n                put[\"alerts\"] = changed\n            if muting_changes:\n                put[\"muting\"] = final_muting\n\n            status = \"valid\"\n            description = build_description(\n                mode, len(changed), default_changes, muting_changes, missing_types\n            )\n            require_update = \"false\" if not has_changes else \"true\"\n            outcome = \"no_change\" if not has_changes else \"pending_apply\"\n\n            alert_payload = json.dumps(to_null(changed))\n            default_destination_payload = json.dumps(\n                to_null(final_dest if default_changes else {})\n            )\n            muting_payload = json.dumps(to_null(final_muting if muting_changes else {}))\n\n            result_entry = make_entry(\n                net_name,\n                mode,\n                status,\n                outcome,\n                description,\n                require_update,\n                str(len(changed)),\n                \", \".join(default_changes) if default_changes else \"none\",\n                \", \".join(muting_changes) if muting_changes else \"none\",\n                source_gaps,\n            )\n\nexcept Exception as e:\n    status = \"invalid\"\n    outcome = \"invalid\"\n    description = \"Script error: \" + str(e)\n    require_update = \"true\"\n    alert_payload = json.dumps(d_alerts)\n    default_destination_payload = json.dumps(d_dest)\n    muting_payload = json.dumps(d_muting)\n    result_entry = make_entry(net_name, mode, status, outcome, description, require_update)",
+                  "script_arguments": [
+                    "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KOX3K1hT41EyTRFp4EMYpDSkSMf$",
+                    "$activity.definition_activity_02X33Q2RYZN1J11ekDwyomWwwm1PohCfPwz.output.variable_workflow_02OARCAIENPSW5dRhn66KBtq5tLu8VWJn4i$",
+                    "$activity.definition_activity_02X33Q2VU3ZE95IqWxBIkpyVCj2oYHAso7D.output.variable_workflow_02OARCGPXSYVS7mtzWuTfQoAnOPAp7jpyMy$",
+                    "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KORGS0lpy9YQgFvCf64XKPknA5z$",
+                    "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPTJI0QIh5AuD5EtSubOHkVaXrM$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "alert_payload",
+                      "script_query_name": "alert_payload",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "result_entry",
+                      "script_query_name": "result_entry",
+                      "script_query_type": "object"
+                    },
+                    {
+                      "script_query": "default_destination_payload",
+                      "script_query_name": "default_destination_payload",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "muting_payload",
+                      "script_query_name": "muting_payload",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02X33Q2ZJJ6LF46ygmEXYEucsYzh6rLAWqD",
+                "name": "Parse Payload Result",
+                "title": "Parse Payload Result",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "description": "Parse Payload Result.",
+                  "display_name": "Parse Payload Result",
+                  "input_json": "$activity.definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2.output.script_queries.result_entry$",
+                  "jsonpath_queries": [
+                    {
+                      "default_value": "",
+                      "jsonpath_query": "$.require_update",
+                      "jsonpath_query_name": "require_update",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": false,
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    },
+                    {
+                      "jsonpath_query": "$.status",
+                      "jsonpath_query_name": "status",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": false,
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02X33Q31JR8EG2g8W0u5jLvTdsJTjYAJbha",
+                "name": "Decide Apply Action",
+                "title": "Decide Apply Action",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Decide Apply Action.",
+                  "display_name": "Decide Apply Action",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02X33Q33AB3GN45mN9FLdfE7VGFadF3ektQ",
+                    "name": "Validation Failed",
+                    "title": "Validation Failed",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02X33Q2ZJJ6LF46ygmEXYEucsYzh6rLAWqD.output.jsonpath_queries.status$",
+                        "operator": "eq",
+                        "right_operand": "invalid"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Validation Failed",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q34ZP2166TYREJcdjGP6TpTMcLKi3z",
+                        "name": "Set Validation Failed",
+                        "title": "Set Validation Failed",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "description": "Set Validation Failed.",
+                          "display_name": "Set Validation Failed",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH$",
+                              "variable_value_new": "invalid"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q36GAFYF5094wZsOr0bFVqH2WjzpNg",
+                    "name": "No Change Required",
+                    "title": "No Change Required",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02X33Q2ZJJ6LF46ygmEXYEucsYzh6rLAWqD.output.jsonpath_queries.require_update$",
+                        "operator": "eq",
+                        "right_operand": "false"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "No Change Required",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q387Z1N17HjzEIAh8mf2ipgNlwxGk3",
+                        "name": "Set No Change",
+                        "title": "Set No Change",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "description": "Set No Change.",
+                          "display_name": "Set No Change",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH$",
+                              "variable_value_new": "Skipped-no change"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q39O7RDK7H8EDwBP0Gw2ZKThrNuHWU",
+                    "name": "Emulation Mode",
+                    "title": "Emulation Mode",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KP1AC2pKLD8it0rXE3lGgQnviYm$",
+                        "operator": "eq",
+                        "right_operand": "true"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Emulation Mode",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q3BF6KDZ5k3xL6EpvTHA589tzyOUFF",
+                        "name": "Set Emulated",
+                        "title": "Set Emulated",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "description": "Set Emulated.",
+                          "display_name": "Set Emulated",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH$",
+                              "variable_value_new": "Skipped-Emulation"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02X33Q3D1ZQ252rlBzpp38SXKFYaDYcyZ4z",
+                    "name": "Apply Changes",
+                    "title": "Apply Changes",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02X33Q2ZJJ6LF46ygmEXYEucsYzh6rLAWqD.output.jsonpath_queries.require_update$",
+                        "operator": "eq",
+                        "right_operand": "true"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Apply Changes",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02X33Q3FEHYNM0lv9GShKEG7U17QjbOsFbL",
+                        "name": "Apply Alert Settings",
+                        "title": "Apply Alert Settings",
+                        "type": "workflow.atomic_workflow",
+                        "base_type": "subworkflow",
+                        "properties": {
+                          "continue_on_failure": true,
+                          "description": "Update the alert configuration for this network",
+                          "display_name": "Apply Alert Settings",
+                          "input": {
+                            "variable_workflow_02OARCAJ5P3GW5rEArI3rj4XgCAzwZ89OwB": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPBMY5LLB7jdfJhz4c8rQICcluJ$",
+                            "variable_workflow_02OARCAJ5P50G0daAmBPahnPbZByBjHhsYp": "$activity.definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2.output.script_queries.default_destination_payload$",
+                            "variable_workflow_02OARCAJ5P5S87I9ZjGGoDBpjCOqAhMWAgE": "$activity.definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2.output.script_queries.alert_payload$",
+                            "variable_workflow_02OARCAJ5P6K03pBnjZuTdDVyZFzQromlGW": "$activity.definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2.output.script_queries.muting_payload$"
+                          },
+                          "runtime_user": {
+                            "target_default": true
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "target_type": "meraki.endpoint",
+                            "use_workflow_target": true
+                          },
+                          "workflow_id": "definition_workflow_02OARCAJ5OZM03L4nTzhSu97wHpTWmeWVkO",
+                          "workflow_name": "Meraki - Update Network Alerts Settings"
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02X33Q3HLAQD639pUqL95yAdoxdldglBo8z",
+                        "name": "Store Last Update Result",
+                        "title": "Store Last Update Result",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "description": "Persist the alert update API outcome for the current network.",
+                          "display_name": "Store Last Update Result",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH$",
+                              "variable_value_new": "$activity.definition_activity_02X33Q3FEHYNM0lv9GShKEG7U17QjbOsFbL.output.variable_workflow_02OARCAJ5P9N4595OOyjF4YCeJg0HIe4qgA$"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02X33Q3JBNZ6L7Bh3xOG9C6ohAC4PQbedcR",
+                "name": "Accumulate Results",
+                "title": "Accumulate Results",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Accumulate Results",
+                  "script": "\"\"\"\nAccumulate Results — Meraki Alert Sync workflow script.\n\nWorkflow inputs (script_arguments):\n  argv[1]  results so far (Local - Results List)\n  argv[2]  result_entry from Calculate Payload (object)\n  argv[3]  apply step outcome (Local - Last Update Result)\n\nScript queries to register:\n  updated_list  (string JSON array)\n\nApply step values (set by condition blocks after Calculate Payload):\n  invalid            — validation failed (pass-through from calculate)\n  no_change          — no changes required\n  emulated           — dry-run, changes not applied\n  \u003cAPI JSON/text\u003e    — Update Alerts atomic output (success or failure)\n\nLegacy values still accepted:\n  Skipped-Emulation, Skipped-no change\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\", \"204\"})\n\n\ndef parse_json_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef parse_entry(raw):\n    try:\n        data = json.loads(raw) if raw else {}\n        return data if isinstance(data, dict) else {}\n    except Exception:\n        return {}\n\n\ndef normalize_apply_step(apply_step):\n    step = (apply_step or \"\").strip()\n    aliases = {\n        \"skipped-emulation\": \"emulated\",\n        \"skipped-no change\": \"no_change\",\n    }\n    return aliases.get(step.lower(), step)\n\n\ndef api_response_indicates_failure(response):\n    if not isinstance(response, dict):\n        return False\n\n    for key in (\"status\", \"statusCode\", \"code\", \"httpStatus\"):\n        if key not in response:\n            continue\n        value = str(response[key])\n        if value not in SUCCESS_CODES:\n            return True\n\n    for key in (\"error\", \"errors\", \"message\"):\n        if response.get(key):\n            return True\n\n    return False\n\n\ndef resolve_outcome(entry, apply_step):\n    outcome = entry.get(\"outcome\", \"invalid\")\n    description = str(entry.get(\"description\", \"\")).strip()\n    status = entry.get(\"status\", \"invalid\")\n\n    if outcome in (\"invalid\", \"no_change\"):\n        return status, outcome, description\n\n    if outcome != \"pending_apply\":\n        return status, outcome or \"invalid\", description\n\n    step = normalize_apply_step(apply_step)\n    step_lower = step.lower()\n\n    if step_lower == \"invalid\":\n        return \"invalid\", \"invalid\", description\n\n    if step_lower == \"no_change\":\n        return \"valid\", \"no_change\", description\n\n    if step_lower == \"emulated\":\n        return \"valid\", \"emulated\", description\n\n    if not step:\n        return \"invalid\", \"apply_failed\", description + \" | Apply step did not run\"\n\n    try:\n        response = json.loads(step)\n        if api_response_indicates_failure(response):\n            return \"invalid\", \"apply_failed\", description + \" | API failed: \" + step\n        return \"valid\", \"applied\", description\n    except (ValueError, TypeError):\n        pass\n\n    if any(token in step_lower for token in (\"fail\", \"error\", \"exception\")):\n        return \"invalid\", \"apply_failed\", description + \" | API failed: \" + step\n\n    return \"valid\", \"applied\", description\n\n\n# --- inputs ---\nresults = parse_json_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\nentry = parse_entry(sys.argv[2] if len(sys.argv) \u003e 2 else \"{}\")\napply_step = sys.argv[3] if len(sys.argv) \u003e 3 else \"\"\n\nstatus, outcome, description = resolve_outcome(entry, apply_step)\n\nentry[\"status\"] = status\nentry[\"outcome\"] = outcome\nentry[\"description\"] = description\n\nresults.append(entry)\nresult_json = json.dumps(results)",
+                  "script_arguments": [
+                    "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KO85K4N9pvfyTDuN6AkrC6lcyf4$",
+                    "$activity.definition_activity_02X33Q2XQK5Y45s02YXZKgFMxpdGQC6k9i2.output.script_queries.result_entry$",
+                    "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KPP9220rIwHRuJZn1IRUiVkVQjH$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "result_json",
+                      "script_query_name": "updated_list",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02X33Q3L1JJIL58iDfdZwjgCQ624tx60YNK",
+                "name": "Store Results List",
+                "title": "Store Results List",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Store Results List",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KO85K4N9pvfyTDuN6AkrC6lcyf4$",
+                      "variable_value_new": "$activity.definition_activity_02X33Q3JBNZ6L7Bh3xOG9C6ohAC4PQbedcR.output.script_queries.updated_list$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02X33Q4FZRT9Y3l8TVNrtHD2yKOz93UCWvS",
+        "name": "Finalize Outputs",
+        "title": "Finalize Outputs",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Finalize Outputs.",
+          "display_as_suggestion": false,
+          "display_name": "Finalize Outputs",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF",
+            "name": "Format Final Report",
+            "title": "Format Final Report",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Format Final Report",
+              "script": "\"\"\"\nFormat Final Report — Meraki Alert Sync workflow script.\n\nWorkflow inputs (script_arguments):\n  argv[1]  results list JSON (Local - Results List)\n  argv[2]  emulation mode: \"true\" / \"false\" (Emulation Mode)\n  argv[3]  sync mode: \"merge\" or \"replace\" (Mode)\n\nScript queries to register:\n  report           — human-readable text report\n  overallStatus    — Success | Partial | Failed\n  statusCode       — 200 | 207 | 500\n  errorMessage     — detail when not fully successful; empty on Success\n  resultJson       — structured JSON for downstream workflows\n\nExpected result_entry.outcome values:\n  invalid        — validation failed for this network\n  no_change      — destination already matched source\n  pending_apply  — should not appear in final report (apply step not run)\n  applied        — API update succeeded\n  emulated       — dry-run, changes were not applied\n  apply_failed   — API update failed\n\"\"\"\n\nimport sys\nimport json\n\nOUTCOME_LABELS = {\n    \"invalid\": \"FAIL\",\n    \"no_change\": \"SKIP\",\n    \"pending_apply\": \"PENDING\",\n    \"applied\": \"OK\",\n    \"emulated\": \"DRY-RUN\",\n    \"apply_failed\": \"FAIL\",\n}\n\nOUTCOME_ORDER = {\n    \"applied\": 0,\n    \"emulated\": 1,\n    \"no_change\": 2,\n    \"invalid\": 3,\n    \"apply_failed\": 4,\n    \"pending_apply\": 5,\n}\n\n\ndef parse_bool(value):\n    if isinstance(value, bool):\n        return value\n    if value is None:\n        return False\n    text = str(value).strip().lower()\n    if text in (\"true\", \"1\", \"yes\", \"on\"):\n        return True\n    if text in (\"false\", \"0\", \"no\", \"off\", \"\"):\n        return False\n    try:\n        parsed = json.loads(text)\n        if isinstance(parsed, bool):\n            return parsed\n    except Exception:\n        pass\n    return False\n\n\ndef resolve_emulation_mode(argv, counts):\n    if len(argv) \u003e 2 and str(argv[2]).strip():\n        return parse_bool(argv[2])\n    return counts[\"emulated\"] \u003e 0\n\n\ndef parse_results(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef count_source_gaps(results):\n    return sum(\n        1\n        for entry in results\n        if entry.get(\"source_gaps\") and entry.get(\"source_gaps\") != \"none\"\n    )\n\n\ndef count_by_outcome(results):\n    counts = {\n        \"applied\": 0,\n        \"emulated\": 0,\n        \"no_change\": 0,\n        \"invalid\": 0,\n        \"apply_failed\": 0,\n        \"pending_apply\": 0,\n    }\n    for entry in results:\n        outcome = entry.get(\"outcome\", \"invalid\")\n        if outcome not in counts:\n            outcome = \"invalid\"\n        counts[outcome] += 1\n    return counts\n\n\ndef derive_overall_status(counts, total):\n    if total == 0:\n        return \"Failed\"\n    failures = counts[\"invalid\"] + counts[\"apply_failed\"]\n    successes = counts[\"applied\"] + counts[\"emulated\"] + counts[\"no_change\"]\n    if failures == 0:\n        return \"Success\"\n    if successes \u003e 0:\n        return \"Partial\"\n    return \"Failed\"\n\n\ndef derive_status_code(overall_status):\n    if overall_status == \"Success\":\n        return \"200\"\n    if overall_status == \"Partial\":\n        return \"207\"\n    return \"500\"\n\n\ndef derive_error_message(overall_status, counts, total, script_error=\"\"):\n    if script_error:\n        return script_error\n\n    failures = counts[\"invalid\"] + counts[\"apply_failed\"]\n\n    if overall_status == \"Success\":\n        return \"\"\n\n    if total == 0:\n        return \"No destination networks found matching tags.\"\n\n    if overall_status == \"Partial\":\n        return (\n            str(failures)\n            + \" of \"\n            + str(total)\n            + \" network(s) failed. See Result for per-network details.\"\n        )\n\n    if counts[\"pending_apply\"]:\n        return (\n            str(counts[\"pending_apply\"])\n            + \" network(s) had unexpected pending apply state. See Result for details.\"\n        )\n\n    return (\n        str(failures)\n        + \" of \"\n        + str(total)\n        + \" network(s) failed. See Result for per-network details.\"\n    )\n\n\ndef build_result_json(results, sync_mode, emulation, counts, gap_count, overall_status):\n    payload = {\n        \"summary\": {\n            \"overallStatus\": overall_status,\n            \"syncMode\": sync_mode,\n            \"emulationMode\": emulation,\n            \"totalNetworks\": len(results),\n            \"counts\": {\n                \"applied\": counts[\"applied\"],\n                \"emulated\": counts[\"emulated\"],\n                \"noChange\": counts[\"no_change\"],\n                \"invalid\": counts[\"invalid\"],\n                \"applyFailed\": counts[\"apply_failed\"],\n                \"pendingApply\": counts[\"pending_apply\"],\n            },\n            \"sourceGapNetworks\": gap_count,\n        },\n        \"networks\": sort_results(results),\n    }\n    return json.dumps(payload, separators=(\",\", \":\"))\n\n\ndef format_network_line(entry):\n    outcome = entry.get(\"outcome\", \"invalid\")\n    label = OUTCOME_LABELS.get(outcome, \"FAIL\")\n    network = str(entry.get(\"network\", \"unknown\"))\n    description = str(entry.get(\"description\", \"\")).strip()\n    if description:\n        return \"[\" + label + \"] \" + network + \" — \" + description\n    return \"[\" + label + \"] \" + network\n\n\ndef sort_results(results):\n    return sorted(\n        results,\n        key=lambda r: (\n            OUTCOME_ORDER.get(r.get(\"outcome\", \"invalid\"), 99),\n            str(r.get(\"network\", \"\")).lower(),\n        ),\n    )\n\n\ndef build_report(results, sync_mode, emulation, counts, gap_count):\n    total = len(results)\n    lines = [\n        \"Alert Sync Report\",\n        \"=\" * 50,\n        \"Sync mode: \" + sync_mode,\n        \"Emulation: \" + (\"YES — no changes were applied\" if emulation else \"NO\"),\n        \"\",\n        \"Summary\",\n        \"  Total networks:  \" + str(total),\n        \"  Applied:           \" + str(counts[\"applied\"]),\n        \"  Dry-run:           \" + str(counts[\"emulated\"]),\n        \"  No change:         \" + str(counts[\"no_change\"]),\n        \"  Failed:            \" + str(counts[\"invalid\"] + counts[\"apply_failed\"]),\n        \"  Source gaps:       \" + str(gap_count),\n    ]\n\n    if counts[\"pending_apply\"]:\n        lines.append(\"  Pending (unexpected): \" + str(counts[\"pending_apply\"]))\n\n    notes = []\n    if emulation and counts[\"emulated\"]:\n        notes.append(\"Dry-run entries show what would have been applied.\")\n    if gap_count:\n        notes.append(\n            \"Source gaps: alert types on destination but not on source were left unchanged.\"\n        )\n    if notes:\n        lines.extend([\"\", \"Notes\", *[(\"  - \" + note) for note in notes]])\n\n    lines.extend([\"\", \"Details\", \"-\" * 50])\n\n    if not results:\n        lines.append(\"No destination networks found matching tags.\")\n    else:\n        for entry in sort_results(results):\n            lines.append(format_network_line(entry))\n\n    return \"\\n\".join(lines)\n\n\n# --- defaults for workflow script queries ---\nreport = \"Error generating report.\"\noverall_status = \"Failed\"\nstatus_code = \"500\"\nerror_message = \"Error generating report.\"\nresult_json = \"{}\"\n\ntry:\n    results = parse_results(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n    sync_mode = (sys.argv[3] if len(sys.argv) \u003e 3 else \"merge\").strip().lower()\n\n    counts = count_by_outcome(results)\n    emulation = resolve_emulation_mode(sys.argv, counts)\n    gap_count = count_source_gaps(results)\n    overall_status = derive_overall_status(counts, len(results))\n    status_code = derive_status_code(overall_status)\n    error_message = derive_error_message(overall_status, counts, len(results))\n    report = build_report(results, sync_mode, emulation, counts, gap_count)\n    result_json = build_result_json(\n        results, sync_mode, emulation, counts, gap_count, overall_status\n    )\n\nexcept Exception as e:\n    script_error = \"Error generating report: \" + str(e)\n    report = script_error\n    overall_status = \"Failed\"\n    status_code = \"500\"\n    error_message = script_error\n    result_json = json.dumps(\n        {\n            \"summary\": {\n                \"overallStatus\": \"Failed\",\n                \"syncMode\": (sys.argv[3] if len(sys.argv) \u003e 3 else \"merge\").strip().lower(),\n                \"emulationMode\": False,\n                \"totalNetworks\": 0,\n                \"counts\": {},\n                \"sourceGapNetworks\": 0,\n            },\n            \"networks\": [],\n            \"error\": script_error,\n        },\n        separators=(\",\", \":\"),\n    )",
+              "script_arguments": [
+                "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.local.variable_workflow_02X33Q15KO85K4N9pvfyTDuN6AkrC6lcyf4$",
+                "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KP1AC2pKLD8it0rXE3lGgQnviYm$",
+                "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.input.variable_workflow_02X33Q15KORGS0lpy9YQgFvCf64XKPknA5z$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "report",
+                  "script_query_name": "formatted_report",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "overall_status",
+                  "script_query_name": "overall_status",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "status_code",
+                  "script_query_name": "status_code",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "error_message",
+                  "script_query_name": "error_message",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "result_json",
+                  "script_query_name": "result_json",
+                  "script_query_type": "string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02X33Q4K3BWGE4z5JjDmAxwCl2Q7wjKUso3",
+            "name": "Set Standard Outputs",
+            "title": "Set Standard Outputs",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Set Standard Outputs.",
+              "display_name": "Set Standard Outputs",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPK382PJu9tHM6foeHZsu4TTRZm$",
+                  "variable_value_new": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.status_code$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                  "variable_value_new": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.error_message$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KPFXZ6aqyaRo8Z2ESTWtXEcBqIh$",
+                  "variable_value_new": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.result_json$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
+                  "variable_value_new": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.formatted_report$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                  "variable_value_new": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.overall_status$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02X33Q4LU66TE00uv0sn9ztThBqFPiBTfRU",
+            "name": "Check Overall Status",
+            "title": "Check Overall Status",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "description": "Check Overall Status.",
+              "display_name": "Check Overall Status",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_02X33Q4N603HT3j8BPBdXSsRQBhvnXYU4q2",
+                "name": "Overall Success",
+                "title": "Overall Success",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.overall_status$",
+                    "operator": "eq",
+                    "right_operand": "Success"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Overall Success",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q4OWNLHH6OYiqlSG4Txw9IHsHaxEBR",
+                    "name": "Complete Success",
+                    "title": "Complete Success",
+                    "type": "logic.completed",
+                    "base_type": "activity",
+                    "properties": {
+                      "completion_type": "succeeded",
+                      "continue_on_failure": false,
+                      "description": "Complete Success.",
+                      "display_name": "Complete Success",
+                      "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02X33Q4Q8G15F12MoIN5i1KHgZRAq9gFhen",
+                "name": "Overall Failure",
+                "title": "Overall Failure",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
+                    "operator": "ne",
+                    "right_operand": "Success"
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Overall Failure",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02X33Q4RWIDLK0yWelSxpK0mbvGySDxPD8T",
+                    "name": "Complete With Errors",
+                    "title": "Complete With Errors",
+                    "type": "logic.completed",
+                    "base_type": "activity",
+                    "properties": {
+                      "completion_type": "failed-completed",
+                      "continue_on_failure": false,
+                      "description": "Complete With Errors.",
+                      "display_name": "Complete With Errors",
+                      "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KP68I6gzE3YkxOKiqKx6tfbdHh7$",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_02L8Y8MMNRTPU2rXklDKC7tsWsgppHits9e",
+      "category_02LML12JUEG9X7EkGfSLZEGaaaww7tQZkN5"
+    ]
+  },
+  "atomic_workflows": [
+    "definition_workflow_02LO4XQ0BBV9S72cwjCGdhDolGmWSj7PSa8",
+    "definition_workflow_02OARCAIENB54523HuMiPtjbn2hgEUs3tEN",
+    "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX",
+    "definition_workflow_02OARCGPXSRXS0dDJACsLKdqodDuOY7jfrH",
+    "definition_workflow_02OARCAJ5OZM03L4nTzhSu97wHpTWmeWVkO"
+  ],
+  "dependent_workflows": [
+    "definition_workflow_02M605GS81XN44qr4RBWrJ6Zazk7k0ArIYX",
+    "definition_workflow_02LO4XQ0BBV9S72cwjCGdhDolGmWSj7PSa8",
+    "definition_workflow_02OARCAIENB54523HuMiPtjbn2hgEUs3tEN",
+    "definition_workflow_02L9TZH5W95870XebPF2g8kSyIYcawUvljX",
+    "definition_workflow_02OARCGPXSRXS0dDJACsLKdqodDuOY7jfrH",
+    "definition_workflow_02OARCAJ5OZM03L4nTzhSu97wHpTWmeWVkO"
+  ]
+}

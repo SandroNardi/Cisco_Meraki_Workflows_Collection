@@ -1,0 +1,874 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W",
+    "name": "Audit Organization Settings with Pagination",
+    "title": "Audit Organization Settings with Pagination",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Output - Result",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "json"
+        },
+        "unique_name": "variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Local - Organization IDs Returned Count",
+          "type": "datatype.integer",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQBY970CvLhnoeMTTjcGNaREst9i",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Output - Error Message",
+          "type": "datatype.string",
+          "description": "Error message if failed",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "[]",
+          "scope": "local",
+          "name": "Local - Organization Config Table",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQD29V6wXO2N542iYreqlf7WIMCW",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Next Page Start",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQCS703toHdT6DQqHs8LPMvsZsJr",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Output - Status Code",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQDBRS6NpE1lPrZtxsgEpFiIJFpq",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Success",
+          "scope": "output",
+          "name": "Output - Status Message",
+          "type": "datatype.string",
+          "description": "Workflow execution status",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Current Organization ID",
+          "type": "datatype.string",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQDUFK03GhioJEdvVa6ozlWVhZX1",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 500,
+          "scope": "local",
+          "name": "Local - Queries per Page",
+          "type": "datatype.integer",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02VUY2YFQBKYT0A7RGW3rsmPgBNBwfcGONA",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "**Audit Organization Settings with Pagination**\n\nAudits security and authentication settings across all accessible Cisco Meraki organizations. Uses pagination for large environments and parallel processing for speed.\n\n**Expected Output:** \nA structured JSON array detailing each organization's security posture, including:\n* API \u0026 SAML SSO status.\n* Password policies (expiration, strength, reuse).\n* Access controls (lockouts, idle timeouts, 2FA).\n* IP restrictions for logins and API keys.\n\n**Prerequisites:** Meraki API Key with at least Read-Only access.\n**Target:** Meraki Endpoint.",
+      "display_name": "Audit Organization Settings with Pagination",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "target_type": "meraki.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02VUY2YKK9HRX5Box0GdnpqgJlsgMAt7HqP",
+        "name": "Set Variables",
+        "title": "Initialize Loop Variables",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Set Variables",
+          "display_name": "Initialize Loop Variables",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBY970CvLhnoeMTTjcGNaREst9i$",
+              "variable_value_new": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBKYT0A7RGW3rsmPgBNBwfcGONA$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02VUY2YM4Z2Q11aoLJF8IborXPeMLHbvRRL",
+        "name": "Pagination Loop",
+        "title": "While Loop on All Organizations /w pagination",
+        "type": "logic.while",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 900,
+          "continue_on_failure": false,
+          "display_name": "While Loop on All Organizations /w pagination",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02VUY2YNPK6E10ggR9RHjIDyp9AC0kJ3c1m",
+            "name": "Has More Pages",
+            "title": "Has More Pages",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBKYT0A7RGW3rsmPgBNBwfcGONA$",
+                "operator": "eq",
+                "right_operand": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBY970CvLhnoeMTTjcGNaREst9i$"
+              },
+              "continue_on_failure": false,
+              "display_name": "Has More Pages",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2",
+                "name": "Meraki - Get Organizations",
+                "title": "Meraki - Get Organizations",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "atomic": {
+                    "atomic_group": "Cisco Meraki",
+                    "atomic_subgroup": "Organizations"
+                  },
+                  "continue_on_failure": false,
+                  "description": "**Cisco Meraki - Get Organizations**\nRetrieve a list of organizations that the authenticated user has access to within their Meraki account. \nAn organization in Meraki represents a logical grouping of networks, devices, and settings that can be managed collectively.\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -\u003e User Profile -\u003e API Access.",
+                  "display_name": "Meraki - Get Organizations",
+                  "input": {
+                    "variable_workflow_02LXK9KUOD0MH4qj4j062vm12gYmFb9y5N0": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBKYT0A7RGW3rsmPgBNBwfcGONA$",
+                    "variable_workflow_02LXKBG6HGMSD1YojnHQ3bM2cT6mP8A02A9": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQCS703toHdT6DQqHs8LPMvsZsJr$",
+                    "variable_workflow_02LXKCCX4AREX6odSHkvY5oECunJtqcLahK": ""
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "target_type": "meraki.endpoint",
+                    "use_workflow_target": true
+                  },
+                  "workflow_id": "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq",
+                  "workflow_name": "Meraki - Get Organizations"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02VUY2YSGAWLR1IL2cHiiDEVbOSLOyoWQ2s",
+                "name": "Condition Block",
+                "title": "Condition Block",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "If-Else condition block",
+                  "display_name": "Condition Block",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02VUY2YTYCY482J2IJTchWJ9eFAwQzHHQei",
+                    "name": "Condition Branch",
+                    "title": "Condition Branch",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXKZLXKLJFB451gVbqCxrIVfpczDAxuGy$",
+                        "operator": "eq",
+                        "right_operand": 200
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Condition Branch",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02VUY2YVQV2YM5kIwRQnANxfhn8D9VjmPP5",
+                        "name": "Read Organizations Table",
+                        "title": "Read Organizations Table",
+                        "type": "corejava.read_table_from_json",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "continue_on_failure": false,
+                          "display_name": "Read Organizations Table",
+                          "input_json": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXKZA6725S35QBWMZCg1AlZnT11mbSFQi$",
+                          "jsonpath_query": "$",
+                          "persist_output": false,
+                          "populate_columns": false,
+                          "skip_execution": false,
+                          "table_columns": [
+                            {
+                              "column_name": "id",
+                              "column_type": "string"
+                            },
+                            {
+                              "column_name": "name",
+                              "column_type": "string"
+                            },
+                            {
+                              "column_name": "api",
+                              "column_type": "string"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02VUY2YXWA52A7U09TvocfRSRGRm8EwKLe4",
+                        "name": "Update Pagination Token",
+                        "title": "Update Pagination Token",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "continue_on_failure": false,
+                          "display_name": "Update Pagination Token",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQCS703toHdT6DQqHs8LPMvsZsJr$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02SPJFE57OJR4471XCajs6A5sgmnpinJs8f$"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBY970CvLhnoeMTTjcGNaREst9i$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YVQV2YM5kIwRQnANxfhn8D9VjmPP5.output.row_count$"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02VUY2YZTFSZ46OKjg74l7w2a8Qe0plxcE3",
+                        "name": "For Each Organization",
+                        "title": "For Each Organization",
+                        "type": "logic.for_each",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "For Each Organization",
+                          "skip_execution": false,
+                          "source_array": "$activity.definition_activity_02VUY2YVQV2YM5kIwRQnANxfhn8D9VjmPP5.output.read_table_from_json$"
+                        },
+                        "object_type": "definition_activity",
+                        "actions": [
+                          {
+                            "unique_name": "definition_activity_02VUY2Z2UQY3C7lhjMSL3WkzS6crBytyPXG",
+                            "name": "Set Current Organization ID",
+                            "title": "Set Current Organization ID",
+                            "type": "core.set_multiple_variables",
+                            "base_type": "activity",
+                            "properties": {
+                              "action_timeout": 180,
+                              "continue_on_failure": false,
+                              "display_name": "Set Current Organization ID",
+                              "skip_execution": false,
+                              "variables_to_update": [
+                                {
+                                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQDUFK03GhioJEdvVa6ozlWVhZX1$",
+                                  "variable_value_new": "$activity.definition_activity_02VUY2YZTFSZ46OKjg74l7w2a8Qe0plxcE3.input.source_array[@].id$"
+                                }
+                              ]
+                            },
+                            "object_type": "definition_activity"
+                          },
+                          {
+                            "unique_name": "definition_activity_02VUY2Z4PJ3I37ekjVpeZKyWuFSR0TGVXys",
+                            "name": "Parallel Block",
+                            "title": "Parallel Block",
+                            "type": "logic.parallel",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "Parallel block action",
+                              "display_name": "Parallel Block",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "blocks": [
+                              {
+                                "unique_name": "definition_activity_02VUY2Z65R1E7232K6SneoVIuvUDNC6aJBh",
+                                "name": "Parallel Branch",
+                                "title": "Get SAML config",
+                                "type": "logic.parallel_block",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Get SAML config",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "actions": [
+                                  {
+                                    "unique_name": "definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK",
+                                    "name": "Meraki - Get Organization Saml",
+                                    "title": "Meraki - Get Organization Saml",
+                                    "type": "workflow.atomic_workflow",
+                                    "base_type": "subworkflow",
+                                    "properties": {
+                                      "atomic": {
+                                        "atomic_group": "Cisco Meraki",
+                                        "atomic_subgroup": "Organizations"
+                                      },
+                                      "continue_on_failure": false,
+                                      "description": "Returns the SAML SSO enabled settings for an organization.",
+                                      "display_name": "Meraki - Get Organization Saml",
+                                      "input": {
+                                        "variable_workflow_02OARCLNJFJBC7mCpszmGUlRffX9gi8yzZx": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQDUFK03GhioJEdvVa6ozlWVhZX1$"
+                                      },
+                                      "runtime_user": {
+                                        "target_default": true
+                                      },
+                                      "skip_execution": false,
+                                      "target": {
+                                        "target_type": "meraki.endpoint",
+                                        "use_workflow_target": true
+                                      },
+                                      "workflow_id": "definition_workflow_02OARCLNJFG887KDGjnrNd8M6wEctV9OqPa",
+                                      "workflow_name": "Meraki - Get Organization Saml"
+                                    },
+                                    "object_type": "definition_activity"
+                                  }
+                                ]
+                              },
+                              {
+                                "unique_name": "definition_activity_02VUY2ZAHKFTL21je8E8zHTepA1WSDYIkuR",
+                                "name": "Parallel Branch",
+                                "title": "Get Login Security config",
+                                "type": "logic.parallel_block",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Get Login Security config",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "actions": [
+                                  {
+                                    "unique_name": "definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm",
+                                    "name": "Meraki - Get Organization Login Security",
+                                    "title": "Meraki - Get Organization Login Security",
+                                    "type": "workflow.atomic_workflow",
+                                    "base_type": "subworkflow",
+                                    "properties": {
+                                      "atomic": {
+                                        "atomic_group": "Cisco Meraki",
+                                        "atomic_subgroup": "Organizations"
+                                      },
+                                      "continue_on_failure": false,
+                                      "description": "Returns the login security settings for an organization.",
+                                      "display_name": "Meraki - Get Organization Login Security",
+                                      "input": {
+                                        "variable_workflow_02OARCLK8EX683GRLKyVV5oVXzFPjonY1KU": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQDUFK03GhioJEdvVa6ozlWVhZX1$"
+                                      },
+                                      "runtime_user": {
+                                        "target_default": true
+                                      },
+                                      "skip_execution": false,
+                                      "target": {
+                                        "target_type": "meraki.endpoint",
+                                        "use_workflow_target": true
+                                      },
+                                      "workflow_id": "definition_workflow_02OARCLK8ETBC2LuOqyAoPDqxPfegNHZCi8",
+                                      "workflow_name": "Meraki - Get Organization Login Security"
+                                    },
+                                    "object_type": "definition_activity"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "unique_name": "definition_activity_02VUY2ZJL62B156ix2yQB9rovSikUodv3ml",
+                            "name": "Condition Block",
+                            "title": "Condition Block",
+                            "type": "logic.if_else",
+                            "base_type": "activity",
+                            "properties": {
+                              "continue_on_failure": false,
+                              "description": "If-Else condition block",
+                              "display_name": "Condition Block",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "blocks": [
+                              {
+                                "unique_name": "definition_activity_02VUY2ZMIIM8B4hUvP12AwOvFHBw3C5ZyIi",
+                                "name": "Condition Branch",
+                                "title": "Condition Branch",
+                                "type": "logic.condition_block",
+                                "base_type": "activity",
+                                "properties": {
+                                  "condition": {
+                                    "left_operand": {
+                                      "left_operand": "$activity.definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK.output.variable_workflow_02OARCLNJFLMO4r16mdXHRxvver9MtloW5T$",
+                                      "operator": "eq",
+                                      "right_operand": 200
+                                    },
+                                    "operator": "and",
+                                    "right_operand": {
+                                      "left_operand": "$activity.definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm.output.variable_workflow_02OARCLK8FH8G2BxoDOdPqWi1PaCGeahDft$",
+                                      "operator": "eq",
+                                      "right_operand": 200
+                                    }
+                                  },
+                                  "continue_on_failure": false,
+                                  "display_name": "Condition Branch",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "actions": [
+                                  {
+                                    "unique_name": "definition_activity_02VUY2ZW4FUPK6pSJDToux0MOvj9Z1bbYdE",
+                                    "name": "Process and Accumulate Organization settings",
+                                    "title": "Process and Accumulate Organization settings",
+                                    "type": "python3.script",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "action_timeout": 180,
+                                      "continue_on_failure": false,
+                                      "display_name": "Process and Accumulate Organization settings",
+                                      "script": "import sys\nimport json\n\ncurr_table = json.loads(sys.argv[1]) if sys.argv[1] else []\norg_id = sys.argv[2]\norg_name = sys.argv[3]\n\n# Organization API status\ntry:\n    api_status_res = json.loads(sys.argv[4]) if sys.argv[4] else {}\nexcept:\n    api_status_res = {}\n\nif not isinstance(api_status_res, dict):\n    api_status_res = {}\n\n# Organization SAML\ntry:\n    saml_res = json.loads(sys.argv[5]) if sys.argv[5] else {}\nexcept:\n    saml_res = {}\n\nif not isinstance(saml_res, dict):\n    saml_res = {}\n\n# Organization Login Security\ntry:\n    login_sec_res = json.loads(sys.argv[6]) if sys.argv[6] else {}\nexcept:\n    login_sec_res = {}\n\nif not isinstance(login_sec_res, dict):\n    login_sec_res = {}\n\nentry = {\n    'orgId': org_id,\n    'orgName': org_name,\n    'apiEnabled': api_status_res.get('enabled'),\n    'samlEnabled': saml_res.get('enabled'),\n    'enforcePasswordExpiration': login_sec_res.get('enforcePasswordExpiration'),\n    'passwordExpirationDays': login_sec_res.get('passwordExpirationDays'),\n    'enforceDifferentPasswords': login_sec_res.get('enforceDifferentPasswords'),\n    'numDifferentPasswords': login_sec_res.get('numDifferentPasswords'),\n    'enforceStrongPasswords': login_sec_res.get('enforceStrongPasswords'),\n    'minimumPasswordLength': login_sec_res.get('minimumPasswordLength'),\n    'enforceAccountLockout': login_sec_res.get('enforceAccountLockout'),\n    'accountLockoutAttempts': login_sec_res.get('accountLockoutAttempts'),\n    'enforceIdleTimeout': login_sec_res.get('enforceIdleTimeout'),\n    'idleTimeoutMinutes': login_sec_res.get('idleTimeoutMinutes'),\n    'enforceTwoFactorAuth': login_sec_res.get('enforceTwoFactorAuth'),\n    'enforceLoginIpRanges': login_sec_res.get('enforceLoginIpRanges'),\n    'loginIpRanges': login_sec_res.get('loginIpRanges'),\n    'apiAuthentication': login_sec_res.get('apiAuthentication')\n}\n\n# Remove keys that are not present (None) so each org only includes configured fields\nentry = {k: v for k, v in entry.items() if v is not None or k in ('orgId', 'orgName')}\n\ncurr_table.append(entry)\n\nresult = json.dumps(curr_table)",
+                                      "script_arguments": [
+                                        "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQD29V6wXO2N542iYreqlf7WIMCW$",
+                                        "$activity.definition_activity_02VUY2YZTFSZ46OKjg74l7w2a8Qe0plxcE3.input.source_array[@].id$",
+                                        "$activity.definition_activity_02VUY2YZTFSZ46OKjg74l7w2a8Qe0plxcE3.input.source_array[@].name$",
+                                        "$activity.definition_activity_02VUY2YZTFSZ46OKjg74l7w2a8Qe0plxcE3.input.source_array[@].api$",
+                                        "$activity.definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK.output.variable_workflow_02OARCLNJFPHK5jZsgMQbFlodjutPmTBWmo$",
+                                        "$activity.definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm.output.variable_workflow_02OARCLK8FI080VOdgA6U4nG7BI1OmuFvN6$"
+                                      ],
+                                      "script_queries": [
+                                        {
+                                          "script_query": "result",
+                                          "script_query_name": "updated_table",
+                                          "script_query_type": "string"
+                                        }
+                                      ],
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity"
+                                  },
+                                  {
+                                    "unique_name": "definition_activity_02VUY303307XH0NIUu1ADdn95Ofamto9mny",
+                                    "name": "Update Organization settings",
+                                    "title": "Update Organization settings",
+                                    "type": "core.set_multiple_variables",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "action_timeout": 180,
+                                      "continue_on_failure": false,
+                                      "display_name": "Update Organization settings",
+                                      "skip_execution": false,
+                                      "variables_to_update": [
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQD29V6wXO2N542iYreqlf7WIMCW$",
+                                          "variable_value_new": "$activity.definition_activity_02VUY2ZW4FUPK6pSJDToux0MOvj9Z1bbYdE.output.script_queries.updated_table$"
+                                        }
+                                      ]
+                                    },
+                                    "object_type": "definition_activity"
+                                  }
+                                ]
+                              },
+                              {
+                                "unique_name": "definition_activity_02VUY3060F4T71q7FIhdsHWSNPeNingbWSC",
+                                "name": "Condition Branch",
+                                "title": "Condition Branch",
+                                "type": "logic.condition_block",
+                                "base_type": "activity",
+                                "properties": {
+                                  "condition": {
+                                    "left_operand": "$activity.definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK.output.variable_workflow_02OARCLNJFLMO4r16mdXHRxvver9MtloW5T$",
+                                    "operator": "ne",
+                                    "right_operand": 200
+                                  },
+                                  "continue_on_failure": false,
+                                  "display_name": "Condition Branch",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "actions": [
+                                  {
+                                    "unique_name": "definition_activity_02VUY3087PAGN5DbjaUr6pcimiGQUEtiM8H",
+                                    "name": "Set Variables",
+                                    "title": "Get Organization SAML Failed",
+                                    "type": "core.set_multiple_variables",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "continue_on_failure": false,
+                                      "description": "Set Variables",
+                                      "display_name": "Get Organization SAML Failed",
+                                      "skip_execution": false,
+                                      "variables_to_update": [
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
+                                          "variable_value_new": "$activity.definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK.output.variable_workflow_02OARCLNJFOPS4ll6d0qUaXSXZrTpuThwwE$"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+                                          "variable_value_new": "Failed"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDBRS6NpE1lPrZtxsgEpFiIJFpq$",
+                                          "variable_value_new": "$activity.definition_activity_02VUY2Z8K0S6Q2vlMIZ1tRe1My0snDJ3GDK.output.variable_workflow_02OARCLNJFLMO4r16mdXHRxvver9MtloW5T$"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
+                                          "variable_value_new": ""
+                                        }
+                                      ]
+                                    },
+                                    "object_type": "definition_activity"
+                                  },
+                                  {
+                                    "unique_name": "definition_activity_02VUY30A6MJPP63M6KEwNQfT3CFWlemCNz3",
+                                    "name": "Completed",
+                                    "title": "Completed",
+                                    "type": "logic.completed",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "completion_type": "failed-completed",
+                                      "continue_on_failure": false,
+                                      "description": "Completed action",
+                                      "display_name": "Completed",
+                                      "result_message": "Failed to retrieve SAML configuration. Check the Error Message output for details.",
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity"
+                                  }
+                                ]
+                              },
+                              {
+                                "unique_name": "definition_activity_02VUY30BS83Z94ohR7QVxRqLUYv1NM1DRYI",
+                                "name": "Condition Branch",
+                                "title": "Condition Branch",
+                                "type": "logic.condition_block",
+                                "base_type": "activity",
+                                "properties": {
+                                  "condition": {
+                                    "left_operand": "$activity.definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm.output.variable_workflow_02OARCLK8FH8G2BxoDOdPqWi1PaCGeahDft$",
+                                    "operator": "ne",
+                                    "right_operand": 200
+                                  },
+                                  "continue_on_failure": false,
+                                  "display_name": "Condition Branch",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "actions": [
+                                  {
+                                    "unique_name": "definition_activity_02VUY30E271ST2RMhoCk99UbADoKYrRb0re",
+                                    "name": "Set Variables",
+                                    "title": "Get Organizations Login Security Failed",
+                                    "type": "core.set_multiple_variables",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "continue_on_failure": false,
+                                      "description": "Set Variables",
+                                      "display_name": "Get Organizations Login Security Failed",
+                                      "skip_execution": false,
+                                      "variables_to_update": [
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
+                                          "variable_value_new": "$activity.definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm.output.variable_workflow_02OARCLK8FI085wU71LrQvTwqVHexnID7ke$"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+                                          "variable_value_new": "Failed"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDBRS6NpE1lPrZtxsgEpFiIJFpq$",
+                                          "variable_value_new": "$activity.definition_activity_02VUY2ZELVD063LRov71jCDDvKrtDlN6gNm.output.variable_workflow_02OARCLK8FH8G2BxoDOdPqWi1PaCGeahDft$"
+                                        },
+                                        {
+                                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
+                                          "variable_value_new": ""
+                                        }
+                                      ]
+                                    },
+                                    "object_type": "definition_activity"
+                                  },
+                                  {
+                                    "unique_name": "definition_activity_02VUY30FWE97C5xXWAcbRnMq4Uipd7V0u5v",
+                                    "name": "Completed",
+                                    "title": "Completed",
+                                    "type": "logic.completed",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "completion_type": "failed-completed",
+                                      "continue_on_failure": false,
+                                      "description": "Completed action",
+                                      "display_name": "Completed",
+                                      "result_message": "Failed to retrieve organization security settings. Check the Error Message output for details.",
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_02VUY30KQAEJC75m3KUpOQZTvvl4jCXA7LT",
+                    "name": "Condition Branch",
+                    "title": "Condition Branch",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXL09Q9UO5F2TvLnW2ZmzubYwc8jRtqRV$",
+                        "operator": "ne",
+                        "right_operand": "200"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Condition Branch",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02VUY30MQJEZS7dxsyISQBhDn5ZMPww4dtV",
+                        "name": "Set Variables",
+                        "title": "Get Organizations Failed",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "description": "Set Variables",
+                          "display_name": "Get Organizations Failed",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXK894H3O8J3yilBiKcPzyVVXvutJAnO0$"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+                              "variable_value_new": "Failed"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDBRS6NpE1lPrZtxsgEpFiIJFpq$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXKZLXKLJFB451gVbqCxrIVfpczDAxuGy$"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
+                              "variable_value_new": ""
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02VUY30OJRPKC2wq4qF35clHujffQdyEJpb",
+                        "name": "Completed",
+                        "title": "Completed",
+                        "type": "logic.completed",
+                        "base_type": "activity",
+                        "properties": {
+                          "completion_type": "failed-completed",
+                          "continue_on_failure": false,
+                          "description": "Completed action",
+                          "display_name": "Completed",
+                          "result_message": "Failed to retrieve organizations. Check the Error Message output for details.",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG",
+        "name": "Finalize Output Table",
+        "title": "Finalize Output Table",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Finalize Output Table",
+          "script": "import sys\nimport json\n\ntable_str = sys.argv[1]\ntry:\n    # Parse the string into a Python object to ensure it is valid\n    parsed_data = json.loads(table_str)\n    \n    # Convert the Python object back into a valid JSON string\n    result = json.dumps(parsed_data)\nexcept:\n    # If parsing fails, output an empty JSON array as a string\n    result = json.dumps([])\n",
+          "script_arguments": [
+            "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQD29V6wXO2N542iYreqlf7WIMCW$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "result",
+              "script_query_name": "finalAggregatedData",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02VUY30IUVH154UPwt1KysPFplzCrOUlGxB",
+        "name": "Set Final Output",
+        "title": "Set Final Output",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Set Final Output",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
+              "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.finalAggregatedData$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
+              "variable_value_new": ""
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDBRS6NpE1lPrZtxsgEpFiIJFpq$",
+              "variable_value_new": "200"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+              "variable_value_new": "Successfully generated organization report data"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02VVG6CZI57ED2dgYAB3hOmR1koIamtCpcN",
+        "name": "Completed",
+        "title": "Completed",
+        "type": "logic.completed",
+        "base_type": "activity",
+        "properties": {
+          "completion_type": "succeeded",
+          "continue_on_failure": false,
+          "description": "Completed action",
+          "display_name": "Completed",
+          "result_message": "Successfully generated organization report data",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_02LML12JUEG9X7EkGfSLZEGaaaww7tQZkN5"
+    ]
+  },
+  "atomic_workflows": [
+    "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq",
+    "definition_workflow_02OARCLNJFG887KDGjnrNd8M6wEctV9OqPa",
+    "definition_workflow_02OARCLK8ETBC2LuOqyAoPDqxPfegNHZCi8"
+  ],
+  "dependent_workflows": [
+    "definition_workflow_02LV5GIDUTY3X0WhuidM5ZWhkjL8wQCGAPq",
+    "definition_workflow_02OARCLNJFG887KDGjnrNd8M6wEctV9OqPa",
+    "definition_workflow_02OARCLK8ETBC2LuOqyAoPDqxPfegNHZCi8"
+  ]
+}
