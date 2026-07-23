@@ -11,7 +11,8 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
 - Meraki Dashboard API key with read/write access to the target organization
 - Meraki Endpoint target (for example `api.meraki.com`)
 - Exact webhook URL string used to locate the HTTP server on each target
-- For update mode: webhook name and optional shared secret
+- For update mode: webhook name (required) and optional shared secret
+- For delete mode: webhook name must be left empty (matching is by URL only)
 
 ### Import and configure
 
@@ -30,7 +31,7 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
    - **Target Type** — `networks` or `templates` (case-sensitive)
    - **Network Tag List** — tags to filter networks (networks mode only; empty = all networks)
    - **Webhook URL** — exact URL used to identify the webhook on each target
-   - **Webhook Name** — name for create/update operations
+   - **Webhook Name** — required for `update` mode; must be empty for `delete` mode
    - **Webhook Secret** — optional shared secret for create/update
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.

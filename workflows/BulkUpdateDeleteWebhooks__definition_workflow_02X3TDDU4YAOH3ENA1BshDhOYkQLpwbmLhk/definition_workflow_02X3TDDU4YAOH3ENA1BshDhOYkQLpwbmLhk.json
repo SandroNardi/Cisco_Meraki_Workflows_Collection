@@ -61,7 +61,7 @@
           "scope": "input",
           "name": "Webhook Name",
           "type": "datatype.string",
-          "description": "Display name applied on create or update (required for update mode).",
+          "description": "Display name applied on create or update. Required when Mode is `update`; must be empty when Mode is `delete`.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -93,6 +93,7 @@
           "scope": "local",
           "name": "Local - Keyword Delete",
           "type": "datatype.string",
+          "description": "Literal `delete` value used in mode validation and branching.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -124,6 +125,7 @@
           "scope": "local",
           "name": "Local - Keyword Networks",
           "type": "datatype.string",
+          "description": "Literal `networks` value used in target-type validation and branching.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -235,6 +237,7 @@
           "scope": "local",
           "name": "Local - Keyword Templates",
           "type": "datatype.string",
+          "description": "Literal `templates` value used in target-type validation and branching.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -346,6 +349,7 @@
           "scope": "local",
           "name": "Local - Keyword Update",
           "type": "datatype.string",
+          "description": "Literal `update` value used in mode validation and branching.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -408,7 +412,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact URL match, with per-target reporting.\n\n**Run:** Import, attach a Meraki Endpoint target and API key, then review **Result** and **Final Report**.\n\n**Inputs** (case-sensitive): Organization Name or ID; Mode `update` or `delete`; Target Type `networks` or `templates`; Network Tag List (networks only, empty = all); Webhook URL; Webhook Name (update mode); optional Webhook Secret.\n\n**Behavior:** Up to **500 targets** per run. Update mode changes name/secret or creates when missing. Delete mode removes when found and skips when absent. Continues on per-target API failures.\n\n**Outputs:** Result (JSON), Final Report, Status Code, Status Message, Error Message. Per-target outcomes: updated, created, deleted, skipped, get_failed, apply_failed.",
+      "description": "Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact URL match, with per-target reporting.\n\n**Run:** Import, attach a Meraki Endpoint target and API key, then review **Result** and **Final Report**.\n\n**Inputs** (case-sensitive): Organization Name or ID; Mode `update` or `delete`; Target Type `networks` or `templates`; Network Tag List (networks only, empty = all); Webhook URL; Webhook Name (required for update, must be empty for delete); optional Webhook Secret.\n\n**Behavior:** Up to **500 targets** per run. Update mode changes name/secret or creates when missing. Delete mode removes when found and skips when absent. Continues on per-target API failures.\n\n**Outputs:** Result (JSON), Final Report, Status Code, Status Message, Error Message. Per-target outcomes: updated, created, deleted, skipped, get_failed, apply_failed.",
       "display_name": "Bulk Network Update or Delete Meraki Webhooks",
       "runtime_user": {
         "override_target_runtime_user": false,
@@ -430,7 +434,7 @@
         "base_type": "activity",
         "properties": {
           "continue_on_failure": false,
-          "description": "Validate mode and target type before organization lookup.",
+          "description": "Validate mode, target type, and webhook name before organization lookup.",
           "display_as_suggestion": false,
           "display_name": "Validate Inputs",
           "skip_execution": false
@@ -445,7 +449,7 @@
             "base_type": "activity",
             "properties": {
               "continue_on_failure": false,
-              "description": "Run mode and target-type validation checks in parallel.",
+              "description": "Run mode, target-type, and webhook-name validation checks in parallel.",
               "display_name": "Validate Inputs Parallel",
               "skip_execution": false
             },
@@ -679,37 +683,37 @@
               },
               {
                 "unique_name": "definition_activity_02X3ZOCA2IOQK6lsv6uh9LP4Uh6m5hF6qRw",
-                "name": "Validate Target Type Branch",
-                "title": "Validate Target Type Branch",
+                "name": "Validate Webhook Name on Update Branch",
+                "title": "Validate Webhook Name on Update Branch",
                 "type": "logic.parallel_block",
                 "base_type": "activity",
                 "properties": {
                   "continue_on_failure": false,
-                  "description": "Parallel branch that validates the target type input.",
-                  "display_name": "Validate Target Type Branch",
+                  "description": "Parallel branch that validates Webhook Name is provided when Mode is update.",
+                  "display_name": "Validate Webhook Name on Update Branch",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
                 "actions": [
                   {
                     "unique_name": "definition_activity_02X3ZOCA3M1UI6G2l35LhzwwMKlTG73kRw5",
-                    "name": "Check Invalid Target Type",
-                    "title": "Check missing name on update",
+                    "name": "Check Missing Webhook Name on Update",
+                    "title": "Check Missing Webhook Name on Update",
                     "type": "logic.if_else",
                     "base_type": "activity",
                     "properties": {
                       "conditions": [],
                       "continue_on_failure": false,
-                      "description": "Fail early when mode update but no name is provided",
-                      "display_name": "Check missing name on update",
+                      "description": "Fail early when Mode is update and Webhook Name is empty.",
+                      "display_name": "Check Missing Webhook Name on Update",
                       "skip_execution": false
                     },
                     "object_type": "definition_activity",
                     "blocks": [
                       {
                         "unique_name": "definition_activity_02X3ZOCA4SD1L3yybRoTgiqVcqocTa43ThV",
-                        "name": "Invalid Target Type",
-                        "title": "Invalid Target Type",
+                        "name": "Missing Webhook Name on Update",
+                        "title": "Missing Webhook Name on Update",
                         "type": "logic.condition_block",
                         "base_type": "activity",
                         "properties": {
@@ -727,8 +731,8 @@
                             }
                           },
                           "continue_on_failure": false,
-                          "description": "Target type is not networks or templates.",
-                          "display_name": "Invalid Target Type",
+                          "description": "Mode is update and Webhook Name is empty.",
+                          "display_name": "Missing Webhook Name on Update",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity",
@@ -736,13 +740,13 @@
                           {
                             "unique_name": "definition_activity_02X3ZOCA7ICIE5GcD8iN5HrKwVxRSPbjDf6",
                             "name": "Set Failure Outputs",
-                            "title": "Set Failure Outputs - Invalid Target Type",
+                            "title": "Set Failure Outputs - Missing Webhook Name on Update",
                             "type": "core.set_multiple_variables",
                             "base_type": "activity",
                             "properties": {
                               "continue_on_failure": false,
-                              "description": "Reject unsupported target type before org lookup",
-                              "display_name": "Set Failure Outputs - Invalid Target Type",
+                              "description": "Reject update mode when Webhook Name is not provided",
+                              "display_name": "Set Failure Outputs - Missing Webhook Name on Update",
                               "skip_execution": false,
                               "variables_to_update": [
                                 {
@@ -793,37 +797,37 @@
               },
               {
                 "unique_name": "definition_activity_02X8SEE345PPX6uYpm0PRLtxoEjFTkGlfRD",
-                "name": "Validate Target Type Branch",
-                "title": "Validate Target Type Branch",
+                "name": "Validate Webhook Name on Delete Branch",
+                "title": "Validate Webhook Name on Delete Branch",
                 "type": "logic.parallel_block",
                 "base_type": "activity",
                 "properties": {
                   "continue_on_failure": false,
-                  "description": "Parallel branch that validates the target type input.",
-                  "display_name": "Validate Target Type Branch",
+                  "description": "Parallel branch that validates Webhook Name is empty when Mode is delete.",
+                  "display_name": "Validate Webhook Name on Delete Branch",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
                 "actions": [
                   {
                     "unique_name": "definition_activity_02X8SEE35OBQ82WzptUnv3I5JEdUWKQixMO",
-                    "name": "Check Invalid Target Type",
-                    "title": "Check present name on delete",
+                    "name": "Check Present Webhook Name on Delete",
+                    "title": "Check Present Webhook Name on Delete",
                     "type": "logic.if_else",
                     "base_type": "activity",
                     "properties": {
                       "conditions": [],
                       "continue_on_failure": false,
-                      "description": "Fail early when mode is delete and a name is provided",
-                      "display_name": "Check present name on delete",
+                      "description": "Fail early when Mode is delete and Webhook Name is provided.",
+                      "display_name": "Check Present Webhook Name on Delete",
                       "skip_execution": false
                     },
                     "object_type": "definition_activity",
                     "blocks": [
                       {
                         "unique_name": "definition_activity_02X8SEE378ARS4O65TZwzZVbv8ekbfN9ktJ",
-                        "name": "Invalid Target Type",
-                        "title": "Invalid Target Type",
+                        "name": "Present Webhook Name on Delete",
+                        "title": "Present Webhook Name on Delete",
                         "type": "logic.condition_block",
                         "base_type": "activity",
                         "properties": {
@@ -841,8 +845,8 @@
                             }
                           },
                           "continue_on_failure": false,
-                          "description": "Target type is not networks or templates.",
-                          "display_name": "Invalid Target Type",
+                          "description": "Mode is delete and Webhook Name is not empty.",
+                          "display_name": "Present Webhook Name on Delete",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity",
@@ -850,18 +854,18 @@
                           {
                             "unique_name": "definition_activity_02X8SEE39CVNB5aczTGhXPBvS2zlbEjwGKV",
                             "name": "Set Failure Outputs",
-                            "title": "Set Failure Outputs - Invalid Target Type",
+                            "title": "Set Failure Outputs - Present Webhook Name on Delete",
                             "type": "core.set_multiple_variables",
                             "base_type": "activity",
                             "properties": {
                               "continue_on_failure": false,
-                              "description": "Reject unsupported target type before org lookup",
-                              "display_name": "Set Failure Outputs - Invalid Target Type",
+                              "description": "Reject delete mode when Webhook Name is provided",
+                              "display_name": "Set Failure Outputs - Present Webhook Name on Delete",
                               "skip_execution": false,
                               "variables_to_update": [
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
-                                  "variable_value_new": "Name is nont required in case selected mode is \"$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X8SIGQIL4SN4CVnaYbGpCZyIV2rTcoyfZ$\""
+                                  "variable_value_new": "Name is not required when selected mode is \"$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X8SIGQIL4SN4CVnaYbGpCZyIV2rTcoyfZ$\""
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
