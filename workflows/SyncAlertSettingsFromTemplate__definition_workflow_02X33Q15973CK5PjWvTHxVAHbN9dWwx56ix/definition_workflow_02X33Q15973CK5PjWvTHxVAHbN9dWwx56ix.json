@@ -221,6 +221,7 @@
           "scope": "local",
           "name": "Local - Keyword Replace",
           "type": "datatype.string",
+          "description": "Literal `replace` keyword used by Sync Mode validation regex.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -250,8 +251,9 @@
         "properties": {
           "value": "merge",
           "scope": "local",
-          "name": "Local - Keyworkd Merge",
+          "name": "Local - Keyword Merge",
           "type": "datatype.string",
+          "description": "Literal `merge` keyword used by Sync Mode validation regex.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -382,6 +384,7 @@
             "base_type": "activity",
             "properties": {
               "continue_on_failure": false,
+              "description": "Validate Sync Mode input against allowed merge/replace keywords.",
               "display_name": "Validate Sync Mode Branch",
               "skip_execution": false
             },
@@ -706,7 +709,7 @@
         "base_type": "activity",
         "properties": {
           "continue_on_failure": false,
-          "description": "Group",
+          "description": "Prepare source template and destinations in parallel, then load source alerts sequentially after template ID is stored.",
           "display_as_suggestion": false,
           "display_name": "Group",
           "skip_execution": false
@@ -735,6 +738,7 @@
                 "base_type": "activity",
                 "properties": {
                   "continue_on_failure": false,
+                  "description": "Resolve source configuration template ID from organization templates.",
                   "display_name": "Source Template Branch",
                   "skip_execution": false
                 },
@@ -964,6 +968,7 @@
                 "base_type": "activity",
                 "properties": {
                   "continue_on_failure": false,
+                  "description": "List tag-filtered destination networks and enforce the 500-network limit.",
                   "display_name": "Destination Networks Branch",
                   "skip_execution": false
                 },
@@ -1774,6 +1779,7 @@
                         "right_operand": true
                       },
                       "continue_on_failure": false,
+                      "description": "Dry-run enabled; skip Apply Alert Settings and record emulated outcome.",
                       "display_name": "Emulation Mode",
                       "skip_execution": false
                     },
