@@ -33,20 +33,20 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
    - **Webhook URL** — exact URL used to identify the webhook on each target
    - **Webhook Name** — required for `update` mode; must be empty for `delete` mode
    - **Webhook Secret** — optional shared secret for create/update
-   - **Emulation** — set to `true` to preview expected outcomes without applying update/create/delete changes
+   - **Dry-Run** — set to `true` to preview expected outcomes without applying update/create/delete changes
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
 ### Modes
 
-- **update** — If the webhook URL exists, update name and secret. If not found, create the webhook.
+- **update** — If the webhook URL exists, update name and secret. If not found, create the webhook on that target.
 - **delete** — If the webhook URL exists, delete it. If not found, skip the target (recorded as skipped).
 
-### Emulation
+### Dry-Run
 
-- Set **Emulation** to `true` to run organization lookup, target discovery, and webhook listing only.
+- Set **Dry-Run** to `true` to run organization lookup, target discovery, and webhook listing only.
 - The workflow reports what **would** happen (`updated`, `created`, `deleted`, or `skipped`) without calling update/create/delete APIs.
-- Per-target messages are prefixed with **Would … (emulation — no changes applied)** and **Final Report** includes an emulation banner.
+- Per-target messages are prefixed with **Would … (dry-run — no changes applied)** and **Final Report** includes a Dry-Run banner.
 
 ### Caveats and limitations
 
