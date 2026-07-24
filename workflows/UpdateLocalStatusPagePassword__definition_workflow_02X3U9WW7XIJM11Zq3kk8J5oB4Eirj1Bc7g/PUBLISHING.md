@@ -49,7 +49,7 @@ Short description: Bulk-update Meraki local status page settings on tag-filtered
 - Password complexity is validated before any API calls.
 - Maximum **500 networks** per run (platform loop limit). Listing uses Meraki pagination (`perPage` / starting-after) so the **For Each Network** loop stays within the approved workflow range; if a pagination token is returned, more than 500 networks matched and the run fails early with **Status Code** **400** — narrow tag selection and retry.
 - **Local Status Page Enabled** and **Remote Status Page Enabled** default to **true** in the workflow definition. Set them explicitly to **false** when you need those pages disabled.
-- Local status page **authentication** is set to **enabled** when username and password are applied via the Meraki API payload.
+- **Local - Allow LSP Access Without Login** (designer local variable, default **false**, recommended): When **false**, the workflow sends Meraki `localStatusPage.authentication.enabled` **true** (login required). When **true**, it sends **false** (status may be viewed without login). **Resolve Meraki LSP Auth Flag** applies this inversion before network updates.
 - Per-network API failures do not stop the run; inspect per-network outcomes in **Result**.
 - Zero matching networks produces Failed status.
 - Does not publish with a specific automation rule or target assigned.

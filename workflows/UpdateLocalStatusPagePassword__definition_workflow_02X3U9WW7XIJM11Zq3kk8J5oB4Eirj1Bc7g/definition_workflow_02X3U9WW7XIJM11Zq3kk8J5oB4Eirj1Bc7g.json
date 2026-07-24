@@ -171,8 +171,9 @@
         "properties": {
           "value": false,
           "scope": "local",
-          "name": "Local - LSP visibility w/o login",
+          "name": "Local - Allow LSP Access Without Login",
           "type": "datatype.boolean",
+          "description": "When false (recommended), Meraki local status page authentication stays on (login required for protected actions). When true, authentication is off and status information may be viewed without logging in.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -267,7 +268,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk-update Meraki local status page settings on tag-filtered networks (enabled flags, username, password with authentication enabled) after password complexity validation.\n\n**Run:** Meraki Endpoint target and API key; review **Result** and **Final Report**. See **PUBLISHING.md** for pagination, defaults, and security.\n\n**Inputs:** Organization (run wizard); Network Tags (empty = all); Local/Remote Status Page Enabled (default **true**); Password (min 14 chars, complexity rules).\n\n**Behavior:** Max **500** networks per run; listing pagination enforces the loop limit (\u003e500 matches → **400**). Retries without remote when unsupported; continues on per-network failures.\n\n**Security:** Password is plain text and may appear in run history.\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message. Per-network: updated, updated_no_remote, apply_failed.",
+      "description": "Bulk-update Meraki local status page settings on tag-filtered networks after password complexity validation.\n\n**Run:** Meraki Endpoint target and API key; review **Result** and **Final Report**.\n\n**Inputs:** Organization (run wizard); Network Tags (empty = all); Local/Remote Status Page Enabled (default **true**); Password (min 14 chars, complexity rules).\n\n**Behavior:** Max **500** networks per run; listing pagination enforces the platform loop limit (>500 tag matches → **400**). Local **Allow LSP Access Without Login** defaults **false** (recommended; Meraki authentication on). Retries without remote when unsupported; continues on per-network failures.\n\n**Security:** Password is plain text and may appear in run history.\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message. Per-network: updated, updated_no_remote, apply_failed.",
       "display_name": "Update Meraki Local Status Page",
       "runtime_user": {
         "override_target_runtime_user": false,
@@ -902,6 +903,32 @@
         "object_type": "definition_activity",
         "actions": [
           {
+            "unique_name": "definition_activity_02X9VTLSPAUTHMAP01",
+            "name": "Resolve Meraki LSP Auth Flag",
+            "title": "Resolve Meraki LSP Auth Flag",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "description": "Map Local - Allow LSP Access Without Login to Meraki localStatusPage.authentication.enabled (inverted).",
+              "display_name": "Resolve Meraki LSP Auth Flag",
+              "script": "\"\"\"Map allow-without-login to Meraki authentication.enabled (inverted).\"\"\"\nimport sys\n\n\ndef as_bool(raw):\n    return str(raw).strip().lower() in (\"true\", \"1\", \"yes\")\n\n\nallow_without_login = as_bool(sys.argv[1] if len(sys.argv) > 1 else \"false\")\nmeraki_auth_enabled = not allow_without_login\n",
+              "script_arguments": [
+                "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X9VTBF7OPEK65WFPj0CkuF5blqPLCoc80$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "meraki_auth_enabled",
+                  "script_query_name": "meraki_auth_enabled",
+                  "script_query_type": "boolean"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
             "unique_name": "definition_activity_02X3U9XRJYZT609uABPtyj6DWjDI35P9hi5",
             "name": "Convert Networks to Table",
             "title": "Convert Networks to Table",
@@ -963,7 +990,7 @@
                     "variable_workflow_02OARCEBL526G28KtKMI5ug5xmiMORwVLhH": "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
                     "variable_workflow_02OARCEBL52Y87QxmDWN8WPgnChymxe1yey": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T$",
                     "variable_workflow_02OARCEBL53Q052jgLtoDVp1fRxUtpYy5Qp": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLACMR2YWu0Im5lwQT1quAfxBdOf$",
-                    "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": $workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X9VTBF7OPEK65WFPj0CkuF5blqPLCoc80$,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
+                    "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": $activity.definition_activity_02X9VTLSPAUTHMAP01.output.script_queries.meraki_auth_enabled$,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
                     "variable_workflow_02OARCEBL559K0A31GlVj7qX6EWHpJ4iFaT": "{}",
                     "variable_workflow_02OARCEBL561C1HHlOuMCyUxUBFMcOR4AM0": "{}"
                   },
@@ -1039,7 +1066,7 @@
                             "variable_workflow_02OARCEBL526G28KtKMI5ug5xmiMORwVLhH": "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
                             "variable_workflow_02OARCEBL52Y87QxmDWN8WPgnChymxe1yey": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T$",
                             "variable_workflow_02OARCEBL53Q052jgLtoDVp1fRxUtpYy5Qp": "",
-                            "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": $workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X9VTBF7OPEK65WFPj0CkuF5blqPLCoc80$,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
+                            "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": $activity.definition_activity_02X9VTLSPAUTHMAP01.output.script_queries.meraki_auth_enabled$,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
                             "variable_workflow_02OARCEBL559K0A31GlVj7qX6EWHpJ4iFaT": "{}",
                             "variable_workflow_02OARCEBL561C1HHlOuMCyUxUBFMcOR4AM0": "{}"
                           },
