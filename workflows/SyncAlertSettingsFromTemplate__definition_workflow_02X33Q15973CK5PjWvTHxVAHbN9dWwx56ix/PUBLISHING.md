@@ -11,7 +11,7 @@ Short description: Sync alert settings from a Meraki configuration template to t
 - Meraki Dashboard API key with read/write access to the target organization
 - Meraki Endpoint target (for example `api.meraki.com`)
 - A configuration template network as the alert source (golden template)
-- Tags applied to destination networks that should receive the sync
+- Tags on destination networks when scoping the sync (optional—empty tag list processes all org networks, up to the per-run limit)
 
 ### Import and configure
 
@@ -26,8 +26,8 @@ Short description: Sync alert settings from a Meraki configuration template to t
 2. Select your Meraki Endpoint target when prompted.
 3. Provide inputs:
    - **Organization** — name or ID
-   - **Source Template** — template network name or ID
-   - **Destination Tags** — tags used to find target networks
+   - **Source Template** — exact template name (case-sensitive) or numeric template ID
+   - **Destination Tags** — tags to filter targets; leave empty to sync all organization networks (500 per-run cap still applies)
    - **Sync Mode** — `merge` or `replace` (case-sensitive)
    - **Dry-Run** — `true` to calculate only (default); set `false` to apply changes
 4. Click **Run** and monitor the **Runs** page.
