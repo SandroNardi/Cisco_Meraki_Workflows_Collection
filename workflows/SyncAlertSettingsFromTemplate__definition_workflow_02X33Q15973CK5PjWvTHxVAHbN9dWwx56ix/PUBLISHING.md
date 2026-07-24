@@ -2,7 +2,7 @@
 
 Display name: Sync Meraki Network Alert Settings
 
-Short description: Sync alert settings from a Meraki configuration template to tag-filtered destination networks. Validates webhooks, supports merge/replace modes and dry-run emulation, and reports per-network outcomes in Result and Formatted Report. Up to 500 networks per run.
+Short description: Sync alert settings from a Meraki configuration template to tag-filtered destination networks. Validates webhooks, supports merge/replace modes and dry-run, and reports per-network outcomes in Result and Formatted Report. Up to 500 networks per run.
 
 ## Installation instructions
 
@@ -29,7 +29,7 @@ Short description: Sync alert settings from a Meraki configuration template to t
    - **Source Template** — template network name or ID
    - **Destination Tags** — tags used to find target networks
    - **Sync Mode** — `merge` or `replace` (case-sensitive)
-   - **Emulation Mode** — `true` for dry-run (default); set `false` to apply changes
+   - **Dry-Run** — `true` to calculate only (default); set `false` to apply changes
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Formatted Report**, **Status Code**, **Status Message**, and **Error Message**.
 
@@ -38,14 +38,15 @@ Short description: Sync alert settings from a Meraki configuration template to t
 - Validates required webhook IDs exist on each destination before updating.
 - Skips networks that already match the source configuration.
 - Alert types present only on the destination (not on source) are kept and noted as source gaps.
-- Emulation Mode `true` calculates changes without calling the update API.
+- **Dry-Run** `true` calculates changes without calling the update API.
 
 ### Caveats and limitations
 
 - Maximum 500 destination networks per run. Narrow tag selection if exceeded.
-- Per-network failures produce Partial status; inspect per-network outcomes in **Result**.
+- Per-network failures set **Status Message** to **Partial** and **Status Code** to **207**, but the workflow run still **fails** on purpose so operators see that something went wrong. Use **Result** and **Formatted Report** for per-network detail.
+- **Dry-Run** is not shown at install (default `true` for safety). Change it on each run when you intend to apply updates.
 - Sync Mode values are case-sensitive (`merge`, `replace`).
-- Re-running with Emulation Mode `true` applies no changes (expected for dry-run).
+- Re-running with **Dry-Run** `true` applies no changes (expected).
 - Does not publish with a specific automation rule or target assigned.
 
 ### External links
