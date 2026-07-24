@@ -2,7 +2,7 @@
 
 Display name: Bulk Network Update or Delete Meraki Webhooks
 
-Short description: Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact URL. Reports per-target outcomes (updated, created, deleted, skipped, failed) in Result and Final Report. Up to 500 targets per run.
+Short description: Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact HTTPS URL. Validates inputs before org lookup; reports per-target outcomes (`updated`, `created`, `deleted`, `skipped`, `get_failed`, `apply_failed`) in **Result** and **Final Report**. Up to 500 targets per run.
 
 ## Installation instructions
 
@@ -10,69 +10,80 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
 
 - Meraki Dashboard API key with read/write access to the target organization
 - Meraki Endpoint target (for example `api.meraki.com`)
-- Exact webhook URL string used to locate the HTTP server on each target
-- For `update` operation: webhook name (required) and optional shared secret
-- For `delete` operation: webhook name must be left empty (matching is by URL only)
+- Exact **HTTPS** webhook URL string used to locate the HTTP server on each target
+- For **Operation** `update`: **Webhook Name** (required) and optional **Webhook Secret**
+- For **Operation** `delete`: **Webhook Name** must be empty (matching is by URL only)
 
 ### Import and configure
 
 1. Import the workflow from Git or Automation Exchange.
 2. In **Targets**, confirm your Meraki Endpoint target is configured.
 3. Attach your Meraki API key to the target.
-4. Clear any sample defaults before production use (Organization, Operation, Target Type, Webhook URL, Webhook Name).
+4. Clear any sample defaults before production use (**Organization Name or ID**, **Operation**, **Target Type**, **Webhook URL**, **Webhook Name**).
 
 ### Run
 
 1. Open **Workflows** and select **Bulk Network Update or Delete Meraki Webhooks**.
 2. Select your Meraki Endpoint target when prompted.
-3. Provide inputs:
+3. Provide inputs (all case-sensitive where noted):
    - **Organization Name or ID** — organization name or numeric ID
-   - **Operation** — `update` or `delete` (case-sensitive)
-   - **Target Type** — `networks` or `templates` (case-sensitive)
-   - **Network Tag List** — tags to filter networks (networks only; empty = all networks)
-   - **Webhook URL** — exact URL used to identify the webhook on each target
-   - **Webhook Name** — required for `update`; must be empty for `delete`
+   - **Operation** — `update` or `delete`
+   - **Target Type** — `networks` or `templates`
+   - **Network Tag List** — tags to filter networks when **Target Type** is `networks` (empty = all networks in scope)
+   - **Webhook URL** — exact HTTPS URL used to identify the webhook on each target
+   - **Webhook Name** — required when **Operation** is `update`; must be empty when **Operation** is `delete`
    - **Webhook Secret** — optional shared secret for create/update (see **Security** below)
-   - **Dry-Run** — set to `true` to preview expected outcomes without applying update/create/delete changes
+   - **Dry-Run** — set to `true` to preview expected outcomes without update/create/delete API calls
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
+### Input validation (preflight)
+
+Before organization lookup, **Validate Workflow Inputs** (Python) checks:
+
+- **Operation** is `update` or `delete`
+- **Target Type** is `networks` or `templates`
+- **Webhook URL** is present and a valid **HTTPS** URL
+- **Webhook Name** rules for the selected **Operation** (required on `update`, empty on `delete`)
+
+If validation fails, the run stops with **Status Code** **400**, **Status Message** **Failed**, **Error Message** listing all issues (multiple problems are combined in one message). **Final Report** and **Result** are populated from the validation script; the processing loop does not run.
+
 ### Operations
 
-- **update** — If the webhook URL exists, update name and secret. If not found, create the webhook on that target.
-- **delete** — If the webhook URL exists, delete it. If not found, skip the target (recorded as skipped).
+- **update** — If the webhook URL exists on the target, update name and secret. If the URL is not found, **create** the webhook on that target.
+- **delete** — If the webhook URL exists, delete it. If not found, skip the target (recorded as **skipped**).
 
 ### Target Type `templates`
 
-- When **Target Type** is `templates`, the workflow lists organization configuration templates and processes each template ID in the same per-target loop used for networks.
+- When **Target Type** is `templates`, the workflow lists organization configuration templates and processes each template ID in the same per-target loop used for **networks**.
 - List, create, update, and delete steps use the Meraki **network** webhooks HTTP server APIs with each template ID as the target identifier (validated in production testing).
-- **Network Tag List** is ignored for `templates`.
+- **Network Tag List** is ignored when **Target Type** is `templates`.
 
 ### Dry-Run
 
-- Set **Dry-Run** to `true` to run organization lookup, target discovery, and webhook listing only.
-- The workflow reports what **would** happen (`updated`, `created`, `deleted`, or `skipped`) without calling update/create/delete APIs.
-- Per-target messages are prefixed with **Would … (dry-run — no changes applied)** and **Final Report** includes a Dry-Run banner.
+- Set **Dry-Run** to `true` to run organization lookup, target discovery, and webhook listing; apply steps are simulated, not sent to the API.
+- Per-target rows report what would happen (`updated`, `created`, `deleted`, or `skipped`). Messages use **Would … (dry-run - no changes applied)** where applicable; **Final Report** includes a **Dry-Run** line.
 
 ### Partial success and run completion
 
 - The run **continues** when individual targets fail (list/get or apply errors). Inspect per-target rows in **Result** and **Final Report**.
-- **Status Message** is **Success** only when every processed target has an OK outcome (`updated`, `created`, `deleted`, or `skipped`).
+- OK per-target outcomes: `updated`, `created`, `deleted`, `skipped`. Failure outcomes include `get_failed` and `apply_failed`.
+- **Status Message** **Success** only when every processed target has an OK outcome.
 - **Status Message** **Partial** when at least one target succeeded and at least one failed — **Status Code** **207**.
 - **Status Message** **Failed** when no targets succeeded or none were processed — **Status Code** **500**.
-- For **Partial** or **Failed** bulk outcomes, the workflow run still **finishes** and writes **Result** / **Final Report**, but run completion is **failed-completed** (not **succeeded**). Treat **207** + **Partial** as a completed run with mixed results, not a full success.
-- Early validation or org/target discovery failures use **failed-completed** with **Status Code** **400** or **422** and do not enter the processing loop.
+- For **Partial** or **Failed** bulk outcomes, the run still completes and writes **Result** / **Final Report**, but workflow completion is **failed-completed** (not **succeeded**). Treat **207** + **Partial** as a finished run with mixed results, not a full success.
+- Input validation failures use **failed-completed** with **Status Code** **400**. Organization lookup or target-list limit failures use **422** (or related codes from those steps) and do not enter the per-target loop.
 
 ### Security
 
-- **Webhook Secret** is a plain text workflow input, not a platform secure string. The secret value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs. Limit run-history access and rotate secrets if exposure is a concern.
+- **Webhook Secret** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs. Do not use if iformation exposure in dashboard is a concern.
 
 ### Caveats and limitations
 
-- Webhook URL match is exact (including scheme and query string).
-- Maximum 500 targets per run (platform loop limit). Narrow tag selection if exceeded.
-- Per-target API failures do not stop the run; inspect per-target outcomes in **Result**.
-- Operation and Target Type values are case-sensitive.
+- **Webhook URL** match is exact (scheme, host, path, and query string). Only **https** URLs pass preflight validation.
+- Maximum **500 targets** per run (platform loop limit). Narrow **Network Tag List** or scope if exceeded.
+- Per-target API failures do not stop the run; inspect **Result** for each target.
+- **Operation**, **Target Type**, and keyword values are case-sensitive.
 - Does not publish with a specific automation rule or target assigned.
 
 ### External links

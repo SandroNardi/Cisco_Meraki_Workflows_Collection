@@ -47,7 +47,7 @@
           "type": "datatype.string",
           "description": "Meraki organization name or numeric ID.",
           "is_required": true,
-          "display_on_wizard": false,
+          "display_on_wizard": true,
           "is_invisible": false,
           "variable_string_format": "text"
         },
@@ -73,11 +73,11 @@
       {
         "schema_id": "datatype.integer",
         "properties": {
-          "value": 501,
+          "value": 500,
           "scope": "local",
           "name": "Local - Pagination",
           "type": "datatype.integer",
-          "description": "Meraki API perPage value (501). A pagination token indicates more than 500 networks matched.",
+          "description": "Meraki API perPage value for organization network listing. Pagination detects when more networks match than the workflow loop limit allows per run.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -93,7 +93,7 @@
           "scope": "input",
           "name": "Local Status Page Enabled",
           "type": "datatype.boolean",
-          "description": "Enable or disable the local status page on each network.",
+          "description": "Enable or disable the local status page on each network. Defaults to true when unset.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -109,7 +109,7 @@
           "scope": "input",
           "name": "Password",
           "type": "datatype.string",
-          "description": "Local status page password (min 14 chars, upper, lower, number, symbol).",
+          "description": "Local status page password (min 14 chars, upper, lower, number, symbol). Plain text; may appear in workflow run history.",
           "is_required": true,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -125,7 +125,7 @@
           "scope": "input",
           "name": "Remote Status Page Enabled",
           "type": "datatype.boolean",
-          "description": "Enable or disable the remote status page on each network.",
+          "description": "Enable or disable the remote status page on each network. Defaults to true when unset.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -252,7 +252,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk-update Meraki local status page settings on tag-filtered networks, including enabled flags, username, and password after upfront complexity validation.\n\n**Run:** Import, attach a Meraki Endpoint target and API key, then review **Result** and **Final Report**.\n\n**Inputs:** Organization Name or ID; Network Tags (empty = all); Local Status Page Enabled; Remote Status Page Enabled; Password (min 14 chars with upper, lower, number, symbol).\n\n**Behavior:** Up to **500 networks** per run. Retries without remote status page when unsupported. Continues on per-network API failures.\n\n**Outputs:** Result (JSON), Final Report, Status Code, Status Message, Error Message. Per-network outcomes: updated, updated_no_remote, apply_failed.",
+      "description": "Bulk-update Meraki local status page settings on tag-filtered networks, including enabled flags, username, and password (with local status page authentication enabled) after upfront complexity validation.\n\n**Run:** Import, attach a Meraki Endpoint target and API key, then review **Result** and **Final Report**.\n\n**Inputs:** Organization Name or ID (shown on run wizard); Network Tags (empty = all); **Local Status Page Enabled** and **Remote Status Page Enabled** (default **true**); Password (min 14 chars with upper, lower, number, symbol).\n\n**Behavior:** Up to **500 networks** per run (platform loop limit). Network listing uses Meraki pagination so the update loop stays within that approved range; a pagination token means too many matches. Retries without remote status page when unsupported. Continues on per-network API failures. More than 500 matching networks returns **Status Code** **400**.\n\n**Security:** **Password** is a plain-text input, not a platform secure string. It can appear in in-flight processing details and historic run records for users with run access.\n\n**Outputs:** Result (JSON), Final Report, Status Code, Status Message, Error Message. Per-network outcomes: updated, updated_no_remote, apply_failed.",
       "display_name": "Update Meraki Local Status Page",
       "runtime_user": {
         "override_target_runtime_user": false,
@@ -922,7 +922,7 @@
             "type": "logic.for_each",
             "base_type": "activity",
             "properties": {
-              "continue_on_failure": false,
+              "continue_on_failure": true,
               "description": "Update local status page settings on each matched network.",
               "display_name": "For Each Network",
               "skip_execution": false,
@@ -948,7 +948,7 @@
                     "variable_workflow_02OARCEBL526G28KtKMI5ug5xmiMORwVLhH": "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
                     "variable_workflow_02OARCEBL52Y87QxmDWN8WPgnChymxe1yey": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T$",
                     "variable_workflow_02OARCEBL53Q052jgLtoDVp1fRxUtpYy5Qp": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLACMR2YWu0Im5lwQT1quAfxBdOf$",
-                    "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": false,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
+                    "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": true,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
                     "variable_workflow_02OARCEBL559K0A31GlVj7qX6EWHpJ4iFaT": "{}",
                     "variable_workflow_02OARCEBL561C1HHlOuMCyUxUBFMcOR4AM0": "{}"
                   },
@@ -1024,7 +1024,7 @@
                             "variable_workflow_02OARCEBL526G28KtKMI5ug5xmiMORwVLhH": "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
                             "variable_workflow_02OARCEBL52Y87QxmDWN8WPgnChymxe1yey": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T$",
                             "variable_workflow_02OARCEBL53Q052jgLtoDVp1fRxUtpYy5Qp": "",
-                            "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": false,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
+                            "variable_workflow_02OARCEBL54HS2MWQEmjF5qfEFYiWhLwRvC": "{\"authentication\":{\n            \"enabled\": true,\n            \"username\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9$\",\n            \"password\": \"$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$\"\n}}",
                             "variable_workflow_02OARCEBL559K0A31GlVj7qX6EWHpJ4iFaT": "{}",
                             "variable_workflow_02OARCEBL561C1HHlOuMCyUxUBFMcOR4AM0": "{}"
                           },
