@@ -39,14 +39,14 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
 
 ### Input validation (preflight)
 
-Before organization lookup, **Validate Workflow Inputs** (Python) checks:
+Before organization lookup, the **Input validation** group checks (first failure stops the run):
 
 - **Operation** is `update` or `delete`
 - **Target Type** is `networks` or `templates`
 - **Webhook URL** is present and a valid **HTTPS** URL
-- **Webhook Name** rules for the selected **Operation** (required on `update`, empty on `delete`)
+- **Webhook Name** required on `update`; on `delete`, **Webhook Name** and **Webhook Secret** must be empty
 
-If validation fails, the run stops with **Status Code** **400**, **Status Message** **Failed**, **Error Message** listing all issues (multiple problems are combined in one message). **Final Report** and **Result** are populated from the validation script; the processing loop does not run.
+If validation fails, the run stops with **Status Code** **400**, **Status Message** **Failed**, **Error Message** describing the issue, and a short **Final Report** line. **Result** stays empty; the processing loop does not run. Completion is **failed-completed** (same as organization lookup failure).
 
 ### Operations
 

@@ -67,6 +67,11 @@ if operation == kw_delete and webhook_name:
         'Webhook Name must be empty when Operation is "' + kw_delete + '".'
     )
 
+if operation == kw_delete and arg(5):
+    errors.append(
+        'Webhook Secret must be empty when Operation is "' + kw_delete + '".'
+    )
+
 validation_failed = bool(errors)
 if len(errors) == 1:
     error_message = errors[0]
