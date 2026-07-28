@@ -2001,47 +2001,48 @@
           },
           {
             "unique_name": "definition_activity_02X33Q4LU66TE00uv0sn9ztThBqFPiBTfRU",
-            "name": "Check Overall Status",
-            "title": "Check Overall Status",
+            "name": "Complete Based on Report Status",
+            "title": "Complete Based on Report Status",
             "type": "logic.if_else",
             "base_type": "activity",
             "properties": {
               "continue_on_failure": false,
-              "description": "Check Overall Status.",
-              "display_name": "Check Overall Status",
+              "description": "Succeeded on 200; failed-completed on 207 partial bulk or 500 total bulk failure.",
+              "display_name": "Complete Based on Report Status",
               "skip_execution": false
             },
             "object_type": "definition_activity",
             "blocks": [
               {
                 "unique_name": "definition_activity_02X33Q4N603HT3j8BPBdXSsRQBhvnXYU4q2",
-                "name": "Overall Success",
-                "title": "Overall Success",
+                "name": "Bulk Run Success",
+                "title": "Bulk Run Success/200",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
                   "condition": {
-                    "left_operand": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.overall_status$",
+                    "left_operand": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.status_code$",
                     "operator": "eq",
-                    "right_operand": "Success"
+                    "right_operand": 200
                   },
                   "continue_on_failure": false,
-                  "display_name": "Overall Success",
+                  "description": "All destination networks synced successfully (status code 200).",
+                  "display_name": "Bulk Run Success/200",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
                 "actions": [
                   {
                     "unique_name": "definition_activity_02X33Q4OWNLHH6OYiqlSG4Txw9IHsHaxEBR",
-                    "name": "Complete Success",
-                    "title": "Complete Success",
+                    "name": "Complete Workflow",
+                    "title": "Complete - Finished",
                     "type": "logic.completed",
                     "base_type": "activity",
                     "properties": {
                       "completion_type": "succeeded",
                       "continue_on_failure": false,
-                      "description": "Complete Success.",
-                      "display_name": "Complete Success",
+                      "description": "Workflow finished after successful alert sync.",
+                      "display_name": "Complete - Finished",
                       "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
                       "skip_execution": false
                     },
@@ -2051,33 +2052,34 @@
               },
               {
                 "unique_name": "definition_activity_02X33Q4Q8G15F12MoIN5i1KHgZRAq9gFhen",
-                "name": "Overall Failure",
-                "title": "Overall Failure",
+                "name": "Bulk Run Partial",
+                "title": "Bulk Run Partial/207",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
                   "condition": {
-                    "left_operand": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
-                    "operator": "ne",
-                    "right_operand": "Success"
+                    "left_operand": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.status_code$",
+                    "operator": "eq",
+                    "right_operand": 207
                   },
                   "continue_on_failure": false,
-                  "display_name": "Overall Failure",
+                  "description": "Mixed network outcomes; partial bulk failure.",
+                  "display_name": "Bulk Run Partial/207",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
                 "actions": [
                   {
                     "unique_name": "definition_activity_02X33Q4RWIDLK0yWelSxpK0mbvGySDxPD8T",
-                    "name": "Complete With Errors",
-                    "title": "Complete With Errors",
+                    "name": "Complete Workflow",
+                    "title": "Complete - Partial bulk failure",
                     "type": "logic.completed",
                     "base_type": "activity",
                     "properties": {
                       "completion_type": "failed-completed",
                       "continue_on_failure": false,
-                      "description": "Complete With Errors.",
-                      "display_name": "Complete With Errors",
+                      "description": "Partial bulk failure after report generation.",
+                      "display_name": "Complete - Partial bulk failure",
                       "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
                       "skip_execution": false
                     },
@@ -2087,33 +2089,34 @@
               },
               {
                 "unique_name": "definition_activity_02XD4RI0J2WPM6ggRjyZe7FSiMsLQRU24w8",
-                "name": "Overall Failure",
-                "title": "Overall Failure",
+                "name": "Bulk Run Failed",
+                "title": "Bulk Run Failed/500",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
                   "condition": {
-                    "left_operand": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KO3PO6hGtKO42mxJiwdx0kdmcvL$",
-                    "operator": "ne",
-                    "right_operand": "Success"
+                    "left_operand": "$activity.definition_activity_02X33Q4IEDHYP7Uq9eA5LlgRlfhcFCcTfKF.output.script_queries.status_code$",
+                    "operator": "eq",
+                    "right_operand": 500
                   },
                   "continue_on_failure": false,
-                  "display_name": "Overall Failure",
+                  "description": "No successful networks or none processed.",
+                  "display_name": "Bulk Run Failed/500",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
                 "actions": [
                   {
                     "unique_name": "definition_activity_02XD4RI0L00Q33RRsLsiEXDbrxZyVU7aEjK",
-                    "name": "Complete With Errors",
-                    "title": "Complete With Errors",
+                    "name": "Complete Workflow",
+                    "title": "Complete - Total bulk failure",
                     "type": "logic.completed",
                     "base_type": "activity",
                     "properties": {
                       "completion_type": "failed-completed",
                       "continue_on_failure": false,
-                      "description": "Complete With Errors.",
-                      "display_name": "Complete With Errors",
+                      "description": "Total bulk failure after report generation.",
+                      "display_name": "Complete - Total bulk failure",
                       "result_message": "$workflow.definition_workflow_02X33Q15973CK5PjWvTHxVAHbN9dWwx56ix.output.variable_workflow_02X33Q15KQ3JN6ATulyX4HgcPw0EN8jrgeS$",
                       "skip_execution": false
                     },
