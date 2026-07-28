@@ -427,7 +427,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact URL, with per-target reporting.\n\n**Run:** Attach Meraki Endpoint target and API key; review **Result** and **Final Report**.\n\n**Inputs** (case-sensitive): Organization Name or ID (run wizard); Operation `update`/`delete`; Target Type `networks`/`templates`; Network Tag List (networks, empty=all); Webhook URL; Webhook Name (update only); optional Webhook Secret; **Dry-Run** defaults to **true** (preview only until set false).\n\n**Behavior:** Up to **500 targets** per run. Update creates the webhook when URL is missing. Delete skips absent URLs. Partial bulk failure is Status Code **207** and failed-completed. Total bulk failure is **500**.\n\n**Security:** Webhook Secret is plain text; it appears in processing details and historic runs (secure strings unsupported).\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message.",
+      "description": "Bulk update or delete Meraki webhook HTTP servers across tag-filtered networks or configuration templates by exact HTTPS URL, with per-target reporting.\n\nRequires Meraki Endpoint target and API key. Up to 500 targets per run; Dry-Run defaults to true. Partial bulk failure uses Status Code 207 (failed-completed); total failure uses 500.\n\nOutputs: Result, Final Report, Status Code, Status Message, Error Message. Webhook Secret is plain text and may appear in run history.",
       "display_name": "Bulk Network Update or Delete Meraki Webhooks",
       "runtime_user": {
         "override_target_runtime_user": false,

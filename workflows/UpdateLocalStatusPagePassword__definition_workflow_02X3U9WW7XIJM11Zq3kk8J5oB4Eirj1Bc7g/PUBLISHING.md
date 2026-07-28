@@ -1,76 +1,57 @@
-# Publishing — Update Meraki Local Status Page
+# Update Meraki Local Status Page
 
-Display name: Update Meraki Local Status Page
+Bulk-update local status page settings (enabled flags, username, password) on tag-filtered networks. Password complexity is checked before any API calls. Up to **500** networks per run.
 
-Short description: Bulk-update Meraki local status page settings on tag-filtered networks. Sets local and remote enabled flags, username, and password (with local status page authentication enabled) after upfront complexity validation. Retries without remote status page when unsupported. Up to 500 networks per run.
+## Prerequisites
 
-## Installation instructions
-
-### Prerequisites
-
-- Meraki Dashboard API key with read/write access to the target organization
+- Meraki Dashboard API key (read/write) for the target organization
 - Meraki Endpoint target (for example `api.meraki.com`)
-- Password meeting Meraki complexity rules (minimum 14 characters, uppercase, lowercase, number, symbol)
-- Optional network tags to filter destinations
+- Password meeting Meraki rules (14+ characters, upper, lower, number, symbol)
 
-### Import and configure
+## Install
 
-1. Import the workflow from Cisco Workflow / Automation Exchange.
-2. In **Targets**, confirm your Meraki Endpoint target is configured.
-3. Attach your Meraki API key to the target.
-4. Clear any sample defaults before production use (Organization, Password, Network Tags). Review enabled-flag defaults (see **Run** below).
-5. Username defaults to `admin` via a local workflow variable; edit in the designer if a different username is required.
+1. Import from **Cisco Workflow / Automation Exchange**.
+2. Configure the Meraki Endpoint **Target** and attach your API key.
+3. Clear sample defaults (organization, password, tags) before production use.
+4. Username defaults to `admin` (local variable); change in the designer if needed.
 
-### Run
+## Run
 
-1. Open **Workflows** and select **Update Meraki Local Status Page**.
-2. Select your Meraki Endpoint target when prompted.
-3. Provide inputs (only **Organization Name or ID** is shown on the run wizard by default; set other inputs in the designer or automation payload):
-   - **Organization Name or ID** — organization name or numeric ID (run wizard)
-   - **Network Tags** — tags to filter networks (empty = all networks)
-   - **Local Status Page Enabled** — defaults to **true** if not overridden
-   - **Remote Status Page Enabled** — defaults to **true** if not overridden
-   - **Password** — local status page password (validated before org lookup; see **Security** below)
-4. Click **Run** and monitor the **Runs** page.
-5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
+1. Select **Update Meraki Local Status Page** and your Meraki target.
+2. On the run wizard, provide **Organization Name or ID**; set other inputs in the designer or automation payload (tags, enabled flags, password).
+3. After the run, review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
-### Input validation and early failures
+**Defaults:** Local and remote status page enabled flags default to **true**. **Local - Allow LSP Access Without Login** (designer variable, default **false**) controls Meraki authentication on the status page (inverted before API calls).
 
-- Invalid **Password** (complexity rules) stops before org lookup with **Status Code** **400** (integer), **Status Message** **Failed**, and **Error Message** describing the issue.
-- Organization lookup, pagination over-limit (>500 matching networks), and network list failures set **Status Code** **400** (or from the failing step where applicable) and do not enter the per-network loop.
-- These paths complete as **failed-completed**; use **Final Report** and **Error Message** on the run (not only the completion message).
+## Status codes and completion
 
-### Run outcome and Status Code
+| Code | Status message | Run completes | Meaning |
+|------|----------------|---------------|---------|
+| 200 | Success | Succeeded | All networks updated |
+| 207 | Partial | Failed (partial bulk) | Mix of success and failure—see **Result** |
+| 500 | Failed | Failed (total bulk) | No successes or nothing processed |
+| 400 | Failed | Failed (early) | Invalid password, org/list errors, or >500 matches |
 
-- **Status Code** is an integer HTTP-style outcome: **200** (all networks updated successfully), **207** (partial per-network failures), **500** (total failure or no networks processed).
-- **Status Message** **Success** with **200** completes the run as **succeeded**.
-- **Partial** (**207**) completes as **failed-completed** (partial bulk failure); **Failed** (**500**) completes as **failed-completed** (total bulk failure). Inspect **Result** and **Final Report** for per-network detail.
+Early failures populate **Final Report** and **Error Message**; the per-network loop does not run.
 
-### Per-network behavior
+## Per-network outcomes
 
-- **Update succeeds (HTTP 200)** — recorded as `updated`
-- **Remote status page unsupported** — retries with remote disabled; success → `updated_no_remote`, failure → `apply_failed`
-- **Other API failure** — recorded as `apply_failed`; loop continues
+- `updated` — HTTP success on standard path  
+- `updated_no_remote` — success after retry with remote status page disabled  
+- `apply_failed` — update failed; loop continues  
 
-### Security
+## Security and limits
 
-- **Password** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs.
+- **Password** is plain text (not a platform secure string) and may appear in run history and processing details.
+- Listing uses pagination; more than **500** matching networks stops the run with **400**—narrow tags and retry.
 
-### Caveats and limitations
-
-- Password complexity is validated before any API calls.
-- Maximum **500 networks** per run (platform loop limit). Listing uses Meraki pagination (`perPage` / starting-after) so the **For Each Network** loop stays within the approved workflow range; if a pagination token is returned, more than 500 networks matched and the run fails early with **Status Code** **400** — narrow tag selection and retry.
-- **Local Status Page Enabled** and **Remote Status Page Enabled** default to **true** in the workflow definition. Set them explicitly to **false** when you need those pages disabled.
-- **Local - Allow LSP Access Without Login** (designer local variable, default **false**, recommended): When **false**, the workflow sends Meraki `localStatusPage.authentication.enabled` **true** (login required). When **true**, it sends **false** (status may be viewed without login). **Resolve Meraki LSP Auth Flag** applies this inversion before network updates.
-- Per-network API failures do not stop the loop; mixed outcomes set **Status Message** to **Partial** and **Status Code** to **207**. All failures or zero processed networks set **500**.
-- Per-network detail is in **Result**; summary text is in **Final Report**.
-- Does not publish with a specific automation rule or target assigned.
-
-### External links
+## API reference
 
 - [Update network settings](https://developer.cisco.com/meraki/api-v1/update-network-settings/)
 - [Get organization networks](https://developer.cisco.com/meraki/api-v1/get-organization-networks/)
 
-### Contact
+**Contact:** snardi@cisco.com
 
-snardi@cisco.com
+## Disclaimer
+
+This workflow is community-contributed and provided as-is. It is not a Cisco-supported product. Test in a non-production environment, confirm outcomes on your organizations, and use at your own discretion.

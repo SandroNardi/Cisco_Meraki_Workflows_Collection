@@ -266,7 +266,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk-update Meraki local status page settings on tag-filtered networks (enabled flags, username, password with authentication enabled) after password complexity validation.\n\n**Run:** Meraki Endpoint target and API key; review **Result** and **Final Report**. See **PUBLISHING.md** for pagination, defaults, and security.\n\n**Inputs:** Organization (run wizard); Network Tags (empty = all); Local/Remote Status Page Enabled (default **true**); Password (min 14 chars, complexity rules).\n\n**Behavior:** Max **500** networks per run; listing pagination enforces the loop limit (>500 matches → **400**). Retries without remote when unsupported; continues on per-network failures.\n\n**Security:** Password is plain text and may appear in run history.\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message. Per-network: updated, updated_no_remote, apply_failed.",
+      "description": "Bulk-update Meraki local status page settings on tag-filtered networks (enabled flags, username, password with authentication) after password complexity validation.\n\nRequires Meraki Endpoint target and API key at run time. Up to 500 networks per run; retries without remote status page when unsupported; continues on per-network failures.\n\nOutputs: Result, Final Report, Status Code (200/207/500 bulk, 400 early failure), Status Message, Error Message. Password is plain text and may appear in run history.",
       "display_name": "Update Meraki Local Status Page",
       "runtime_user": {
         "override_target_runtime_user": false,
@@ -283,14 +283,14 @@
       {
         "unique_name": "definition_activity_02XCB453CK0242aAeQPL4xzRUoewI9Y3lEz",
         "name": "Group",
-        "title": "Validate and process pass, org and networks",
+        "title": "Validate, organization, and networks",
         "type": "logic.group",
         "base_type": "activity",
         "properties": {
           "continue_on_failure": false,
           "description": "Group",
           "display_as_suggestion": false,
-          "display_name": "Validate and process pass, org and networks",
+          "display_name": "Validate, organization, and networks",
           "skip_execution": false
         },
         "object_type": "definition_activity",

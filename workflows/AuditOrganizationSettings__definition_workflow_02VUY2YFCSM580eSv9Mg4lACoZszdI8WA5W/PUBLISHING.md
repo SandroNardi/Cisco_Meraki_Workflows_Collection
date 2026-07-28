@@ -1,64 +1,46 @@
-# Publishing — Audit Organization Settings with Pagination
+# Audit Organization Settings with Pagination
 
-Display name: Audit Organization Settings with Pagination
+Read-only audit of Meraki organization security settings (SAML and login security) for every organization your API key can access. Paginated org list (**500** per page), parallel reads per org, continues when individual org calls fail.
 
-Short description: Read-only audit of Meraki organization security settings (API access, SAML SSO, login security) for every organization the API key can reach. Paginated org listing (500 per page), parallel per-org API calls, partial per-org failures allowed.
+## Prerequisites
 
-## Installation instructions
+- Meraki Dashboard API key with read access to organizations to audit
+- Meraki Endpoint target
 
-### Prerequisites
+## Install
 
-- Meraki Dashboard API key with read access to the organizations to audit
-- Meraki Endpoint target (for example `api.meraki.com`)
+1. Import from **Cisco Workflow / Automation Exchange**.
+2. Configure the Meraki Endpoint **Target** and API key.
+3. No run inputs beyond selecting the target.
 
-### Import and configure
+## Run
 
-1. Import the workflow from Cisco Workflow / Automation Exchange.
-2. In **Targets**, confirm your Meraki Endpoint target is configured.
-3. Attach your Meraki API key to the target.
-4. No run-time inputs are required beyond selecting the target.
+1. Select **Audit Organization Settings with Pagination** and your Meraki target.
+2. Click **Run** and review **Result**, **Status Code**, **Status Message**, and **Error Message**.
 
-### Run
+## Status codes and completion
 
-1. Open **Workflows** and select **Audit Organization Settings with Pagination**.
-2. Select your Meraki Endpoint target when prompted.
-3. Click **Run** and monitor the **Runs** page.
-4. Review **Result**, **Status Code**, **Status Message**, and **Error Message**.
+| Code | Status message | Run completes | Meaning |
+|------|----------------|---------------|---------|
+| 200 | Success | Succeeded | Every org row is `complete` |
+| 207 | Partial | Succeeded | Mixed org outcomes—see **Error Message** |
+| 500 | Failed | Failed | All org rows failed, empty data, or org list API not HTTP 200 |
 
-### Per-organization behavior
+Each **Result** row includes `outcome`: `complete`, `partial`, or `failed`, plus error fields when applicable.
 
-Each **Result** row includes `outcome`:
+## Limits
 
-- **complete** — SAML and login security settings retrieved (HTTP 200 on both).
-- **partial** — one of the two settings calls succeeded; the failed call adds `samlError` or `loginSecurityError` and the non-200 status code field.
-- **failed** — both settings calls failed; error details are recorded on the row.
+- Pagination size **500**; pagination loop timeout **900** seconds.
+- Read-only—no configuration changes.
 
-The loop continues after per-organization failures (`continue_on_failure` on **For Each Organization** and on the Meraki get-settings atomics).
-
-### Run-level outcomes
-
-| Status Code | Status Message | Workflow completion | Meaning |
-|-------------|----------------|---------------------|---------|
-| 200 | Success | Succeeded | Every organization row is `complete`. |
-| 207 | Partial | Succeeded | At least one org is `complete` or `partial`; see **Error Message** for counts. |
-| 500 | Failed | Failed (bulk) or Failed (empty) | All org rows `failed`, or no data collected, or organization list API not HTTP 200. |
-
-Organization list failure sets **Result** to `[]`, **Status Message** Failed, **Status Code** from the list atomic, and **Error Message** from the atomic.
-
-### Caveats and limitations
-
-- **Local - Queries per Page** is **500** (Meraki pagination size).
-- Pagination **while** loop **action timeout** is **900** seconds.
-- Parallel SAML and login-security calls run per organization for speed.
-- Read-only; no configuration changes are made.
-- Does not publish with a specific automation rule or target assigned.
-
-### External links
+## API reference
 
 - [Get organizations](https://developer.cisco.com/meraki/api-v1/get-organizations/)
 - [Get organization login security](https://developer.cisco.com/meraki/api-v1/get-organization-login-security/)
 - [Get organization SAML](https://developer.cisco.com/meraki/api-v1/get-organization-saml/)
 
-### Contact
+**Contact:** snardi@cisco.com
 
-snardi@cisco.com
+## Disclaimer
+
+This workflow is community-contributed and provided as-is. It is not a Cisco-supported product. Test in a non-production environment, confirm outcomes on your organizations, and use at your own discretion.

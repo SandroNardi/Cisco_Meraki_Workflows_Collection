@@ -347,7 +347,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Sync Meraki alert settings from a config template to destination networks, with webhook validation and dry-run support.\n\n**Inputs:** Organization (name or ID); Source Template (exact case-sensitive name or ID); Destination Tags (empty = all org networks); Sync Mode `merge` or `replace`; Dry-Run (`true` = calculate only, default; hidden at install, set per run).\n\n**Behavior:** Up to **500** networks per run. Validates webhook IDs on each destination, skips matching networks, notes destination-only alert types as source gaps.\n\n**Run outcome:** Success completes the run; **Partial** (**207**) or **Failed** (**500**) fail the run; see **Result**, **Formatted Report**, and **Error Message**.\n\n**Outputs:** Result (JSON), Formatted Report, Status Code, Status Message, Error Message. Per-network: applied, dry_run, no_change, invalid, apply_failed.",
+      "description": "Sync Meraki alert settings from a configuration template to tag-filtered destination networks, with webhook validation and dry-run support.\n\nRequires Meraki Endpoint target and API key. Up to 500 networks per run; Sync Mode merge or replace (required); Dry-Run defaults to true.\n\nOutputs: Result, Formatted Report, Status Code (200/207/500 bulk, 400/404/422 early failure), Status Message, Error Message.",
       "display_name": "Sync Meraki Network Alert Settings",
       "runtime_user": {
         "override_target_runtime_user": false,

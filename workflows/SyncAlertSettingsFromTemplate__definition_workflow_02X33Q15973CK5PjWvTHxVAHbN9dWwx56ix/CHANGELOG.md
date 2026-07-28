@@ -2,11 +2,11 @@
 
 Newest version first.
 
+## v1.1
+
+- Completion branches on integer **status_code** from **Format Final Report** (**200** succeeded, **207** partial bulk, **500** total bulk).
+- Exchange listing text and workflow description updated (no repository references).
+
 ## v1.0
 
-- Initial publish-ready workflow: sync alert settings from a configuration template to tag-filtered destination networks (merge or replace).
-- Webhook ID validation per destination, skip unchanged networks, source-gap reporting for destination-only alert types.
-- Per-network loop with continue-on-failure; **Result** JSON and **Formatted Report** from final report script (**Status Code** **200** / **207** / **500** as integers).
-- **Dry-Run** defaults to **true**; set **false** to apply API updates.
-- Run completes **succeeded** on full success; **failed-completed** on partial (207) or total failure (500) and early validation/lookup failures (400, 404, 422).
-- **PUBLISHING.md** with install, run, and outcome guidance for Automation Exchange.
+- Initial release: template-to-network alert sync (merge/replace), webhook validation, dry-run default **true**, per-network **Result** and **Formatted Report**, integer status codes.
