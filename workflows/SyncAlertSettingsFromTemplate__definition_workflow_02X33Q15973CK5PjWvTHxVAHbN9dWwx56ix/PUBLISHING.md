@@ -15,10 +15,10 @@ Short description: Sync alert settings from a Meraki configuration template to t
 
 ### Import and configure
 
-1. Import the workflow from Git or Automation Exchange.
+1. Import the workflow from Cisco Workflow / Automation Exchange.
 2. In **Targets**, confirm your Meraki Endpoint target is configured.
 3. Attach your Meraki API key to the target.
-4. Clear any sample defaults before production use (Organization, Source Template, Destination Tags).
+4. Set required inputs before production use (**Organization**, **Source Template**, **Destination Tags**, **Sync Mode**). Clear sample defaults where present.
 
 ### Run
 
@@ -28,10 +28,22 @@ Short description: Sync alert settings from a Meraki configuration template to t
    - **Organization** — name or ID
    - **Source Template** — exact template name (case-sensitive) or numeric template ID
    - **Destination Tags** — tags to filter targets; leave empty to sync all organization networks (500 per-run cap still applies)
-   - **Sync Mode** — `merge` or `replace` (case-sensitive)
+   - **Sync Mode** — `merge` or `replace` (case-sensitive; required, no default)
    - **Dry-Run** — `true` to calculate only (default); set `false` to apply changes
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Formatted Report**, **Status Code**, **Status Message**, and **Error Message**.
+
+### Input validation and early failures
+
+- Invalid **Sync Mode** stops with **Status Code** **400** (integer), **Status Message** **Failed**, and **Error Message** describing the issue. **Result** includes a minimal failed summary JSON.
+- Organization lookup, source template resolution, destination list, and source alert read failures set **Status Code** from the failing step (for example **404** or **422**) and do not enter the per-network loop.
+- Completion is **failed-completed** for these paths; use **Formatted Report** and **Error Message** on the run.
+
+### Run outcome and Status Code
+
+- **Status Code** is an integer HTTP-style outcome: **200** (all networks OK), **207** (partial per-network failures), **500** (total failure or no networks processed).
+- **Status Message** **Success** with **200** completes the run as **succeeded**.
+- **Partial** (**207**) or **Failed** (**500**) complete as **failed-completed** so operators investigate **Result** and **Formatted Report**.
 
 ### Behavior
 
