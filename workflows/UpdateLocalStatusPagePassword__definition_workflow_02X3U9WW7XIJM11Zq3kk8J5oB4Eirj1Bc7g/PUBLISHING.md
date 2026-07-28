@@ -15,7 +15,7 @@ Short description: Bulk-update Meraki local status page settings on tag-filtered
 
 ### Import and configure
 
-1. Import the workflow from Git or Automation Exchange.
+1. Import the workflow from Cisco Workflow / Automation Exchange.
 2. In **Targets**, confirm your Meraki Endpoint target is configured.
 3. Attach your Meraki API key to the target.
 4. Clear any sample defaults before production use (Organization, Password, Network Tags). Review enabled-flag defaults (see **Run** below).
@@ -34,6 +34,18 @@ Short description: Bulk-update Meraki local status page settings on tag-filtered
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
+### Input validation and early failures
+
+- Invalid **Password** (complexity rules) stops before org lookup with **Status Code** **400** (integer), **Status Message** **Failed**, and **Error Message** describing the issue.
+- Organization lookup, pagination over-limit (>500 matching networks), and network list failures set **Status Code** **400** (or from the failing step where applicable) and do not enter the per-network loop.
+- These paths complete as **failed-completed**; use **Final Report** and **Error Message** on the run (not only the completion message).
+
+### Run outcome and Status Code
+
+- **Status Code** is an integer HTTP-style outcome: **200** (all networks updated successfully), **207** (partial per-network failures), **500** (total failure or no networks processed).
+- **Status Message** **Success** with **200** completes the run as **succeeded**.
+- **Partial** (**207**) completes as **failed-completed** (partial bulk failure); **Failed** (**500**) completes as **failed-completed** (total bulk failure). Inspect **Result** and **Final Report** for per-network detail.
+
 ### Per-network behavior
 
 - **Update succeeds (HTTP 200)** — recorded as `updated`
@@ -42,7 +54,7 @@ Short description: Bulk-update Meraki local status page settings on tag-filtered
 
 ### Security
 
-- **Password** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs. Restrict run visibility and rotate passwords after use if exposure is a concern.
+- **Password** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs.
 
 ### Caveats and limitations
 
@@ -50,8 +62,8 @@ Short description: Bulk-update Meraki local status page settings on tag-filtered
 - Maximum **500 networks** per run (platform loop limit). Listing uses Meraki pagination (`perPage` / starting-after) so the **For Each Network** loop stays within the approved workflow range; if a pagination token is returned, more than 500 networks matched and the run fails early with **Status Code** **400** — narrow tag selection and retry.
 - **Local Status Page Enabled** and **Remote Status Page Enabled** default to **true** in the workflow definition. Set them explicitly to **false** when you need those pages disabled.
 - **Local - Allow LSP Access Without Login** (designer local variable, default **false**, recommended): When **false**, the workflow sends Meraki `localStatusPage.authentication.enabled` **true** (login required). When **true**, it sends **false** (status may be viewed without login). **Resolve Meraki LSP Auth Flag** applies this inversion before network updates.
-- Per-network API failures do not stop the run; inspect per-network outcomes in **Result**.
-- Zero matching networks produces Failed status.
+- Per-network API failures do not stop the loop; mixed outcomes set **Status Message** to **Partial** and **Status Code** to **207**. All failures or zero processed networks set **500**.
+- Per-network detail is in **Result**; summary text is in **Final Report**.
 - Does not publish with a specific automation rule or target assigned.
 
 ### External links

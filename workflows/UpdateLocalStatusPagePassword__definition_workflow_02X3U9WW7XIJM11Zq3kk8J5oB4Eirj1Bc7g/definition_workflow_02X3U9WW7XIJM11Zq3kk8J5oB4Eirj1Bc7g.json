@@ -266,7 +266,7 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Bulk-update Meraki local status page settings on tag-filtered networks (enabled flags, username, password with authentication enabled) after password complexity validation.\n\n**Run:** Meraki Endpoint target and API key; review **Result** and **Final Report**. See **PUBLISHING.md** for pagination, defaults, and security.\n\n**Inputs:** Organization (run wizard); Network Tags (empty = all); Local/Remote Status Page Enabled (default **true**); Password (min 14 chars, complexity rules).\n\n**Behavior:** Max **500** networks per run; listing pagination enforces the loop limit (\u003e500 matches → **400**). Retries without remote when unsupported; continues on per-network failures.\n\n**Security:** Password is plain text and may appear in run history.\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message. Per-network: updated, updated_no_remote, apply_failed.",
+      "description": "Bulk-update Meraki local status page settings on tag-filtered networks (enabled flags, username, password with authentication enabled) after password complexity validation.\n\n**Run:** Meraki Endpoint target and API key; review **Result** and **Final Report**. See **PUBLISHING.md** for pagination, defaults, and security.\n\n**Inputs:** Organization (run wizard); Network Tags (empty = all); Local/Remote Status Page Enabled (default **true**); Password (min 14 chars, complexity rules).\n\n**Behavior:** Max **500** networks per run; listing pagination enforces the loop limit (>500 matches → **400**). Retries without remote when unsupported; continues on per-network failures.\n\n**Security:** Password is plain text and may appear in run history.\n\n**Outputs:** Result, Final Report, Status Code, Status Message, Error Message. Per-network: updated, updated_no_remote, apply_failed.",
       "display_name": "Update Meraki Local Status Page",
       "runtime_user": {
         "override_target_runtime_user": false,
@@ -320,7 +320,7 @@
                   "action_timeout": 180,
                   "continue_on_failure": false,
                   "display_name": "Validate Password",
-                  "script": "\"\"\"Validate local status page password complexity (Meraki rules).\"\"\"\nimport sys\nimport re\n\npwd = sys.argv[1]\n\nis_valid = True\nif len(pwd) \u003c 14:\n    is_valid = False\nelif not re.search(r'[0-9]', pwd):\n    is_valid = False\nelif not re.search(r'[A-Z]', pwd):\n    is_valid = False\nelif not re.search(r'[a-z]', pwd):\n    is_valid = False\nelif not re.search(r'[!@#$%^\u0026*(),.?\":{}|\u003c\u003e]', pwd):\n    is_valid = False\n\nresult = is_valid\n",
+                  "script": "\"\"\"Validate local status page password complexity (Meraki rules).\"\"\"\nimport sys\nimport re\n\npwd = sys.argv[1]\n\nis_valid = True\nif len(pwd) < 14:\n    is_valid = False\nelif not re.search(r'[0-9]', pwd):\n    is_valid = False\nelif not re.search(r'[A-Z]', pwd):\n    is_valid = False\nelif not re.search(r'[a-z]', pwd):\n    is_valid = False\nelif not re.search(r'[!@#$%^&*(),.?\":{}|<>]', pwd):\n    is_valid = False\n\nresult = is_valid\n",
                   "script_arguments": [
                     "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCDPA3VJLPBnFXciKYHGx5dvkOU$"
                   ],
@@ -383,15 +383,15 @@
                           "variables_to_update": [
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$",
-                              "variable_value_new": "Password does not meet complexity requirements (length \u003e= 14, uppercase, lowercase, number, and symbol)."
+                              "variable_value_new": "Password does not meet complexity requirements (length >= 14, uppercase, lowercase, number, and symbol)."
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
-                              "variable_value_new": ""
+                              "variable_value_new": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$"
                             },
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.02X3U9WVUZEIQ4ljckb6BtmoE7dbj46uiP7$",
-                              "variable_value_new": "400"
+                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02XD4OULE3LNY7C5QxfNHHF9FhvVA7g3nai$",
+                              "variable_value_new": 400
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLC5PM7UrKuhrUuQ37MkQY3b7Anj$",
@@ -399,7 +399,7 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLBFN23qcgr64WowxlnjEMrE8Cf2$",
-                              "variable_value_new": "Password does not meet complexity requirements (length \u003e= 14, uppercase, lowercase, number, and symbol)."
+                              "variable_value_new": "Password does not meet complexity requirements (length >= 14, uppercase, lowercase, number, and symbol)."
                             }
                           ]
                         },
@@ -416,7 +416,7 @@
                           "continue_on_failure": false,
                           "description": "Stop workflow after password validation failure.",
                           "display_name": "Complete - Failed",
-                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$",
+                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity"
@@ -493,7 +493,7 @@
                       "condition": {
                         "left_operand": "$activity.definition_activity_02X3U9XE3XCXV5QISSrfuiFDY1WkXWXBW2a.output.variable_workflow_02M605GTHEWOW4TGG1xjMEivKqrrMbc2hM3$",
                         "operator": "eq",
-                        "right_operand": "200"
+                        "right_operand": 200
                       },
                       "continue_on_failure": false,
                       "description": "Organization lookup returned HTTP 200.",
@@ -535,7 +535,7 @@
                       "condition": {
                         "left_operand": "$activity.definition_activity_02X3U9XE3XCXV5QISSrfuiFDY1WkXWXBW2a.output.variable_workflow_02M605GTHEWOW4TGG1xjMEivKqrrMbc2hM3$",
                         "operator": "ne",
-                        "right_operand": "200"
+                        "right_operand": 200
                       },
                       "continue_on_failure": false,
                       "description": "Stop when organization lookup does not return HTTP 200.",
@@ -563,10 +563,10 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
-                              "variable_value_new": ""
+                              "variable_value_new": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$"
                             },
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.02X3U9WVUZEIQ4ljckb6BtmoE7dbj46uiP7$",
+                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02XD4OULE3LNY7C5QxfNHHF9FhvVA7g3nai$",
                               "variable_value_new": "$activity.definition_activity_02X3U9XE3XCXV5QISSrfuiFDY1WkXWXBW2a.output.variable_workflow_02M605GTHEWOW4TGG1xjMEivKqrrMbc2hM3$"
                             },
                             {
@@ -592,7 +592,7 @@
                           "continue_on_failure": false,
                           "description": "Stop workflow after blocking failure.",
                           "display_name": "Complete - Failed",
-                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$",
+                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity"
@@ -626,7 +626,7 @@
                 "base_type": "subworkflow",
                 "properties": {
                   "continue_on_failure": true,
-                  "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -\u003e User Profile -\u003e API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]\u003e If it was, attempt to extract the results and set the output variables\n[]\u003e If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
+                  "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]> If it was, attempt to extract the results and set the output variables\n[]> If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
                   "display_name": "List Networks",
                   "input": {
                     "variable_workflow_02L9TZH6C81473IDtFQ0NIzW3jmXrgchtN9": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLBOJK2DgVQUlQhWSVjQcZcq29ni$",
@@ -740,11 +740,11 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
-                              "variable_value_new": ""
+                              "variable_value_new": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$"
                             },
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.02X3U9WVUZEIQ4ljckb6BtmoE7dbj46uiP7$",
-                              "variable_value_new": "400"
+                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02XD4OULE3LNY7C5QxfNHHF9FhvVA7g3nai$",
+                              "variable_value_new": 400
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLC5PM7UrKuhrUuQ37MkQY3b7Anj$",
@@ -769,7 +769,7 @@
                           "continue_on_failure": false,
                           "description": "Stop workflow after blocking failure.",
                           "display_name": "Complete - Failed",
-                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$",
+                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity"
@@ -814,10 +814,10 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
-                              "variable_value_new": ""
+                              "variable_value_new": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$"
                             },
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.02X3U9WVUZEIQ4ljckb6BtmoE7dbj46uiP7$",
+                              "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02XD4OULE3LNY7C5QxfNHHF9FhvVA7g3nai$",
                               "variable_value_new": "$activity.definition_activity_02X3U9XLX75040OB8Zy3U8c74qjFNnndVup.output.variable_workflow_02L9TZH6C9HVU3eHnLNP91ZKEfJOnaYpBsh$"
                             },
                             {
@@ -843,7 +843,7 @@
                           "continue_on_failure": false,
                           "description": "Stop workflow after blocking failure.",
                           "display_name": "Complete - Failed",
-                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg$",
+                          "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity"
@@ -1037,7 +1037,7 @@
                           "continue_on_failure": false,
                           "description": "Record the outcome after retrying without remote status page enabled.",
                           "display_name": "Record Network Result - Retry Without Remote",
-                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\", \"204\"})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) \u003e 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) \u003e 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) \u003e 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) \u003e 6 else \"standard\").strip().lower()\n\nif str(status_code).strip() in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = str(status_code).strip()\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
+                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({200, 204})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) > 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) > 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) > 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) > 6 else \"standard\").strip().lower()\n\ntry:\n    code = int(str(status_code).strip() or 0)\nexcept (TypeError, ValueError):\n    code = 0\nif code in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = code\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
                           "script_arguments": [
                             "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs$",
                             "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
@@ -1110,7 +1110,7 @@
                           "continue_on_failure": false,
                           "description": "Record a successful network update.",
                           "display_name": "Record Network Result - Succeeded",
-                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\", \"204\"})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) \u003e 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) \u003e 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) \u003e 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) \u003e 6 else \"standard\").strip().lower()\n\nif str(status_code).strip() in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = str(status_code).strip()\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
+                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({200, 204})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) > 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) > 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) > 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) > 6 else \"standard\").strip().lower()\n\ntry:\n    code = int(str(status_code).strip() or 0)\nexcept (TypeError, ValueError):\n    code = 0\nif code in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = code\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
                           "script_arguments": [
                             "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs$",
                             "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
@@ -1183,7 +1183,7 @@
                           "continue_on_failure": false,
                           "description": "Record a failed network update from the initial API response.",
                           "display_name": "Record Network Result - Failed",
-                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\", \"204\"})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) \u003e 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) \u003e 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) \u003e 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) \u003e 6 else \"standard\").strip().lower()\n\nif str(status_code).strip() in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = str(status_code).strip()\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
+                          "script": "\"\"\"\nRecord LSP Network Result — append one per-network event (loop script).\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Network ID\n  argv[3]  Network name\n  argv[4]  HTTP status code (final attempt)\n  argv[5]  API error detail\n  argv[6]  Update path: standard | retry_no_remote\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({200, 204})\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef clean_detail(raw):\n    text = str(raw or \"\").strip()\n    if not text:\n        return \"\"\n    if text.startswith(\"[\") or text.startswith(\"{\"):\n        try:\n            parsed = json.loads(text)\n            if isinstance(parsed, list):\n                return \"; \".join(str(item) for item in parsed)\n            return str(parsed)\n        except Exception:\n            return text\n    return text\n\n\ndef build_message(outcome, status_code, detail):\n    labels = {\n        \"updated\": \"Local status page settings updated\",\n        \"updated_no_remote\": \"Updated after disabling remote status page\",\n        \"apply_failed\": \"Local status page update failed\",\n    }\n    message = labels.get(outcome, \"Local status page update failed\")\n    code = str(status_code).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    detail = clean_detail(detail)\n    if detail and outcome == \"apply_failed\":\n        message += \" — \" + detail\n    return message\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n\nnetwork_id = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip()\nnetwork_name = (sys.argv[3] if len(sys.argv) > 3 else \"\").strip()\nstatus_code = (sys.argv[4] if len(sys.argv) > 4 else \"\").strip()\nerror_detail = sys.argv[5] if len(sys.argv) > 5 else \"\"\nupdate_path = (sys.argv[6] if len(sys.argv) > 6 else \"standard\").strip().lower()\n\ntry:\n    code = int(str(status_code).strip() or 0)\nexcept (TypeError, ValueError):\n    code = 0\nif code in SUCCESS_CODES:\n    outcome = \"updated_no_remote\" if update_path == \"retry_no_remote\" else \"updated\"\n    success = True\nelse:\n    outcome = \"apply_failed\"\n    success = False\n\nentry = {\n    \"networkId\": network_id,\n    \"networkName\": network_name,\n    \"outcome\": outcome,\n    \"success\": success,\n    \"message\": build_message(outcome, status_code, error_detail),\n}\n\nif status_code:\n    entry[\"httpStatus\"] = code\n\nif update_path == \"retry_no_remote\":\n    entry[\"updatePath\"] = \"retry_no_remote\"\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
                           "script_arguments": [
                             "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs$",
                             "$activity.definition_activity_02X3U9XTKQYY101iEHBTZp6ng6ktCjCg5OM.input.source_array[@].id$",
@@ -1258,7 +1258,7 @@
               "continue_on_failure": false,
               "description": "Build human-readable report and structured JSON from processed network results.",
               "display_name": "Build Final Report",
-              "script": "\"\"\"\nFormat LSP Report — final workflow outputs.\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Organization Name or ID\n\nScript queries:\n  report, status_message, status_code, error_message, result_json\n\"\"\"\n\nimport sys\nimport json\n\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef item_success(item):\n    if \"success\" in item:\n        return bool(item.get(\"success\"))\n    return str(item.get(\"outcome\", \"\")).lower() in OK_OUTCOMES\n\n\ndef item_message(item):\n    return str(item.get(\"message\") or \"\").strip()\n\n\ndef count_outcomes(networks):\n    counts = {\n        \"updated\": 0,\n        \"updated_no_remote\": 0,\n        \"apply_failed\": 0,\n    }\n    for item in networks:\n        outcome = str(item.get(\"outcome\", \"apply_failed\")).lower()\n        if outcome in counts:\n            counts[outcome] += 1\n        else:\n            counts[\"apply_failed\"] += 1\n    return counts\n\n\ndef overall_status(networks):\n    if not networks:\n        return \"Failed\"\n    failed = sum(1 for network in networks if not item_success(network))\n    if failed == 0:\n        return \"Success\"\n    if failed \u003c len(networks):\n        return \"Partial\"\n    return \"Failed\"\n\n\ndef status_code_for(status):\n    if status == \"Success\":\n        return \"200\"\n    if status == \"Partial\":\n        return \"207\"\n    return \"500\"\n\n\ndef build_report(org, status, counts, networks):\n    lines = [\n        \"Local Status Page Bulk Update Report\",\n        \"Organization: \" + org,\n        \"Status: \" + status,\n        \"\",\n        \"Updated:              \" + str(counts[\"updated\"]),\n        \"Updated (no remote):  \" + str(counts[\"updated_no_remote\"]),\n        \"Failed:               \" + str(counts[\"apply_failed\"]),\n        \"\",\n        \"Details\",\n        \"-\" * 40,\n    ]\n\n    if not networks:\n        lines.append(\"No networks were processed.\")\n    else:\n        for item in sorted(\n            networks,\n            key=lambda x: str(x.get(\"networkName\") or x.get(\"networkId\", \"\")).lower(),\n        ):\n            name = item.get(\"networkName\") or item.get(\"networkId\") or \"unknown\"\n            outcome = item.get(\"outcome\", \"apply_failed\")\n            message = item_message(item)\n            line = str(name) + \" — \" + outcome\n            if message:\n                line += \" — \" + message\n            lines.append(line)\n\n    return \"\\n\".join(lines)\n\n\nreport = \"Error generating report.\"\nstatus_message = \"Failed\"\nstatus_code = \"500\"\nerror_message = \"Error generating report.\"\nresult_json = \"{}\"\n\ntry:\n    networks = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n    org = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip() or \"unknown\"\n\n    counts = count_outcomes(networks)\n    status_message = overall_status(networks)\n    status_code = status_code_for(status_message)\n\n    if status_message == \"Success\":\n        error_message = \"\"\n    elif not networks:\n        error_message = \"No networks were processed.\"\n    else:\n        error_message = str(counts[\"apply_failed\"]) + \" network(s) failed to update.\"\n\n    report = build_report(org, status_message, counts, networks)\n\n    result_json = json.dumps(\n        {\n            \"overallStatus\": status_message,\n            \"organization\": org,\n            \"total\": len(networks),\n            \"counts\": counts,\n            \"networks\": sorted(\n                networks,\n                key=lambda x: str(x.get(\"networkName\") or x.get(\"networkId\", \"\")).lower(),\n            ),\n        },\n        separators=(\",\", \":\"),\n    )\n\nexcept Exception as exc:\n    script_error = \"Error generating report: \" + str(exc)\n    report = script_error\n    status_message = \"Failed\"\n    status_code = \"500\"\n    error_message = script_error\n    result_json = json.dumps(\n        {\n            \"overallStatus\": \"Failed\",\n            \"organization\": (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip(),\n            \"total\": 0,\n            \"counts\": {},\n            \"networks\": [],\n            \"error\": script_error,\n        },\n        separators=(\",\", \":\"),\n    )\n",
+              "script": "\"\"\"\nFormat LSP Report — final workflow outputs.\n\n  argv[1]  Local - Processed Networks\n  argv[2]  Organization Name or ID\n\nScript queries:\n  report, status_message, status_code, error_message, result_json\n\"\"\"\n\nimport sys\nimport json\n\nOK_OUTCOMES = frozenset({\"updated\", \"updated_no_remote\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef item_success(item):\n    if \"success\" in item:\n        return bool(item.get(\"success\"))\n    return str(item.get(\"outcome\", \"\")).lower() in OK_OUTCOMES\n\n\ndef item_message(item):\n    return str(item.get(\"message\") or \"\").strip()\n\n\ndef count_outcomes(networks):\n    counts = {\n        \"updated\": 0,\n        \"updated_no_remote\": 0,\n        \"apply_failed\": 0,\n    }\n    for item in networks:\n        outcome = str(item.get(\"outcome\", \"apply_failed\")).lower()\n        if outcome in counts:\n            counts[outcome] += 1\n        else:\n            counts[\"apply_failed\"] += 1\n    return counts\n\n\ndef overall_status(networks):\n    if not networks:\n        return \"Failed\"\n    failed = sum(1 for network in networks if not item_success(network))\n    if failed == 0:\n        return \"Success\"\n    if failed < len(networks):\n        return \"Partial\"\n    return \"Failed\"\n\n\ndef status_code_for(status):\n    if status == \"Success\":\n        return 200\n    if status == \"Partial\":\n        return 207\n    return 500\n\n\ndef build_report(org, status, counts, networks):\n    lines = [\n        \"Local Status Page Bulk Update Report\",\n        \"Organization: \" + org,\n        \"Status: \" + status,\n        \"\",\n        \"Updated:              \" + str(counts[\"updated\"]),\n        \"Updated (no remote):  \" + str(counts[\"updated_no_remote\"]),\n        \"Failed:               \" + str(counts[\"apply_failed\"]),\n        \"\",\n        \"Details\",\n        \"-\" * 40,\n    ]\n\n    if not networks:\n        lines.append(\"No networks were processed.\")\n    else:\n        for item in sorted(\n            networks,\n            key=lambda x: str(x.get(\"networkName\") or x.get(\"networkId\", \"\")).lower(),\n        ):\n            name = item.get(\"networkName\") or item.get(\"networkId\") or \"unknown\"\n            outcome = item.get(\"outcome\", \"apply_failed\")\n            message = item_message(item)\n            line = str(name) + \" — \" + outcome\n            if message:\n                line += \" — \" + message\n            lines.append(line)\n\n    return \"\\n\".join(lines)\n\n\nreport = \"Error generating report.\"\nstatus_message = \"Failed\"\nstatus_code = 500\nerror_message = \"Error generating report.\"\nresult_json = \"{}\"\n\ntry:\n    networks = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n    org = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip() or \"unknown\"\n\n    counts = count_outcomes(networks)\n    status_message = overall_status(networks)\n    status_code = status_code_for(status_message)\n\n    if status_message == \"Success\":\n        error_message = \"\"\n    elif not networks:\n        error_message = \"No networks were processed.\"\n    elif status_message == \"Partial\":\n        error_message = (\n            str(counts[\"apply_failed\"])\n            + \" of \"\n            + str(len(networks))\n            + \" network(s) failed to update. See Result for per-network details.\"\n        )\n    else:\n        error_message = (\n            str(counts[\"apply_failed\"])\n            + \" network(s) failed to update. See Result for per-network details.\"\n        )\n\n    report = build_report(org, status_message, counts, networks)\n\n    result_json = json.dumps(\n        {\n            \"overallStatus\": status_message,\n            \"organization\": org,\n            \"total\": len(networks),\n            \"counts\": counts,\n            \"networks\": sorted(\n                networks,\n                key=lambda x: str(x.get(\"networkName\") or x.get(\"networkId\", \"\")).lower(),\n            ),\n        },\n        separators=(\",\", \":\"),\n    )\n\nexcept Exception as exc:\n    script_error = \"Error generating report: \" + str(exc)\n    report = script_error\n    status_message = \"Failed\"\n    status_code = 500\n    error_message = script_error\n    result_json = json.dumps(\n        {\n            \"overallStatus\": \"Failed\",\n            \"organization\": (sys.argv[2] if len(sys.argv) > 2 else \"\").strip(),\n            \"total\": 0,\n            \"counts\": {},\n            \"networks\": [],\n            \"error\": script_error,\n        },\n        separators=(\",\", \":\"),\n    )\n",
               "script_arguments": [
                 "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.local.variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs$",
                 "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.input.variable_workflow_02X3U9WWLCX0U4zJXV2urHgS7XWcZYYa1K3$"
@@ -1339,7 +1339,7 @@
             "base_type": "activity",
             "properties": {
               "continue_on_failure": false,
-              "description": "Mark workflow succeeded on full success or failed-completed on partial run.",
+              "description": "Succeeded on 200; failed-completed on 207 partial bulk or 500 total bulk failure.",
               "display_name": "Complete Based on Report Status",
               "skip_execution": false
             },
@@ -1348,18 +1348,18 @@
               {
                 "unique_name": "definition_activity_02X3U9Z8JVPRW1w9QBPDv9dw3CLDLTH3dcX",
                 "name": "Bulk Run Success",
-                "title": "Bulk Run Success",
+                "title": "Bulk Run Success/200",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
                   "condition": {
                     "left_operand": "$activity.definition_activity_02X3U9Z35UNTA46AQYOvrwSRNQrUImcwHvv.output.script_queries.status_code$",
                     "operator": "eq",
-                    "right_operand": "200"
+                    "right_operand": 200
                   },
                   "continue_on_failure": false,
-                  "description": "All networks updated successfully.",
-                  "display_name": "Bulk Run Success",
+                  "description": "All networks updated successfully (status code 200).",
+                  "display_name": "Bulk Run Success/200",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
@@ -1385,18 +1385,18 @@
               {
                 "unique_name": "definition_activity_02X3U9ZBRFG5S5QgILcieSOmfqkEi8I42EL",
                 "name": "Bulk Run Partial",
-                "title": "Bulk Run Partial",
+                "title": "Bulk Run Partial/207",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
                   "condition": {
                     "left_operand": "$activity.definition_activity_02X3U9Z35UNTA46AQYOvrwSRNQrUImcwHvv.output.script_queries.status_code$",
-                    "operator": "ne",
-                    "right_operand": "200"
+                    "operator": "eq",
+                    "right_operand": 207
                   },
                   "continue_on_failure": false,
-                  "description": "One or more networks failed to update.",
-                  "display_name": "Bulk Run Partial",
+                  "description": "Mixed network outcomes; partial bulk failure.",
+                  "display_name": "Bulk Run Partial/207",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
@@ -1404,14 +1404,51 @@
                   {
                     "unique_name": "definition_activity_02X3U9ZDKED6I6Y7sbZe3L3CFwND2Hv4pwL",
                     "name": "Complete Workflow",
-                    "title": "Complete - Finished with failures",
+                    "title": "Complete - Partial bulk failure",
                     "type": "logic.completed",
                     "base_type": "activity",
                     "properties": {
                       "completion_type": "failed-completed",
                       "continue_on_failure": false,
-                      "description": "Workflow finished with one or more network update failures.",
-                      "display_name": "Complete - Finished with failures",
+                      "description": "Partial bulk failure after report generation.",
+                      "display_name": "Complete - Partial bulk failure",
+                      "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02XLSPFAIL500BLOCK0001",
+                "name": "Bulk Run Failed",
+                "title": "Bulk Run Failed/500",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_02X3U9Z35UNTA46AQYOvrwSRNQrUImcwHvv.output.script_queries.status_code$",
+                    "operator": "eq",
+                    "right_operand": 500
+                  },
+                  "continue_on_failure": false,
+                  "description": "No successful networks or none processed.",
+                  "display_name": "Bulk Run Failed/500",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_02XLSPFAIL500COMPLETE001",
+                    "name": "Complete Workflow",
+                    "title": "Complete - Total bulk failure",
+                    "type": "logic.completed",
+                    "base_type": "activity",
+                    "properties": {
+                      "completion_type": "failed-completed",
+                      "continue_on_failure": false,
+                      "description": "Total bulk failure after report generation.",
+                      "display_name": "Complete - Total bulk failure",
                       "result_message": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c$",
                       "skip_execution": false
                     },
