@@ -16,24 +16,24 @@ Short description: Bulk update or delete Meraki webhook HTTP servers across tag-
 
 ### Import and configure
 
-1. Import the workflow from Git or Automation Exchange.
+1. Import the workflow from Cisco Workflow / Automation Exchange.
 2. In **Targets**, confirm your Meraki Endpoint target is configured.
 3. Attach your Meraki API key to the target.
-4. Clear any sample defaults before production use (**Organization Name or ID**, **Operation**, **Target Type**, **Webhook URL**, **Webhook Name**).
+4. Set required inputs before production use (**Organization Name or ID**, **Operation**, **Target Type**, **Webhook URL**, **Webhook Name** as applicable). **Operation** and **Target Type** have no default values.
 
 ### Run
 
 1. Open **Workflows** and select **Bulk Network Update or Delete Meraki Webhooks**.
 2. Select your Meraki Endpoint target when prompted.
 3. Provide inputs (all case-sensitive where noted):
-   - **Organization Name or ID** — organization name or numeric ID
-   - **Operation** — `update` or `delete`
-   - **Target Type** — `networks` or `templates`
+   - **Organization Name or ID** — organization name or numeric ID (shown on the run wizard; other inputs are set in the designer or automation payload)
+   - **Operation** — `update` or `delete` (required)
+   - **Target Type** — `networks` or `templates` (required)
    - **Network Tag List** — tags to filter networks when **Target Type** is `networks` (empty = all networks in scope)
    - **Webhook URL** — exact HTTPS URL used to identify the webhook on each target
    - **Webhook Name** — required when **Operation** is `update`; must be empty when **Operation** is `delete`
    - **Webhook Secret** — optional shared secret for create/update (see **Security** below)
-   - **Dry-Run** — set to `true` to preview expected outcomes without update/create/delete API calls
+   - **Dry-Run** — defaults to **true** (safe preview). Set to **false** to perform create, update, or delete API calls
 4. Click **Run** and monitor the **Runs** page.
 5. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
@@ -59,24 +59,24 @@ If validation fails, the run stops with **Status Code** **400**, **Status Messag
 - List, create, update, and delete steps use the Meraki **network** webhooks HTTP server APIs with each template ID as the target identifier (validated in production testing).
 - **Network Tag List** is ignored when **Target Type** is `templates`.
 
-### Dry-Run
+### Dry-Run (default on)
 
-- Set **Dry-Run** to `true` to run organization lookup, target discovery, and webhook listing; apply steps are simulated, not sent to the API.
+- **Dry-Run** defaults to **true** so first imports and test runs do not mutate webhooks. Set **Dry-Run** to **false** when you intend to apply changes.
+- When **Dry-Run** is **true**, the workflow runs organization lookup, target discovery, and webhook listing; apply steps are simulated, not sent to the API.
 - Per-target rows report what would happen (`updated`, `created`, `deleted`, or `skipped`). Messages use **Would … (dry-run - no changes applied)** where applicable; **Final Report** includes a **Dry-Run** line.
 
 ### Partial success and run completion
 
 - The run **continues** when individual targets fail (list/get or apply errors). Inspect per-target rows in **Result** and **Final Report**.
 - OK per-target outcomes: `updated`, `created`, `deleted`, `skipped`. Failure outcomes include `get_failed` and `apply_failed`.
-- **Status Message** **Success** only when every processed target has an OK outcome.
-- **Status Message** **Partial** when at least one target succeeded and at least one failed — **Status Code** **207**.
-- **Status Message** **Failed** when no targets succeeded or none were processed — **Status Code** **500**.
-- For **Partial** or **Failed** bulk outcomes, the run still completes and writes **Result** / **Final Report**, but workflow completion is **failed-completed** (not **succeeded**). Treat **207** + **Partial** as a finished run with mixed results, not a full success.
+- **Status Message** **Success** only when every processed target has an OK outcome (**Status Code** **200**); workflow completion **succeeded**.
+- **Status Message** **Partial** when at least one target succeeded and at least one failed — **Status Code** **207**. For bulk update/delete, partial completion is treated as a failed run (**failed-completed**); see **Error Message** and **Final Report**.
+- **Status Message** **Failed** when no targets succeeded or none were processed — **Status Code** **500**; completion **failed-completed**.
 - Input validation failures use **failed-completed** with **Status Code** **400**. Organization lookup or target-list limit failures use **422** (or related codes from those steps) and do not enter the per-target loop.
 
 ### Security
 
-- **Webhook Secret** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs. Do not use if iformation exposure in dashboard is a concern.
+- **Webhook Secret** is a plain text workflow input, not a platform secure string. The value can appear in **in-flight processing details** and in **historic run records** for anyone with access to workflow runs. Do not use if information exposure in the dashboard is a concern.
 
 ### Caveats and limitations
 
