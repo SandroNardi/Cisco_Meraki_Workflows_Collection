@@ -229,7 +229,7 @@
                     "atomic_subgroup": "Organizations"
                   },
                   "continue_on_failure": false,
-                  "description": "**Cisco Meraki - Get Organizations**\nRetrieve a list of organizations that the authenticated user has access to within their Meraki account. \nAn organization in Meraki represents a logical grouping of networks, devices, and settings that can be managed collectively.\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -\u003e User Profile -\u003e API Access.",
+                  "description": "**Cisco Meraki - Get Organizations**\nRetrieve a list of organizations that the authenticated user has access to within their Meraki account. \nAn organization in Meraki represents a logical grouping of networks, devices, and settings that can be managed collectively.\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.",
                   "display_name": "Meraki - Get Organizations",
                   "input": {
                     "variable_workflow_02LXK9KUOD0MH4qj4j062vm12gYmFb9y5N0": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQBKYT0A7RGW3rsmPgBNBwfcGONA$",
@@ -567,20 +567,28 @@
                           "skip_execution": false,
                           "variables_to_update": [
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
-                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXK894H3O8J3yilBiKcPzyVVXvutJAnO0$"
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02XD2JIN4M9EY5w26504y9AwLDzuSCXzmko$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXKZLXKLJFB451gVbqCxrIVfpczDAxuGy$"
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
                               "variable_value_new": "Failed"
                             },
                             {
-                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02XD2JIN4M9EY5w26504y9AwLDzuSCXzmko$",
-                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXKZLXKLJFB451gVbqCxrIVfpczDAxuGy$"
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
+                              "variable_value_new": "$activity.definition_activity_02VUY2YQIUCAX3gvORL1uG1iAcLIVY8RYZ2.output.variable_workflow_02LXK894H3O8J3yilBiKcPzyVVXvutJAnO0$"
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
                               "variable_value_new": "[]"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results$",
+                              "variable_value_new": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$"
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results_code$",
+                              "variable_value_new": "workflow-errored"
                             }
                           ]
                         },
@@ -636,7 +644,7 @@
               "continue_on_failure": false,
               "description": "Derives 200, 207, or 500 and messages for downstream branches.",
               "display_name": "Compute run status from audit table",
-              "script": "import sys\nimport json\n\ntable_str = sys.argv[1]\ntry:\n    rows = json.loads(table_str) if table_str else []\n    if not isinstance(rows, list):\n        rows = []\nexcept (TypeError, json.JSONDecodeError):\n    rows = []\n\ntotal = len(rows)\ncomplete = sum(1 for r in rows if r.get(\"outcome\") == \"complete\")\npartial = sum(1 for r in rows if r.get(\"outcome\") == \"partial\")\nfailed = sum(1 for r in rows if r.get(\"outcome\") == \"failed\")\n\nif total == 0:\n    status_code = 500\n    status_message = \"Failed\"\n    error_message = \"No organization audit data was collected.\"\nelif complete == total:\n    status_code = 200\n    status_message = \"Success\"\n    error_message = \"\"\nelif (complete + partial) \u003e 0:\n    status_code = 207\n    status_message = \"Partial\"\n    bits = []\n    if partial:\n        bits.append(\"%s organization(s) returned partial settings.\" % partial)\n    if failed:\n        bits.append(\"%s organization(s) returned no settings.\" % failed)\n    error_message = \" \".join(bits)\nelse:\n    status_code = 500\n    status_message = \"Failed\"\n    error_message = \"All %s organization(s) failed settings retrieval.\" % total\n\nresult = json.dumps(rows)\n",
+              "script": "import sys\nimport json\n\ntable_str = sys.argv[1]\ntry:\n    rows = json.loads(table_str) if table_str else []\n    if not isinstance(rows, list):\n        rows = []\nexcept (TypeError, json.JSONDecodeError):\n    rows = []\n\ntotal = len(rows)\ncomplete = sum(1 for r in rows if r.get(\"outcome\") == \"complete\")\npartial = sum(1 for r in rows if r.get(\"outcome\") == \"partial\")\nfailed = sum(1 for r in rows if r.get(\"outcome\") == \"failed\")\n\nif total == 0:\n    status_code = 500\n    status_message = \"Failed\"\n    error_message = \"No organization audit data was collected.\"\nelif complete == total:\n    status_code = 200\n    status_message = \"Success\"\n    error_message = \"\"\nelif (complete + partial) > 0:\n    status_code = 207\n    status_message = \"Partial\"\n    bits = []\n    if partial:\n        bits.append(\"%s organization(s) returned partial settings.\" % partial)\n    if failed:\n        bits.append(\"%s organization(s) returned no settings.\" % failed)\n    error_message = \" \".join(bits)\nelse:\n    status_code = 500\n    status_message = \"Failed\"\n    error_message = \"All %s organization(s) failed settings retrieval.\" % total\n\nresult = json.dumps(rows)\n",
               "script_arguments": [
                 "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.local.variable_workflow_02VUY2YFQD29V6wXO2N542iYreqlf7WIMCW$"
               ],
@@ -679,19 +687,23 @@
               "skip_execution": false,
               "variables_to_update": [
                 {
-                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
-                  "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.finalAggregatedData$"
+                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02XD2JIN4M9EY5w26504y9AwLDzuSCXzmko$",
+                  "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.status_code$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+                  "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.status_message$"
                 },
                 {
                   "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQC8UT05Azocx6iFmW8BnuQwDqS5$",
                   "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.error_message$"
                 },
                 {
-                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02XD2JIN4M9EY5w26504y9AwLDzuSCXzmko$",
-                  "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.status_code$"
+                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQDLCN4FzpYL7dO835cFVGElMOHY$",
+                  "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.finalAggregatedData$"
                 },
                 {
-                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.variable_workflow_02VUY2YFQCIZ23iO5CidYWCJW4r8plhuBF2$",
+                  "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results$",
                   "variable_value_new": "$activity.definition_activity_02VUY30HCUII76FEMe7wXbkRHIfIrVQL7qG.output.script_queries.status_message$"
                 }
               ]
@@ -732,6 +744,26 @@
                 "object_type": "definition_activity",
                 "actions": [
                   {
+                    "unique_name": "definition_activity_0234805648B98BBE85EC25DFB986",
+                    "name": "Set Variables",
+                    "title": "Set Workflow result code",
+                    "type": "core.set_multiple_variables",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Set Variables",
+                      "display_name": "Set Workflow result code",
+                      "skip_execution": false,
+                      "variables_to_update": [
+                        {
+                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results_code$",
+                          "variable_value_new": "completed-successfully"
+                        }
+                      ]
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
                     "unique_name": "definition_activity_02VVG6CZI57ED2dgYAB3hOmR1koIamtCpcN",
                     "name": "Completed",
                     "title": "Completed",
@@ -768,6 +800,26 @@
                 "object_type": "definition_activity",
                 "actions": [
                   {
+                    "unique_name": "definition_activity_029B57674553E5A979E1419B274B",
+                    "name": "Set Variables",
+                    "title": "Set Workflow result code",
+                    "type": "core.set_multiple_variables",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Set Variables",
+                      "display_name": "Set Workflow result code",
+                      "skip_execution": false,
+                      "variables_to_update": [
+                        {
+                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results_code$",
+                          "variable_value_new": "partially-completed"
+                        }
+                      ]
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
                     "unique_name": "definition_activity_02XD2KYJLZUH22DuLkGDDQBiCtPsxU8iLIn",
                     "name": "Completed",
                     "title": "Completed",
@@ -803,6 +855,26 @@
                 },
                 "object_type": "definition_activity",
                 "actions": [
+                  {
+                    "unique_name": "definition_activity_02263182F81FF9977389EDD01BBB",
+                    "name": "Set Variables",
+                    "title": "Set Workflow result code",
+                    "type": "core.set_multiple_variables",
+                    "base_type": "activity",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "description": "Set Variables",
+                      "display_name": "Set Workflow result code",
+                      "skip_execution": false,
+                      "variables_to_update": [
+                        {
+                          "variable_to_update": "$workflow.definition_workflow_02VUY2YFCSM580eSv9Mg4lACoZszdI8WA5W.output.workflow_results_code$",
+                          "variable_value_new": "completed-unsuccessfully"
+                        }
+                      ]
+                    },
+                    "object_type": "definition_activity"
+                  },
                   {
                     "unique_name": "definition_activity_02XD2L4K9AJ6X5k0fBcBTBvZPWfmrzoNs6x",
                     "name": "Completed",
