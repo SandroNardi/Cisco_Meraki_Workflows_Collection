@@ -521,7 +521,7 @@
                       "variables_to_update": [
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                          "variable_value_new": "400"
+                          "variable_value_new": 400
                         },
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -554,7 +554,8 @@
                       "continue_on_failure": false,
                       "description": "Stop workflow after input validation failure (invalid Operation).",
                       "display_name": "Complete - Validation Failed",
-                      "skip_execution": false
+                      "skip_execution": false,
+                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$"
                     },
                     "object_type": "definition_activity"
                   }
@@ -627,7 +628,7 @@
                       "variables_to_update": [
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                          "variable_value_new": "400"
+                          "variable_value_new": 400
                         },
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -660,7 +661,8 @@
                       "continue_on_failure": false,
                       "description": "Stop workflow after input validation failure (invalid Target Type).",
                       "display_name": "Complete - Validation Failed",
-                      "skip_execution": false
+                      "skip_execution": false,
+                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$"
                     },
                     "object_type": "definition_activity"
                   }
@@ -733,7 +735,7 @@
                       "variables_to_update": [
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                          "variable_value_new": "400"
+                          "variable_value_new": 400
                         },
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -766,7 +768,8 @@
                       "continue_on_failure": false,
                       "description": "Stop workflow after input validation failure (invalid Webhook URL).",
                       "display_name": "Complete - Validation Failed",
-                      "skip_execution": false
+                      "skip_execution": false,
+                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$"
                     },
                     "object_type": "definition_activity"
                   }
@@ -829,7 +832,7 @@
                       "variables_to_update": [
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                          "variable_value_new": "400"
+                          "variable_value_new": 400
                         },
                         {
                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -862,7 +865,8 @@
                       "continue_on_failure": false,
                       "description": "Stop workflow after input validation failure (Webhook Name required on update).",
                       "display_name": "Complete - Validation Failed",
-                      "skip_execution": false
+                      "skip_execution": false,
+                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$"
                     },
                     "object_type": "definition_activity"
                   }
@@ -941,7 +945,7 @@
                               "variables_to_update": [
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                                  "variable_value_new": "400"
+                                  "variable_value_new": 400
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -974,7 +978,8 @@
                               "continue_on_failure": false,
                               "description": "Stop workflow after input validation failure (delete with Webhook Name or Secret).",
                               "display_name": "Complete - Validation Failed",
-                              "skip_execution": false
+                              "skip_execution": false,
+                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$"
                             },
                             "object_type": "definition_activity"
                           }
@@ -1124,7 +1129,7 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
-                              "variable_value_new": ""
+                              "variable_value_new": "$activity.definition_activity_02X3TDEJU42YN0FJFYs5psWCWcgIRj8c62A.output.variable_workflow_02M626PI3Q2OV0mssfVdKVoL7b05VXvEYFK$"
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
@@ -1136,7 +1141,7 @@
                             },
                             {
                               "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAZAB3Fb9xgBQAcUwOPGOFLX9t9$",
-                              "variable_value_new": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$"
+                              "variable_value_new": ""
                             }
                           ]
                         },
@@ -1153,7 +1158,7 @@
                           "continue_on_failure": false,
                           "description": "Stop workflow after validation or lookup failure",
                           "display_name": "Complete - Failed",
-                          "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
+                          "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
                           "skip_execution": false
                         },
                         "object_type": "definition_activity"
@@ -1223,7 +1228,7 @@
                     "properties": {
                       "action_timeout": 180,
                       "continue_on_failure": true,
-                      "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -\u003e User Profile -\u003e API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]\u003e If it was, attempt to extract the results and set the output variables\n[]\u003e If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
+                      "description": "**Cisco Meraki - Networks - Get Organization Networks**\n\nList the networks that the user has privileges on in an organization\n\n**Target:** A Meraki Endpoint using HTTPS \"api.meraki.com\" port 443 and no path.\n\n**Account Key:** Meraki User API Key. API Key can be generated from Meraki Dashboard -> User Profile -> API Access.\n\nSteps:\n[] Sends Get Network request to Meraki\n[] Check if the request was successful:\n[]> If it was, attempt to extract the results and set the output variables\n[]> If it wasn't, return the error and marks the workflow as failed.\n\nNOTE: Empty attributes in the request are removed from the payload before sending to Meraki. \n\nMore information about this API: https://developer.cisco.com/meraki/api-v1/get-organization-networks/",
                       "display_name": "Get Networks",
                       "input": {
                         "variable_workflow_02L9TZH6C81473IDtFQ0NIzW3jmXrgchtN9": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X3TDDUHADW76Jo7U0z7gVN2Mr4u0w6s1Q$",
@@ -1384,11 +1389,11 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
-                                  "variable_value_new": ""
+                                  "variable_value_new": "Target count exceeds the per-run limit."
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                                  "variable_value_new": "422"
+                                  "variable_value_new": 422
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -1396,7 +1401,7 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAZAB3Fb9xgBQAcUwOPGOFLX9t9$",
-                                  "variable_value_new": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$"
+                                  "variable_value_new": ""
                                 }
                               ]
                             },
@@ -1413,7 +1418,7 @@
                               "continue_on_failure": false,
                               "description": "Stop workflow after validation or lookup failure",
                               "display_name": "Complete - Failed",
-                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
+                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
                               "skip_execution": false
                             },
                             "object_type": "definition_activity"
@@ -1457,7 +1462,7 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
-                                  "variable_value_new": ""
+                                  "variable_value_new": "$activity.definition_activity_02X3TDEWYULLB3xKvWPYIKuKmsuD1gkPXPh.output.variable_workflow_02L9TZH6C9OFH6vfd2aZL0UruYGmQNXc5Od$"
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
@@ -1469,7 +1474,7 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAZAB3Fb9xgBQAcUwOPGOFLX9t9$",
-                                  "variable_value_new": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$"
+                                  "variable_value_new": ""
                                 }
                               ]
                             },
@@ -1486,7 +1491,7 @@
                               "continue_on_failure": false,
                               "description": "Stop workflow after validation or lookup failure",
                               "display_name": "Complete - Failed",
-                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
+                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
                               "skip_execution": false
                             },
                             "object_type": "definition_activity"
@@ -1722,11 +1727,11 @@
                                         },
                                         {
                                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
-                                          "variable_value_new": ""
+                                          "variable_value_new": "Target count exceeds the per-run limit."
                                         },
                                         {
                                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
-                                          "variable_value_new": "422"
+                                          "variable_value_new": 422
                                         },
                                         {
                                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAIAG6ropCUrdIFh4f7mUAD39eD$",
@@ -1734,7 +1739,7 @@
                                         },
                                         {
                                           "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAZAB3Fb9xgBQAcUwOPGOFLX9t9$",
-                                          "variable_value_new": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$"
+                                          "variable_value_new": ""
                                         }
                                       ]
                                     },
@@ -1751,7 +1756,7 @@
                                       "continue_on_failure": false,
                                       "description": "Stop workflow after validation or lookup failure",
                                       "display_name": "Complete - Failed",
-                                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
+                                      "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
                                       "skip_execution": false
                                     },
                                     "object_type": "definition_activity"
@@ -1799,7 +1804,7 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
-                                  "variable_value_new": ""
+                                  "variable_value_new": "$activity.definition_activity_02X3TDFHCY0UH7axUltCylnzU7WrY9lNZcJ.output.variable_workflow_02LO4XQ0BC3RC6mTc6xxp9XgARF8A5UnTrz$"
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02XD3KVXAB7LL4b4fAe5jWbLg0BMEbD0iev$",
@@ -1811,7 +1816,7 @@
                                 },
                                 {
                                   "variable_to_update": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAZAB3Fb9xgBQAcUwOPGOFLX9t9$",
-                                  "variable_value_new": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$"
+                                  "variable_value_new": ""
                                 }
                               ]
                             },
@@ -1828,7 +1833,7 @@
                               "continue_on_failure": false,
                               "description": "Stop workflow after validation or lookup failure",
                               "display_name": "Complete - Failed",
-                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUHAV9H4zYzIi5mdnwzlxO3g4152j$",
+                              "result_message": "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.output.variable_workflow_02X3TDDUH8XRL6eL8G9tg1QgZjP4MCGH0NE$",
                               "skip_execution": false
                             },
                             "object_type": "definition_activity"
@@ -1965,7 +1970,7 @@
                           "continue_on_failure": false,
                           "description": "Find Target Webhook",
                           "display_name": "Find Target Webhook",
-                          "script": "\"\"\"\nFind Target Webhook — exact URL match in HTTP server list.\n\n  argv[1]  Webhook list JSON (Get Webhooks output)\n  argv[2]  Webhook URL\n\nScript query: webhook_id\n\"\"\"\n\nimport sys\nimport json\n\nwebhook_id = \"\"\n\ntry:\n    servers = json.loads(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n    if not isinstance(servers, list):\n        servers = []\nexcept Exception:\n    servers = []\n\ntarget_url = sys.argv[2] if len(sys.argv) \u003e 2 else \"\"\n\nfor server in servers:\n    if str(server.get(\"url\", \"\")) == target_url:\n        webhook_id = str(server.get(\"id\", \"\"))\n        break",
+                          "script": "\"\"\"\nFind Target Webhook \u2014 exact URL match in HTTP server list.\n\n  argv[1]  Webhook list JSON (Get Webhooks output)\n  argv[2]  Webhook URL\n\nScript query: webhook_id\n\"\"\"\n\nimport sys\nimport json\n\nwebhook_id = \"\"\n\ntry:\n    servers = json.loads(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n    if not isinstance(servers, list):\n        servers = []\nexcept Exception:\n    servers = []\n\ntarget_url = sys.argv[2] if len(sys.argv) > 2 else \"\"\n\nfor server in servers:\n    if str(server.get(\"url\", \"\")) == target_url:\n        webhook_id = str(server.get(\"id\", \"\"))\n        break",
                           "script_arguments": [
                             "$activity.definition_activity_02X3TDGB8N56238yqJKaLQYOzxtG2C9rmOD.output.variable_workflow_02OARCGPXSYVS7mtzWuTfQoAnOPAp7jpyMy$",
                             "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.input.variable_workflow_02X3TDDUH8SO16DUWNl5DX3QNllL0fTGzlo$"
@@ -2046,7 +2051,7 @@
                                   "continue_on_failure": false,
                                   "description": "Predict update, create, delete, or skip outcome from matched webhook ID and Operation.",
                                   "display_name": "Dry-Run Webhook Action",
-                                  "script": "\"\"\"\nDry-Run Webhook Action — predict apply outcome without mutating API state.\n\n  argv[1]  Local - Target Webhook ID (empty if not found)\n  argv[2]  Operation (update or delete)\n\nScript queries: status_code, performed_operation, error_message\n\"\"\"\n\nimport sys\n\nwebhook_id = (sys.argv[1] if len(sys.argv) \u003e 1 else \"\").strip()\noperation = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip().lower()\n\nstatus_code = \"\"\nerror_message = \"\"\nperformed_operation = \"\"\n\nif operation == \"update\":\n    if webhook_id:\n        performed_operation = \"update\"\n        status_code = \"200\"\n    else:\n        performed_operation = \"create\"\n        status_code = \"201\"\nelif operation == \"delete\":\n    if webhook_id:\n        performed_operation = \"delete\"\n        status_code = \"204\"\n    else:\n        performed_operation = \"skip\"\n        status_code = \"\"\nelse:\n    performed_operation = \"invalid\"\n    status_code = \"400\"\n    error_message = \"Unsupported operation for dry-run\"\n",
+                                  "script": "\"\"\"\nDry-Run Webhook Action \u2014 predict apply outcome without mutating API state.\n\n  argv[1]  Local - Target Webhook ID (empty if not found)\n  argv[2]  Operation (update or delete)\n\nScript queries: status_code, performed_operation, error_message\n\"\"\"\n\nimport sys\n\nwebhook_id = (sys.argv[1] if len(sys.argv) > 1 else \"\").strip()\noperation = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip().lower()\n\nstatus_code = \"\"\nerror_message = \"\"\nperformed_operation = \"\"\n\nif operation == \"update\":\n    if webhook_id:\n        performed_operation = \"update\"\n        status_code = \"200\"\n    else:\n        performed_operation = \"create\"\n        status_code = \"201\"\nelif operation == \"delete\":\n    if webhook_id:\n        performed_operation = \"delete\"\n        status_code = \"204\"\n    else:\n        performed_operation = \"skip\"\n        status_code = \"\"\nelse:\n    performed_operation = \"invalid\"\n    status_code = \"400\"\n    error_message = \"Unsupported operation for dry-run\"\n",
                                   "script_arguments": [
                                     "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X3TDDUHA4CY3jvA6eOupSUp2CMSG49sEd$",
                                     "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.input.variable_workflow_02X3TDDUH9VHS7BrzKX3v1dpNWxBEYNOPFc$"
@@ -2567,7 +2572,7 @@
                   "continue_on_failure": false,
                   "description": "Append one per-target result to the processed list JSON array.",
                   "display_name": "Record Target Result",
-                  "script": "\"\"\"\nRecord Webhook Result — append one per-target event (loop script).\n\n  argv[1]  Local - Processed List\n  argv[2]  Local - Current Target ID\n  argv[3]  Target Type\n  argv[4]  Local - Loop Status Code\n  argv[5]  Local - Loop Error Message\n  argv[6]  Local - Loop Performed Operation\n  argv[7]  Operation\n  argv[8]  Dry-Run\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\",\"201\",\"204\"})\nOK_OUTCOMES = frozenset({\"updated\", \"created\", \"deleted\", \"skipped\"})\nVALID_ACTIONS = frozenset({\"update\", \"create\", \"delete\", \"get\", \"skip\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef is_success(status_code):\n    return str(status_code).strip() in SUCCESS_CODES\n\n\ndef resolve_outcome(action, status_code):\n    action = action.strip().lower()\n\n    if action not in VALID_ACTIONS:\n        return \"invalid\", \"Unknown or missing loop operation\"\n\n    if action == \"skip\":\n        return \"skipped\", \"Webhook URL not found on target\"\n\n    if action == \"get\":\n        if is_success(status_code):\n            return \"invalid\", \"Get webhooks succeeded in failure branch\"\n        return \"get_failed\", \"Failed to list webhooks for target\"\n\n    if is_success(status_code):\n        labels = {\n            \"update\": (\"updated\", \"Webhook updated successfully\"),\n            \"create\": (\"created\", \"Webhook created successfully\"),\n            \"delete\": (\"deleted\", \"Webhook deleted successfully\"),\n        }\n        return labels[action]\n\n    labels = {\n        \"update\": (\"apply_failed\", \"Webhook update failed\"),\n        \"create\": (\"apply_failed\", \"Webhook create failed\"),\n        \"delete\": (\"apply_failed\", \"Webhook delete failed\"),\n    }\n    return labels[action]\n\n\ndef build_message(base_message, status_code, status_message):\n    message = base_message\n    code = str(status_code).strip()\n    detail = str(status_message).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    if detail:\n        message += \" — \" + detail\n    return message\n\n\ndef parse_bool(raw):\n    return str(raw).strip().lower() in (\"true\", \"1\", \"yes\")\n\n\ndef dry_run_message(outcome, base_message):\n    labels = {\n        \"updated\": \"Would update webhook (dry-run - no changes applied)\",\n        \"created\": \"Would create webhook (dry-run - no changes applied)\",\n        \"deleted\": \"Would delete webhook (dry-run - no changes applied)\",\n        \"skipped\": \"Would skip — webhook URL not found on target\",\n    }\n    return labels.get(outcome, base_message)\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n\ntarget_id = (sys.argv[2] if len(sys.argv) \u003e 2 else \"\").strip()\ntarget_type = (sys.argv[3] if len(sys.argv) \u003e 3 else \"\").strip().lower()\nstatus_code = (sys.argv[4] if len(sys.argv) \u003e 4 else \"\").strip()\nstatus_message = (sys.argv[5] if len(sys.argv) \u003e 5 else \"\").strip()\naction = (sys.argv[6] if len(sys.argv) \u003e 6 else \"\").strip().lower()\noperation = (sys.argv[7] if len(sys.argv) \u003e 7 else \"\").strip().lower()\ndry_run = parse_bool(sys.argv[8] if len(sys.argv) \u003e 8 else \"\")\n\noutcome, base_message = resolve_outcome(action, status_code)\nif dry_run and outcome in OK_OUTCOMES:\n    base_message = dry_run_message(outcome, base_message)\nmessage = build_message(base_message, status_code, status_message)\n\nentry = {\n    \"targetId\": target_id,\n    \"targetType\": target_type,\n    \"operation\": operation,\n    \"outcome\": outcome,\n    \"success\": outcome in OK_OUTCOMES,\n    \"message\": message,\n}\n\nif dry_run:\n    entry[\"dryRun\"] = True\n\nif status_code:\n    entry[\"httpStatus\"] = status_code\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
+                  "script": "\"\"\"\nRecord Webhook Result \u2014 append one per-target event (loop script).\n\n  argv[1]  Local - Processed List\n  argv[2]  Local - Current Target ID\n  argv[3]  Target Type\n  argv[4]  Local - Loop Status Code\n  argv[5]  Local - Loop Error Message\n  argv[6]  Local - Loop Performed Operation\n  argv[7]  Operation\n  argv[8]  Dry-Run\n\nScript query: updated_list\n\"\"\"\n\nimport sys\nimport json\n\nSUCCESS_CODES = frozenset({\"200\",\"201\",\"204\"})\nOK_OUTCOMES = frozenset({\"updated\", \"created\", \"deleted\", \"skipped\"})\nVALID_ACTIONS = frozenset({\"update\", \"create\", \"delete\", \"get\", \"skip\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef is_success(status_code):\n    return str(status_code).strip() in SUCCESS_CODES\n\n\ndef resolve_outcome(action, status_code):\n    action = action.strip().lower()\n\n    if action not in VALID_ACTIONS:\n        return \"invalid\", \"Unknown or missing loop operation\"\n\n    if action == \"skip\":\n        return \"skipped\", \"Webhook URL not found on target\"\n\n    if action == \"get\":\n        if is_success(status_code):\n            return \"invalid\", \"Get webhooks succeeded in failure branch\"\n        return \"get_failed\", \"Failed to list webhooks for target\"\n\n    if is_success(status_code):\n        labels = {\n            \"update\": (\"updated\", \"Webhook updated successfully\"),\n            \"create\": (\"created\", \"Webhook created successfully\"),\n            \"delete\": (\"deleted\", \"Webhook deleted successfully\"),\n        }\n        return labels[action]\n\n    labels = {\n        \"update\": (\"apply_failed\", \"Webhook update failed\"),\n        \"create\": (\"apply_failed\", \"Webhook create failed\"),\n        \"delete\": (\"apply_failed\", \"Webhook delete failed\"),\n    }\n    return labels[action]\n\n\ndef build_message(base_message, status_code, status_message):\n    message = base_message\n    code = str(status_code).strip()\n    detail = str(status_message).strip()\n    if code:\n        message += \" (HTTP \" + code + \")\"\n    if detail:\n        message += \" \u2014 \" + detail\n    return message\n\n\ndef parse_bool(raw):\n    return str(raw).strip().lower() in (\"true\", \"1\", \"yes\")\n\n\ndef dry_run_message(outcome, base_message):\n    labels = {\n        \"updated\": \"Would update webhook (dry-run - no changes applied)\",\n        \"created\": \"Would create webhook (dry-run - no changes applied)\",\n        \"deleted\": \"Would delete webhook (dry-run - no changes applied)\",\n        \"skipped\": \"Would skip \u2014 webhook URL not found on target\",\n    }\n    return labels.get(outcome, base_message)\n\n\nresults = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n\ntarget_id = (sys.argv[2] if len(sys.argv) > 2 else \"\").strip()\ntarget_type = (sys.argv[3] if len(sys.argv) > 3 else \"\").strip().lower()\nstatus_code = (sys.argv[4] if len(sys.argv) > 4 else \"\").strip()\nstatus_message = (sys.argv[5] if len(sys.argv) > 5 else \"\").strip()\naction = (sys.argv[6] if len(sys.argv) > 6 else \"\").strip().lower()\noperation = (sys.argv[7] if len(sys.argv) > 7 else \"\").strip().lower()\ndry_run = parse_bool(sys.argv[8] if len(sys.argv) > 8 else \"\")\n\noutcome, base_message = resolve_outcome(action, status_code)\nif dry_run and outcome in OK_OUTCOMES:\n    base_message = dry_run_message(outcome, base_message)\nmessage = build_message(base_message, status_code, status_message)\n\nentry = {\n    \"targetId\": target_id,\n    \"targetType\": target_type,\n    \"operation\": operation,\n    \"outcome\": outcome,\n    \"success\": outcome in OK_OUTCOMES,\n    \"message\": message,\n}\n\nif dry_run:\n    entry[\"dryRun\"] = True\n\nif status_code:\n    entry[\"httpStatus\"] = status_code\n\nresults.append(entry)\nupdated_list = json.dumps(results, separators=(\",\", \":\"))\n",
                   "script_arguments": [
                     "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X3TDDUHARFX2VvQ53uR55vMhtSI87Txwu$",
                     "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X3TDDUH924L4cczYLqbGYQLM52J72CE2v$",
@@ -2640,7 +2645,7 @@
               "continue_on_failure": false,
               "description": "Build human-readable report and structured JSON from processed targets.",
               "display_name": "Build Final Report",
-              "script": "\"\"\"\nFormat Webhook Report — final workflow outputs.\n\n  argv[1]  Local - Processed List\n  argv[2]  Operation\n  argv[3]  Target Type\n  argv[4]  Dry-Run\n\nScript queries:\n  report, status_message, status_code, error_message, result_json\n\"\"\"\n\nimport sys\nimport json\n\nOK_OUTCOMES = frozenset({\"updated\", \"created\", \"deleted\", \"skipped\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef item_message(item):\n    return str(item.get(\"message\") or item.get(\"description\") or \"\").strip()\n\n\ndef item_success(item):\n    if \"success\" in item:\n        return bool(item.get(\"success\"))\n    return str(item.get(\"outcome\", \"\")).lower() in OK_OUTCOMES\n\n\ndef count_outcomes(targets):\n    counts = {\n        \"updated\": 0,\n        \"created\": 0,\n        \"deleted\": 0,\n        \"skipped\": 0,\n        \"failed\": 0,\n    }\n    for item in targets:\n        outcome = str(item.get(\"outcome\", \"invalid\")).lower()\n        if outcome in counts:\n            counts[outcome] += 1\n        else:\n            counts[\"failed\"] += 1\n    return counts\n\n\ndef overall_status(targets):\n    if not targets:\n        return \"Failed\"\n    failed = sum(1 for target in targets if not item_success(target))\n    if failed == 0:\n        return \"Success\"\n    if failed \u003c len(targets):\n        return \"Partial\"\n    return \"Failed\"\n\n\ndef status_code_for(status):\n    if status == \"Success\":\n        return \"200\"\n    if status == \"Partial\":\n        return \"207\"\n    return \"500\"\n\n\ndef build_report(operation, target_type, status, counts, targets, dry_run=False):\n    lines = [\n        \"Webhook Bulk Report\",\n        \"Operation: \" + operation,\n        \"Target type: \" + target_type,\n        \"Dry-Run: \" + (\"yes - no changes were applied\" if dry_run else \"no\"),\n        \"Status: \" + status,\n        \"\",\n        \"Updated:  \" + str(counts[\"updated\"]),\n        \"Created:  \" + str(counts[\"created\"]),\n        \"Deleted:  \" + str(counts[\"deleted\"]),\n        \"Skipped:  \" + str(counts[\"skipped\"]),\n        \"Failed:   \" + str(counts[\"failed\"]),\n        \"\",\n        \"Details\",\n        \"-\" * 40,\n    ]\n\n    if not targets:\n        lines.append(\"No targets processed.\")\n    else:\n        for item in sorted(targets, key=lambda x: str(x.get(\"targetId\", \"\")).lower()):\n            target_id = item.get(\"targetId\", \"unknown\")\n            outcome = item.get(\"outcome\", \"invalid\")\n            message = item_message(item)\n            line = target_id + \" — \" + outcome\n            if message:\n                line += \" — \" + message\n            lines.append(line)\n\n    return \"\\n\".join(lines)\n\n\ndef parse_bool(raw):\n    return str(raw).strip().lower() in (\"true\", \"1\", \"yes\")\n\n\nreport = \"Error generating report.\"\nstatus_message = \"Failed\"\nstatus_code = \"500\"\nerror_message = \"Error generating report.\"\nresult_json = \"{}\"\n\ntry:\n    targets = parse_list(sys.argv[1] if len(sys.argv) \u003e 1 else \"[]\")\n    operation = (sys.argv[2] if len(sys.argv) \u003e 2 else \"update\").strip().lower()\n    target_type = (sys.argv[3] if len(sys.argv) \u003e 3 else \"networks\").strip().lower()\n    dry_run = parse_bool(sys.argv[4] if len(sys.argv) \u003e 4 else \"\")\n\n    counts = count_outcomes(targets)\n    status_message = overall_status(targets)\n    status_code = status_code_for(status_message)\n\n    if status_message == \"Success\":\n        error_message = \"\"\n    elif not targets:\n        error_message = \"No targets were processed.\"\n    elif status_message == \"Partial\":\n        error_message = (\n            \"Partial bulk failure: \"\n            + str(counts[\"failed\"])\n            + \" of \"\n            + str(len(targets))\n            + \" target(s) did not complete successfully.\"\n        )\n    else:\n        error_message = (\n            \"Bulk failure: all \"\n            + str(len(targets))\n            + \" target(s) failed; no successful \"\n            + operation\n            + \" operations.\"\n        )\n\n    report = build_report(operation, target_type, status_message, counts, targets, dry_run)\n\n    result_json = json.dumps(\n        {\n            \"overallStatus\": status_message,\n            \"operation\": operation,\n            \"targetType\": target_type,\n            \"dryRun\": dry_run,\n            \"total\": len(targets),\n            \"counts\": counts,\n            \"targets\": sorted(\n                targets,\n                key=lambda x: str(x.get(\"targetId\", \"\")).lower(),\n            ),\n        },\n        separators=(\",\", \":\"),\n    )\n\nexcept Exception as exc:\n    script_error = \"Error generating report: \" + str(exc)\n    report = script_error\n    status_message = \"Failed\"\n    status_code = \"500\"\n    error_message = script_error\n    result_json = json.dumps(\n        {\n            \"overallStatus\": \"Failed\",\n            \"mode\": (sys.argv[2] if len(sys.argv) \u003e 2 else \"update\").strip().lower(),\n            \"targetType\": (sys.argv[3] if len(sys.argv) \u003e 3 else \"networks\").strip().lower(),\n            \"total\": 0,\n            \"counts\": {},\n            \"targets\": [],\n            \"error\": script_error,\n        },\n        separators=(\",\", \":\"),\n    )\n",
+              "script": "\"\"\"\nFormat Webhook Report \u2014 final workflow outputs.\n\n  argv[1]  Local - Processed List\n  argv[2]  Operation\n  argv[3]  Target Type\n  argv[4]  Dry-Run\n\nScript queries:\n  report, status_message, status_code, error_message, result_json\n\"\"\"\n\nimport sys\nimport json\n\nOK_OUTCOMES = frozenset({\"updated\", \"created\", \"deleted\", \"skipped\"})\n\n\ndef parse_list(raw):\n    try:\n        data = json.loads(raw) if raw else []\n        return data if isinstance(data, list) else []\n    except Exception:\n        return []\n\n\ndef item_message(item):\n    return str(item.get(\"message\") or item.get(\"description\") or \"\").strip()\n\n\ndef item_success(item):\n    if \"success\" in item:\n        return bool(item.get(\"success\"))\n    return str(item.get(\"outcome\", \"\")).lower() in OK_OUTCOMES\n\n\ndef count_outcomes(targets):\n    counts = {\n        \"updated\": 0,\n        \"created\": 0,\n        \"deleted\": 0,\n        \"skipped\": 0,\n        \"failed\": 0,\n    }\n    for item in targets:\n        outcome = str(item.get(\"outcome\", \"invalid\")).lower()\n        if outcome in counts:\n            counts[outcome] += 1\n        else:\n            counts[\"failed\"] += 1\n    return counts\n\n\ndef overall_status(targets):\n    if not targets:\n        return \"Failed\"\n    failed = sum(1 for target in targets if not item_success(target))\n    if failed == 0:\n        return \"Success\"\n    if failed < len(targets):\n        return \"Partial\"\n    return \"Failed\"\n\n\ndef status_code_for(status):\n    if status == \"Success\":\n        return 200\n    if status == \"Partial\":\n        return 207\n    return 500\n\n\ndef build_report(operation, target_type, status, counts, targets, dry_run=False):\n    lines = [\n        \"Webhook Bulk Report\",\n        \"Operation: \" + operation,\n        \"Target type: \" + target_type,\n        \"Dry-Run: \" + (\"yes - no changes were applied\" if dry_run else \"no\"),\n        \"Status: \" + status,\n        \"\",\n        \"Updated:  \" + str(counts[\"updated\"]),\n        \"Created:  \" + str(counts[\"created\"]),\n        \"Deleted:  \" + str(counts[\"deleted\"]),\n        \"Skipped:  \" + str(counts[\"skipped\"]),\n        \"Failed:   \" + str(counts[\"failed\"]),\n        \"\",\n        \"Details\",\n        \"-\" * 40,\n    ]\n\n    if not targets:\n        lines.append(\"No targets processed.\")\n    else:\n        for item in sorted(targets, key=lambda x: str(x.get(\"targetId\", \"\")).lower()):\n            target_id = item.get(\"targetId\", \"unknown\")\n            outcome = item.get(\"outcome\", \"invalid\")\n            message = item_message(item)\n            line = target_id + \" \u2014 \" + outcome\n            if message:\n                line += \" \u2014 \" + message\n            lines.append(line)\n\n    return \"\\n\".join(lines)\n\n\ndef parse_bool(raw):\n    return str(raw).strip().lower() in (\"true\", \"1\", \"yes\")\n\n\nreport = \"Error generating report.\"\nstatus_message = \"Failed\"\nstatus_code = 500\nerror_message = \"Error generating report.\"\nresult_json = \"{}\"\n\ntry:\n    targets = parse_list(sys.argv[1] if len(sys.argv) > 1 else \"[]\")\n    operation = (sys.argv[2] if len(sys.argv) > 2 else \"update\").strip().lower()\n    target_type = (sys.argv[3] if len(sys.argv) > 3 else \"networks\").strip().lower()\n    dry_run = parse_bool(sys.argv[4] if len(sys.argv) > 4 else \"\")\n\n    counts = count_outcomes(targets)\n    status_message = overall_status(targets)\n    status_code = status_code_for(status_message)\n\n    if status_message == \"Success\":\n        error_message = \"\"\n    elif not targets:\n        error_message = \"No targets were processed.\"\n    elif status_message == \"Partial\":\n        error_message = (\n            \"Partial bulk failure: \"\n            + str(counts[\"failed\"])\n            + \" of \"\n            + str(len(targets))\n            + \" target(s) did not complete successfully.\"\n        )\n    else:\n        error_message = (\n            \"Bulk failure: all \"\n            + str(len(targets))\n            + \" target(s) failed; no successful \"\n            + operation\n            + \" operations.\"\n        )\n\n    report = build_report(operation, target_type, status_message, counts, targets, dry_run)\n\n    result_json = json.dumps(\n        {\n            \"overallStatus\": status_message,\n            \"operation\": operation,\n            \"targetType\": target_type,\n            \"dryRun\": dry_run,\n            \"total\": len(targets),\n            \"counts\": counts,\n            \"targets\": sorted(\n                targets,\n                key=lambda x: str(x.get(\"targetId\", \"\")).lower(),\n            ),\n        },\n        separators=(\",\", \":\"),\n    )\n\nexcept Exception as exc:\n    script_error = \"Error generating report: \" + str(exc)\n    report = script_error\n    status_message = \"Failed\"\n    status_code = 500\n    error_message = script_error\n    result_json = json.dumps(\n        {\n            \"overallStatus\": \"Failed\",\n            \"mode\": (sys.argv[2] if len(sys.argv) > 2 else \"update\").strip().lower(),\n            \"targetType\": (sys.argv[3] if len(sys.argv) > 3 else \"networks\").strip().lower(),\n            \"total\": 0,\n            \"counts\": {},\n            \"targets\": [],\n            \"error\": script_error,\n        },\n        separators=(\",\", \":\"),\n    )\n",
               "script_arguments": [
                 "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.local.variable_workflow_02X3TDDUHARFX2VvQ53uR55vMhtSI87Txwu$",
                 "$workflow.definition_workflow_02X3TDDU4YAOH3ENA1BshDhOYkQLpwbmLhk.input.variable_workflow_02X3TDDUH9VHS7BrzKX3v1dpNWxBEYNOPFc$",
@@ -2661,7 +2666,7 @@
                 {
                   "script_query": "status_code",
                   "script_query_name": "status_code",
-                  "script_query_type": "integer"
+                  "script_query_type": "number"
                 },
                 {
                   "script_query": "error_message",
@@ -2739,7 +2744,7 @@
                   "condition": {
                     "left_operand": "$activity.definition_activity_02X3TDHJC1H3A00LwLQSPOy9wXWROPpMg4P.output.script_queries.status_code$",
                     "operator": "eq",
-                    "right_operand": "200"
+                    "right_operand": 200
                   },
                   "continue_on_failure": false,
                   "description": "All targets succeeded; report status code is 200.",
@@ -2776,7 +2781,7 @@
                   "condition": {
                     "left_operand": "$activity.definition_activity_02X3TDHJC1H3A00LwLQSPOy9wXWROPpMg4P.output.script_queries.status_code$",
                     "operator": "eq",
-                    "right_operand": "207"
+                    "right_operand": 207
                   },
                   "continue_on_failure": false,
                   "description": "Mixed target outcomes; partial bulk update/delete failure.",
@@ -2813,7 +2818,7 @@
                   "condition": {
                     "left_operand": "$activity.definition_activity_02X3TDHJC1H3A00LwLQSPOy9wXWROPpMg4P.output.script_queries.status_code$",
                     "operator": "eq",
-                    "right_operand": "500"
+                    "right_operand": 500
                   },
                   "continue_on_failure": false,
                   "description": "No successful targets or no targets processed.",
