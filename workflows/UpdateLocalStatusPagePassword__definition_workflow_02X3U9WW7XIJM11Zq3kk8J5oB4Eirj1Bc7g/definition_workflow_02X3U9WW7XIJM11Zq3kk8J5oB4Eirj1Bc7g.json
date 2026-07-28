@@ -7,19 +7,51 @@
     "base_type": "workflow",
     "variables": [
       {
-        "schema_id": "datatype.boolean",
+        "schema_id": "datatype.string",
         "properties": {
-          "value": true,
-          "scope": "input",
-          "name": "Remote Status Page Enabled",
-          "type": "datatype.boolean",
-          "description": "Enable or disable the remote status page on each network. Defaults to true when unset.",
+          "value": "",
+          "scope": "output",
+          "name": "Status Message",
+          "type": "datatype.string",
+          "description": "Overall workflow status: Success, Partial, or Failed.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02X3U9WWLC5PM7UrKuhrUuQ37MkQY3b7Anj",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Org ID",
+          "type": "datatype.string",
+          "description": "Resolved organization ID from Organization Name or ID input.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
           "variable_string_format": ""
         },
-        "unique_name": "variable_workflow_02X3U9WWLACMR2YWu0Im5lwQT1quAfxBdOf",
+        "unique_name": "variable_workflow_02X3U9WWLBOJK2DgVQUlQhWSVjQcZcq29ni",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Organization Name or ID",
+          "type": "datatype.string",
+          "description": "Meraki organization name or numeric ID.",
+          "is_required": true,
+          "display_on_wizard": true,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02X3U9WWLCX0U4zJXV2urHgS7XWcZYYa1K3",
         "object_type": "variable_workflow"
       },
       {
@@ -38,19 +70,115 @@
         "object_type": "variable_workflow"
       },
       {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": true,
+          "scope": "input",
+          "name": "Remote Status Page Enabled",
+          "type": "datatype.boolean",
+          "description": "Enable or disable the remote status page on each network. Defaults to true when unset.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X3U9WWLACMR2YWu0Im5lwQT1quAfxBdOf",
+        "object_type": "variable_workflow"
+      },
+      {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "admin",
-          "scope": "local",
-          "name": "Local - Username",
+          "value": "",
+          "scope": "output",
+          "name": "Formatted Report",
           "type": "datatype.string",
-          "description": "Username for local status page authentication (default: admin).",
+          "description": "Human-readable summary of the bulk local status page run.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
           "variable_string_format": "text"
         },
-        "unique_name": "variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9",
+        "unique_name": "variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
+        "properties": {
+          "value": [],
+          "scope": "input",
+          "name": "Network Tags",
+          "type": "datatype.array",
+          "description": "Tags used to filter destination networks (withAnyTags). Empty = all networks.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X3U9WWL9QKM1LKRjXXHglheiaTF4C4qHL",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Local - Processed Networks",
+          "type": "datatype.string",
+          "description": "JSON array of per-network outcomes accumulated during the loop.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "json"
+        },
+        "unique_name": "variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Result",
+          "type": "datatype.string",
+          "description": "Structured JSON summary and per-network failure details.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "json"
+        },
+        "unique_name": "variable_workflow_02X3U9WWLBFN23qcgr64WowxlnjEMrE8Cf2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 500,
+          "scope": "local",
+          "name": "Local - Pagination",
+          "type": "datatype.integer",
+          "description": "Meraki API perPage value for organization network listing. Pagination detects when more networks match than the workflow loop limit allows per run.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X4004640KK71iMhwhlsIiyI8hg9AWIDd9",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": true,
+          "scope": "input",
+          "name": "Local Status Page Enabled",
+          "type": "datatype.boolean",
+          "description": "Enable or disable the local status page on each network. Defaults to true when unset.",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T",
         "object_type": "variable_workflow"
       },
       {
@@ -74,47 +202,15 @@
         "properties": {
           "value": "",
           "scope": "local",
-          "name": "Local - Org ID",
+          "name": "Local - Starting After",
           "type": "datatype.string",
-          "description": "Resolved organization ID from Organization Name or ID input.",
+          "description": "Pagination cursor for organization network listing.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
           "variable_string_format": ""
         },
-        "unique_name": "variable_workflow_02X3U9WWLBOJK2DgVQUlQhWSVjQcZcq29ni",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "local",
-          "name": "Local - Processed Networks",
-          "type": "datatype.string",
-          "description": "JSON array of per-network outcomes accumulated during the loop.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": "json"
-        },
-        "unique_name": "variable_workflow_02X3U9WWLA25V3ub5ydiBHMUrY7fuR98oJs",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "variable_type_array_01JhSTW61I3ZU2IfL7dwQox83eFDzE1qUiA",
-        "properties": {
-          "value": [],
-          "scope": "input",
-          "name": "Network Tags",
-          "type": "datatype.array",
-          "description": "Tags used to filter destination networks (withAnyTags). Empty = all networks.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWL9QKM1LKRjXXHglheiaTF4C4qHL",
+        "unique_name": "variable_workflow_02X3U9WWLCO1P3gKSceJIAob7ilkl8t5JAG",
         "object_type": "variable_workflow"
       },
       {
@@ -122,15 +218,31 @@
         "properties": {
           "value": "",
           "scope": "output",
-          "name": "Result",
+          "name": "Error Message",
           "type": "datatype.string",
-          "description": "Structured JSON summary and per-network failure details.",
+          "description": "Blocking error detail when the workflow fails early.",
           "is_required": false,
           "display_on_wizard": false,
           "is_invisible": false,
-          "variable_string_format": "json"
+          "variable_string_format": "text"
         },
-        "unique_name": "variable_workflow_02X3U9WWLBFN23qcgr64WowxlnjEMrE8Cf2",
+        "unique_name": "variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "admin",
+          "scope": "local",
+          "name": "Local - Username",
+          "type": "datatype.string",
+          "description": "Username for local status page authentication (default: admin).",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02X3U9WWLD5292zN7wH5rrFS7EfjR1SkZk9",
         "object_type": "variable_workflow"
       },
       {
@@ -146,118 +258,6 @@
           "variable_string_format": ""
         },
         "unique_name": "variable_workflow_02XD4OULE3LNY7C5QxfNHHF9FhvVA7g3nai",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.boolean",
-        "properties": {
-          "value": true,
-          "scope": "input",
-          "name": "Local Status Page Enabled",
-          "type": "datatype.boolean",
-          "description": "Enable or disable the local status page on each network. Defaults to true when unset.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWLAVPK2wgaDJnY93SGMhqYOPp45T",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "output",
-          "name": "Error Message",
-          "type": "datatype.string",
-          "description": "Blocking error detail when the workflow fails early.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWLB5ZW79DNAR7JEgjcyj7LLGpIeg",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "local",
-          "name": "Local - Starting After",
-          "type": "datatype.string",
-          "description": "Pagination cursor for organization network listing.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWLCO1P3gKSceJIAob7ilkl8t5JAG",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.integer",
-        "properties": {
-          "value": 500,
-          "scope": "local",
-          "name": "Local - Pagination",
-          "type": "datatype.integer",
-          "description": "Meraki API perPage value for organization network listing. Pagination detects when more networks match than the workflow loop limit allows per run.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X4004640KK71iMhwhlsIiyI8hg9AWIDd9",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "output",
-          "name": "Status Message",
-          "type": "datatype.string",
-          "description": "Overall workflow status: Success, Partial, or Failed.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWLC5PM7UrKuhrUuQ37MkQY3b7Anj",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "output",
-          "name": "Formatted Report",
-          "type": "datatype.string",
-          "description": "Human-readable summary of the bulk local status page run.",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": ""
-        },
-        "unique_name": "variable_workflow_02X3U9WWLAMIV5h2UfGF2g4Ux4ZyNjMf30c",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "input",
-          "name": "Organization Name or ID",
-          "type": "datatype.string",
-          "description": "Meraki organization name or numeric ID.",
-          "is_required": true,
-          "display_on_wizard": true,
-          "is_invisible": false,
-          "variable_string_format": "text"
-        },
-        "unique_name": "variable_workflow_02X3U9WWLCX0U4zJXV2urHgS7XWcZYYa1K3",
         "object_type": "variable_workflow"
       }
     ],
@@ -1326,6 +1326,14 @@
                 {
                   "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.variable_workflow_02X3U9WWLBFN23qcgr64WowxlnjEMrE8Cf2$",
                   "variable_value_new": "$activity.definition_activity_02X3U9Z35UNTA46AQYOvrwSRNQrUImcwHvv.output.script_queries.result_json$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.workflow_results$",
+                  "variable_value_new": "$activity.definition_activity_02X3U9Z35UNTA46AQYOvrwSRNQrUImcwHvv.output.script_queries.result_json$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02X3U9WW7XIJM11Zq3kk8J5oB4Eirj1Bc7g.output.workflow_results_code$",
+                  "variable_value_new": "completed-successfully"
                 }
               ]
             },
