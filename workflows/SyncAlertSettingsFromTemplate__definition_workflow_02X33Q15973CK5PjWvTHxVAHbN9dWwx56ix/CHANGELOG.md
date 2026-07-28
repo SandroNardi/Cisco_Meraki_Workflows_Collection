@@ -2,6 +2,10 @@
 
 Newest version first.
 
+## v1.2
+
+- **Result** summary field renamed to `updatedNetworks` (count of `dry_run` + `applied` networks); replaces misleading `sourceGapNetworks`. Per-network `source_gaps` unchanged.
+
 ## v1.1
 
 - Completion branches on integer **status_code** from **Format Final Report** (**200** succeeded, **207** partial bulk, **500** total bulk).

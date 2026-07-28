@@ -20,6 +20,14 @@ Copy alert settings from a configuration template network to tag-filtered destin
 2. Provide **Organization**, **Source Template**, **Destination Tags** (empty = all org networks, still capped at 500), **Sync Mode** (`merge` or `replace`, case-sensitive), and **Dry-Run** (`false` to apply changes).
 3. Review **Result**, **Formatted Report**, **Status Code**, **Status Message**, and **Error Message**.
 
+## Result JSON (`summary`)
+
+| Field | Meaning |
+|-------|---------|
+| `updatedNetworks` | Networks that would be updated (**Dry-Run** `true`, outcome `dry_run`) or were updated (**Dry-Run** `false`, outcome `applied`) |
+| `counts` | Per-outcome totals (`dryRun`, `applied`, `noChange`, `invalid`, `applyFailed`) |
+| `networks[]` | Per destination; `source_gaps` lists alert types on the destination not on the template (informational; does not affect `updatedNetworks`) |
+
 ## Status codes and completion
 
 | Code | Status message | Run completes | Meaning |
@@ -32,7 +40,7 @@ Copy alert settings from a configuration template network to tag-filtered destin
 ## Behavior notes
 
 - Skips destinations that already match the source; validates webhook IDs before update.
-- Destination-only alert types are kept and noted as source gaps.
+- Destination-only alert types are kept; each network row may list them in `source_gaps` (separate from `summary.updatedNetworks`).
 - **Dry-Run** is hidden at install (defaults **true**); set **false** when applying changes.
 
 ## API reference
