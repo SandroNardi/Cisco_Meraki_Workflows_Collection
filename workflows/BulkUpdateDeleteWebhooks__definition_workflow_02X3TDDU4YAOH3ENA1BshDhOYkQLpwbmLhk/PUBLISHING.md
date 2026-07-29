@@ -1,6 +1,8 @@
 # Bulk Network Update or Delete Meraki Webhooks
 
-Create, update, or delete Meraki webhook HTTP servers by exact **HTTPS URL** across tag-filtered **networks** or **configuration templates**. Preflight validation runs before org lookup. Up to **500** targets per run; **Dry-Run** defaults to **true**.
+## Short description
+
+Create, update, or delete Meraki webhook HTTP servers across many networks or configuration templates in one run. You point the workflow at an organization, choose whether to work on tag-filtered networks or templates, and identify webhooks by an exact HTTPS URL so matching stays predictable. Preflight checks run before any organization lookup, and dry-run defaults to on so you can preview creates, updates, skips, and deletes before committing changes. Each target is processed individually with continue-on-failure behavior, and you get structured results plus a readable report with clear status codes for full success, partial bulk outcomes, or total failure. Up to five hundred targets per run. Requires a Meraki Endpoint target and an API key with appropriate write access. Webhook secrets are supplied as plain text and may appear in run history.
 
 ## Prerequisites
 
@@ -19,20 +21,18 @@ For **update**: **Webhook Name** required; **Webhook Secret** optional. For **de
 ## Run
 
 1. Select **Bulk Network Update or Delete Meraki Webhooks** and your Meraki target.
-2. Provide **Organization Name or ID** (run wizard) and remaining inputs in the designer or payload: **Operation** (`update` / `delete`), **Target Type** (`networks` / `templates`), **Network Tag List**, **Webhook URL**, **Webhook Name**, **Webhook Secret**, **Dry-Run**.
+2. Provide **Organization Name or ID** (run wizard) and remaining inputs in the designer or payload: **Operation** (update or delete), **Target Type** (networks or templates), **Network Tag List**, **Webhook URL**, **Webhook Name**, **Webhook Secret**, **Dry-Run**.
 3. Review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
 
 ## Status codes and completion
 
-| Code | Status message | Run completes | Meaning |
-|------|----------------|---------------|---------|
-| 200 | Success | Succeeded | Every processed target OK |
-| 207 | Partial | Failed (partial bulk) | Mix of OK and failed targets |
-| 500 | Failed | Failed (total bulk) | No OK targets or none processed |
-| 400 | Failed | Failed (early) | Input validation failed |
-| 422 (typical) | Failed | Failed (early) | Org lookup or list limit failure |
+- **200** — Status message **Success**; run completes **Succeeded**; every processed target OK.
+- **207** — Status message **Partial**; run completes **Failed (partial bulk)**; mix of OK and failed targets.
+- **500** — Status message **Failed**; run completes **Failed (total bulk)**; no OK targets or none processed.
+- **400** — Status message **Failed**; run completes **Failed (early)**; input validation failed.
+- **422** (typical) — Status message **Failed**; run completes **Failed (early)**; org lookup or list limit failure.
 
-Per-target OK outcomes: `updated`, `created`, `deleted`, `skipped`. Failures: `get_failed`, `apply_failed`.
+Per-target OK outcomes: **updated**, **created**, **deleted**, **skipped**. Failures: **get_failed**, **apply_failed**.
 
 ## Operations
 
@@ -47,9 +47,9 @@ Per-target OK outcomes: `updated`, `created`, `deleted`, `skipped`. Failures: `g
 
 ## API reference
 
-- [Get network webhooks HTTP servers](https://developer.cisco.com/meraki/api-v1/get-network-webhooks-http-servers/)
-- [Get organization networks](https://developer.cisco.com/meraki/api-v1/get-organization-networks/)
-- [Get organization config templates](https://developer.cisco.com/meraki/api-v1/get-organization-config-templates/)
+- Get network webhooks HTTP servers: https://developer.cisco.com/meraki/api-v1/get-network-webhooks-http-servers/
+- Get organization networks: https://developer.cisco.com/meraki/api-v1/get-organization-networks/
+- Get organization config templates: https://developer.cisco.com/meraki/api-v1/get-organization-config-templates/
 
 **Contact:** snardi@cisco.com
 

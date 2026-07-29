@@ -1,11 +1,13 @@
 # Update Meraki Local Status Page
 
-Bulk-update local status page settings (enabled flags, username, password) on tag-filtered networks. Password complexity is checked before any API calls. Up to **500** networks per run.
+## Short description
+
+Roll out consistent local status page settings across tag-filtered Meraki networks in bulk, including whether local and remote status pages are enabled, the local username, and a new password. Password rules are checked up front against Meraki complexity requirements so invalid secrets fail fast before any network is touched. The workflow handles devices that cannot enable a remote status page by retrying with remote disabled when needed, and it continues across per-network failures so you still get a full picture in the result and final report. Up to five hundred matching networks per run; narrow tags if your organization exceeds that limit. Requires a Meraki Endpoint target and API key. Passwords are plain text inputs and may appear in run history.
 
 ## Prerequisites
 
 - Meraki Dashboard API key (read/write) for the target organization
-- Meraki Endpoint target (for example `api.meraki.com`)
+- Meraki Endpoint target (for example api.meraki.com)
 - Password meeting Meraki rules (14+ characters, upper, lower, number, symbol)
 
 ## Install
@@ -13,7 +15,7 @@ Bulk-update local status page settings (enabled flags, username, password) on ta
 1. Import from **Cisco Workflow / Automation Exchange**.
 2. Configure the Meraki Endpoint **Target** and attach your API key.
 3. Clear sample defaults (organization, password, tags) before production use.
-4. Username defaults to `admin` (local variable); change in the designer if needed.
+4. Username defaults to **admin** (local variable); change in the designer if needed.
 
 ## Run
 
@@ -25,20 +27,18 @@ Bulk-update local status page settings (enabled flags, username, password) on ta
 
 ## Status codes and completion
 
-| Code | Status message | Run completes | Meaning |
-|------|----------------|---------------|---------|
-| 200 | Success | Succeeded | All networks updated |
-| 207 | Partial | Failed (partial bulk) | Mix of success and failure—see **Result** |
-| 500 | Failed | Failed (total bulk) | No successes or nothing processed |
-| 400 | Failed | Failed (early) | Invalid password, org/list errors, or >500 matches |
+- **200** — Status message **Success**; run completes **Succeeded**; all networks updated.
+- **207** — Status message **Partial**; run completes **Failed (partial bulk)**; mix of success and failure—see **Result**.
+- **500** — Status message **Failed**; run completes **Failed (total bulk)**; no successes or nothing processed.
+- **400** — Status message **Failed**; run completes **Failed (early)**; invalid password, org/list errors, or more than 500 matches.
 
 Early failures populate **Final Report** and **Error Message**; the per-network loop does not run.
 
 ## Per-network outcomes
 
-- `updated` — HTTP success on standard path  
-- `updated_no_remote` — success after retry with remote status page disabled  
-- `apply_failed` — update failed; loop continues  
+- **updated** — HTTP success on standard path.
+- **updated_no_remote** — success after retry with remote status page disabled.
+- **apply_failed** — update failed; loop continues.
 
 ## Security and limits
 
@@ -47,8 +47,8 @@ Early failures populate **Final Report** and **Error Message**; the per-network 
 
 ## API reference
 
-- [Update network settings](https://developer.cisco.com/meraki/api-v1/update-network-settings/)
-- [Get organization networks](https://developer.cisco.com/meraki/api-v1/get-organization-networks/)
+- Update network settings: https://developer.cisco.com/meraki/api-v1/update-network-settings/
+- Get organization networks: https://developer.cisco.com/meraki/api-v1/get-organization-networks/
 
 **Contact:** snardi@cisco.com
 

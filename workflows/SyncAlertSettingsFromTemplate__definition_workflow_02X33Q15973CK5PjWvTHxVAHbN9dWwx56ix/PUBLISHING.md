@@ -1,6 +1,8 @@
 # Sync Meraki Network Alert Settings
 
-Copy alert settings from a configuration template network to tag-filtered destinations. Supports **merge** / **replace**, webhook validation, and **dry-run** (default **true**). Up to **500** networks per run.
+## Short description
+
+Align alert settings across your Meraki organization by copying from a trusted configuration template network to destinations you select with tags. Choose merge to combine template settings with what each network already has, or replace to overwrite destination alert configuration while keeping alert types that exist only on the destination. The workflow validates webhook references before updates, skips networks that already match, and defaults to dry-run so you can see what would change. Per-network outcomes roll up into JSON summary counts and a formatted report, with status codes that distinguish clean success, partial failures, and early validation or lookup errors. Up to five hundred networks per run. Requires a Meraki Endpoint target, API key, and a source template in the same organization.
 
 ## Prerequisites
 
@@ -17,36 +19,32 @@ Copy alert settings from a configuration template network to tag-filtered destin
 ## Run
 
 1. Select **Sync Meraki Network Alert Settings** and your Meraki target.
-2. Provide **Organization**, **Source Template**, **Destination Tags** (empty = all org networks, still capped at 500), **Sync Mode** (`merge` or `replace`, case-sensitive), and **Dry-Run** (`false` to apply changes).
+2. Provide **Organization**, **Source Template**, **Destination Tags** (empty = all org networks, still capped at 500), **Sync Mode** (merge or replace, case-sensitive), and **Dry-Run** (set false to apply changes).
 3. Review **Result**, **Formatted Report**, **Status Code**, **Status Message**, and **Error Message**.
 
-## Result JSON (`summary`)
+## Result JSON summary
 
-| Field | Meaning |
-|-------|---------|
-| `updatedNetworks` | Networks that would be updated (**Dry-Run** `true`, outcome `dry_run`) or were updated (**Dry-Run** `false`, outcome `applied`) |
-| `counts` | Per-outcome totals (`dryRun`, `applied`, `noChange`, `invalid`, `applyFailed`) |
-| `networks[]` | Per destination; `source_gaps` lists alert types on the destination not on the template (informational; does not affect `updatedNetworks`) |
+- **updatedNetworks** — Networks that would be updated (**Dry-Run** true, outcome dry_run) or were updated (**Dry-Run** false, outcome applied).
+- **counts** — Per-outcome totals: dryRun, applied, noChange, invalid, applyFailed.
+- **networks** — One row per destination; **source_gaps** lists alert types on the destination not on the template (informational; does not affect **updatedNetworks**).
 
 ## Status codes and completion
 
-| Code | Status message | Run completes | Meaning |
-|------|----------------|---------------|---------|
-| 200 | Success | Succeeded | All destinations handled successfully |
-| 207 | Partial | Failed (partial bulk) | Some per-network failures—see **Result** |
-| 500 | Failed | Failed (total bulk) | No successes or nothing processed |
-| 400 / 404 / 422 | Failed | Failed (early) | Validation or lookup/read failure before the loop |
+- **200** — Status message **Success**; run completes **Succeeded**; all destinations handled successfully.
+- **207** — Status message **Partial**; run completes **Failed (partial bulk)**; some per-network failures—see **Result**.
+- **500** — Status message **Failed**; run completes **Failed (total bulk)**; no successes or nothing processed.
+- **400**, **404**, or **422** — Status message **Failed**; run completes **Failed (early)**; validation or lookup/read failure before the loop.
 
 ## Behavior notes
 
 - Skips destinations that already match the source; validates webhook IDs before update.
-- Destination-only alert types are kept; each network row may list them in `source_gaps` (separate from `summary.updatedNetworks`).
+- Destination-only alert types are kept; each network row may list them in **source_gaps** (separate from summary **updatedNetworks**).
 - **Dry-Run** is hidden at install (defaults **true**); set **false** when applying changes.
 
 ## API reference
 
-- [Get network alerts settings](https://developer.cisco.com/meraki/api-v1/get-network-alerts-settings/)
-- [Get organization networks](https://developer.cisco.com/meraki/api-v1/get-organization-networks/)
+- Get network alerts settings: https://developer.cisco.com/meraki/api-v1/get-network-alerts-settings/
+- Get organization networks: https://developer.cisco.com/meraki/api-v1/get-organization-networks/
 
 **Contact:** snardi@cisco.com
 

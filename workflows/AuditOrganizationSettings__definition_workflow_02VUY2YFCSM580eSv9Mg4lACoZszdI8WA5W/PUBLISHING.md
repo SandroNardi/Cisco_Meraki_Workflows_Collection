@@ -1,6 +1,8 @@
 # Audit Organization Settings with Pagination
 
-Read-only audit of Meraki organization security settings (SAML and login security) for every organization your API key can access. Paginated org list (**500** per page), parallel reads per org, continues when individual org calls fail.
+## Short description
+
+Gather a read-only snapshot of login and SAML security settings for every Meraki organization your API key can reach, without changing anything in the dashboard. Organizations are listed with pagination and processed in parallel, and the workflow keeps going when an individual organization call fails so one bad row does not stop the audit. Each organization in the result includes an outcome of complete, partial, or failed along with the settings the API returned or error detail when something went wrong. Status codes summarize whether every row succeeded, some mixed results need review, or the run failed entirely. No run inputs beyond selecting your Meraki target. Requires read access via API key. Pagination is capped at five hundred organizations per page with a generous loop timeout for large estates.
 
 ## Prerequisites
 
@@ -20,13 +22,11 @@ Read-only audit of Meraki organization security settings (SAML and login securit
 
 ## Status codes and completion
 
-| Code | Status message | Run completes | Meaning |
-|------|----------------|---------------|---------|
-| 200 | Success | Succeeded | Every org row is `complete` |
-| 207 | Partial | Succeeded | Mixed org outcomes—see **Error Message** |
-| 500 | Failed | Failed | All org rows failed, empty data, or org list API not HTTP 200 |
+- **200** — Status message **Success**; run completes **Succeeded**; every org row is **complete**.
+- **207** — Status message **Partial**; run completes **Succeeded**; mixed org outcomes—see **Error Message**.
+- **500** — Status message **Failed**; run completes **Failed**; all org rows failed, empty data, or org list API not HTTP 200.
 
-Each **Result** row includes `outcome`: `complete`, `partial`, or `failed`, plus error fields when applicable.
+Each **Result** row includes **outcome** **complete**, **partial**, or **failed**, plus error fields when applicable.
 
 ## Limits
 
@@ -35,9 +35,9 @@ Each **Result** row includes `outcome`: `complete`, `partial`, or `failed`, plus
 
 ## API reference
 
-- [Get organizations](https://developer.cisco.com/meraki/api-v1/get-organizations/)
-- [Get organization login security](https://developer.cisco.com/meraki/api-v1/get-organization-login-security/)
-- [Get organization SAML](https://developer.cisco.com/meraki/api-v1/get-organization-saml/)
+- Get organizations: https://developer.cisco.com/meraki/api-v1/get-organizations/
+- Get organization login security: https://developer.cisco.com/meraki/api-v1/get-organization-login-security/
+- Get organization SAML: https://developer.cisco.com/meraki/api-v1/get-organization-saml/
 
 **Contact:** snardi@cisco.com
 
