@@ -2,7 +2,7 @@
 
 ## Short description
 
-Roll out consistent local status page settings across tag-filtered Meraki networks in bulk, including whether local and remote status pages are enabled, the local username, and a new password. Password rules are checked up front against Meraki complexity requirements so invalid secrets fail fast before any network is touched. The workflow handles devices that cannot enable a remote status page by retrying with remote disabled when needed, and it continues across per-network failures so you still get a full picture in the result and final report. Up to five hundred matching networks per run; narrow tags if your organization exceeds that limit. Requires a Meraki Endpoint target and API key. Passwords are plain text inputs and may appear in run history.
+Roll out consistent local status page settings across tag-filtered Meraki networks in bulk, including whether local and remote status pages are enabled, the local username, and a new password. Password rules are checked up front against Meraki complexity requirements so invalid secrets fail fast before any network is touched. The workflow handles devices that cannot enable a remote status page by retrying with remote disabled when needed, and it continues across per-network failures so you still get a full picture in the result and formatted report. Up to five hundred matching networks per run; narrow tags if your organization exceeds that limit. Requires a Meraki Endpoint target and API key. Passwords are plain text inputs and may appear in run history.
 
 ## Prerequisites
 
@@ -20,10 +20,15 @@ Roll out consistent local status page settings across tag-filtered Meraki networ
 ## Run
 
 1. Select **Update Meraki Local Status Page** and your Meraki target.
-2. On the run wizard, provide **Organization Name or ID**; set other inputs in the designer or automation payload (tags, enabled flags, password).
-3. After the run, review **Result**, **Final Report**, **Status Code**, **Status Message**, and **Error Message**.
+2. On the run wizard, provide **Organization Name or ID** and **Autentication Enabled**; set other inputs in the designer or automation payload (**Network Tags**, **Local Status Page Enabled**, **Remote Status Page Enabled**, **Password**, and related fields).
+3. After the run, review **Result**, **Formatted Report**, **Status Code**, **Status Message**, **Error Message**, **Workflow Result**, and **Workflow Result Code**.
 
-**Defaults:** Local and remote status page enabled flags default to **true**. **Local - Allow LSP Access Without Login** (designer variable, default **false**) controls Meraki authentication on the status page (inverted before API calls).
+**Defaults:** **Local Status Page Enabled** and **Remote Status Page Enabled** default to **true**. **Autentication Enabled** defaults to **true** on the run wizard and is written to Meraki **localStatusPage.authentication.enabled** before updates. Username defaults to **admin** (local variable); change in the designer if needed.
+
+## Workflow Result Code
+
+- Early validation or lookup failures: **workflow-errored** (**Workflow Result** mirrors **Status Message**).
+- After a bulk run: **completed-successfully** (**200**), **partially-completed** (**207**), or **completed-unsuccessfully** (**500**).
 
 ## Status codes and completion
 
@@ -32,7 +37,7 @@ Roll out consistent local status page settings across tag-filtered Meraki networ
 - **500** — Status message **Failed**; run completes **Failed (total bulk)**; no successes or nothing processed.
 - **400** — Status message **Failed**; run completes **Failed (early)**; invalid password, org/list errors, or more than 500 matches.
 
-Early failures populate **Final Report** and **Error Message**; the per-network loop does not run.
+Early failures populate **Formatted Report** and **Error Message**; the per-network loop does not run.
 
 ## Per-network outcomes
 
