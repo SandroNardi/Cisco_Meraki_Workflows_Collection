@@ -10,7 +10,6 @@ Newest version first.
 - Pagination **500** and early failure when more than 500 networks match.
 - Integer **Status Code** (**200** / **207** / **500** bulk; **400** early); completion branches for full, partial, and total bulk failure.
 - **Organization Name or ID** on run wizard; loop continues on per-network failures.
-- Exchange listing text and workflow description updated (no repository references).
 
 ## v1.0
 
